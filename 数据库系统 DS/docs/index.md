@@ -1,0 +1,15 @@
+﻿# 数据库系统笔记
+
+- [1. 数据库介绍](1.%20%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BB%8B%E7%BB%8D.md)
+- [2. Relational Model](2.%20Relational%20Model.md)
+- [3. Introduction to SQL](3.%20Introduction%20to%20SQL.md)
+- [4. Intermediate SQL](4.%20Intermediate%20SQL.md)
+- [6. Entity-Relationship Model](6.%20Entity-Relationship%20Model.md)
+- [7. Relational Database Design](7.%20Relational%20Database%20Design.md)
+- [12. 物理存储系统&13. 数据存储结构](12.%20%E7%89%A9%E7%90%86%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F%2613.%20%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84.md)
+- [14. 索引](14.%20%E7%B4%A2%E5%BC%95.md)
+- [15. 查询过程](15.%20%E6%9F%A5%E8%AF%A2%E8%BF%87%E7%A8%8B.md)
+- [16. 查询优化](16.%20%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96.md)
+- [17. 事务](17.%20%E4%BA%8B%E5%8A%A1.md)
+- [18. 并发控制](18.%20%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6.md)
+- [19. 恢复系统](19.%20%E6%81%A2%E5%A4%8D%E7%B3%BB%E7%BB%9F.md)
