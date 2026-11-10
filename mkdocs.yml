@@ -1,2 +1,25 @@
-﻿site_name: Qijiayi's-note
+﻿site_name: 数据库系统笔记
+site_url: https://qijiayi101.github.io/QiJiayi-s-notes/
+repo_url: https://github.com/QiJiayi101/QiJiayi-s-notes
+repo_name: QiJiayi101/QiJiayi-s-notes
+edit_uri: edit/master/数据库系统%20DS/docs/
 docs_dir: 数据库系统 DS/docs
+remote_branch: gh-pages
+theme:
+  name: mkdocs
+  language: zh
+nav:
+  - 首页: index.md
+  - 数据库介绍: 1. 数据库介绍.md
+  - 关系模型: 2. Relational Model.md
+  - SQL 入门: 3. Introduction to SQL.md
+  - 中级 SQL: 4. Intermediate SQL.md
+  - 实体关系模型: 6. Entity-Relationship Model.md
+  - 关系数据库设计: 7. Relational Database Design.md
+  - 物理存储与数据存储结构: 12. 物理存储系统&13. 数据存储结构.md
+  - 索引: 14. 索引.md
+  - 查询过程: 15. 查询过程.md
+  - 查询优化: 16. 查询优化.md
+  - 事务: 17. 事务.md
+  - 并发控制: 18. 并发控制.md
+  - 恢复系统: 19. 恢复系统.md
