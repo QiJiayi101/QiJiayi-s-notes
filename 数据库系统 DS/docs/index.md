@@ -1,4 +1,4 @@
-﻿# 数据库系统笔记
+# 数据库系统笔记
 
 - [1. 数据库介绍](1.%20%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BB%8B%E7%BB%8D.md)
 - [2. Relational Model](2.%20Relational%20Model.md)
