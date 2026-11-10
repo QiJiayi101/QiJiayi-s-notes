@@ -17,6 +17,12 @@ theme:
     - toc.follow
     - search.suggest
     - search.highlight
+markdown_extensions:
+  - pymdownx.arithmatex:
+      generic: true
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 extra_css:
   - stylesheets/extra.css
 nav:
@@ -34,4 +40,5 @@ nav:
   - 事务: 17. 事务.md
   - 并发控制: 18. 并发控制.md
   - 恢复系统: 19. 恢复系统.md
+
 
