@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://qijiayi101.github.io/QiJiayi-s-notes/16.%20%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>查询优化 - 数据库系统笔记</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../css/brands.min.css" rel="stylesheet">
+        <link href="../css/solid.min.css" rel="stylesheet">
+        <link href="../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">数据库系统笔记</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href=".." class="nav-link">首页</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../1.%20%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BB%8B%E7%BB%8D/" class="nav-link">数据库介绍</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../2.%20Relational%20Model/" class="nav-link">关系模型</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../3.%20Introduction%20to%20SQL/" class="nav-link">SQL 入门</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../4.%20Intermediate%20SQL/" class="nav-link">中级 SQL</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../6.%20Entity-Relationship%20Model/" class="nav-link">实体关系模型</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../7.%20Relational%20Database%20Design/" class="nav-link">关系数据库设计</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../12.%20%E7%89%A9%E7%90%86%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F%2613.%20%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/" class="nav-link">物理存储与数据存储结构</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../14.%20%E7%B4%A2%E5%BC%95/" class="nav-link">索引</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../15.%20%E6%9F%A5%E8%AF%A2%E8%BF%87%E7%A8%8B/" class="nav-link">查询过程</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="./" class="nav-link active" aria-current="page">查询优化</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../17.%20%E4%BA%8B%E5%8A%A1/" class="nav-link">事务</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../18.%20%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/" class="nav-link">并发控制</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../19.%20%E6%81%A2%E5%A4%8D%E7%B3%BB%E7%BB%9F/" class="nav-link">恢复系统</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../15.%20%E6%9F%A5%E8%AF%A2%E8%BF%87%E7%A8%8B/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../17.%20%E4%BA%8B%E5%8A%A1/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/QiJiayi101/QiJiayi-s-notes/edit/master/数据库系统%20DS/docs/16. 查询优化.md" class="nav-link">Edit on QiJiayi101/QiJiayi-s-notes
+                                    </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#chapter-16-query-optimization" class="nav-link">Chapter 16: Query Optimization 查询优化</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="chapter-16-query-optimization">Chapter 16: Query Optimization 查询优化</h1>
+<p>![[Pasted image 20260625180151.png]]</p>
+<h3 id="1-introduction">1. Introduction</h3>
+<p>对于一个给定查询, 通常存在许多不同的执行方式:</p>
+<ul>
+<li><strong>等价的关系代数表达式</strong></li>
+<li>例如:
+$$
+\sigma_{r.A=s.A}(r \times s) \equiv r \bowtie_{r.A=s.A} s
+$$</li>
+<li>又如 join 的结合律:
+$$
+(r_1 \bowtie r_2) \bowtie r_3 \equiv r_1 \bowtie (r_2 \bowtie r_3)
+$$</li>
+<li>每个关系代数操作又可以使用不同算法</li>
+<li>例如 join 可以使用 nested-loop join, merge-join, hash-join 等</li>
+</ul>
+<blockquote>
+<p>好的执行计划和坏的执行计划之间, 代价差距可能非常巨大</p>
+</blockquote>
+<p>为了估计操作代价, optimizer 需要知道以下规模信息:</p>
+<ul>
+<li>了解数据库必须维护的关系统计信息: 例如 tuple 数量, 连接属性的唯一值数量等</li>
+<li>需要估计中间结果的统计量以计算复杂表达式的成本</li>
+</ul>
+<p>查询优化器生成执行计划的基本步骤:</p>
+<ol>
+<li>生成逻辑上等价的表达式<ul>
+<li>使用<strong>等价规则(equivalence rules)</strong> 转换表达式</li>
+</ul>
+</li>
+<li>为表达式添加注释, 得到不同 query plan</li>
+<li>根据估计代价选择 cheapest plan</li>
+</ol>
+<p>这个过程称为:</p>
+<blockquote>
+<p><strong>cost-based optimization 基于代价的优化</strong></p>
+</blockquote>
+<hr />
+<h3 id="2-transformation-of-relational-expressions">2. Transformation of Relational Expressions</h3>
+<p>两个关系代数表达式如果在每个合法数据库实例上都产生相同的 tuple 集合, 则称它们<strong>等价(equivalent)</strong></p>
+<blockquote>
+<p>SQL 的输入和输出通常是 multiset, 因此在 SQL 语义下还要考虑重复 tuple 的数量</p>
+</blockquote>
+<p><strong>equivalence rule 等价规则</strong>:</p>
+<ul>
+<li>说明两种形式的表达式等价, 可以用其中一种形式替换另一种形式</li>
+<li>这是查询优化器 做transformation的依据</li>
+</ul>
+<h4 id="21-equivalence-rules">2.1 Equivalence Rules</h4>
+<p><strong>1. 合取选择可以拆分</strong>
+$$
+\sigma_{\theta_1 \land \theta_2}(E) \equiv \sigma_{\theta_1}(\sigma_{\theta_2}(E))
+$$</p>
+<p><strong>2. 选择操作满足交换律</strong>
+$$
+\sigma_{\theta_1}(\sigma_{\theta_2}(E)) \equiv \sigma_{\theta_2}(\sigma_{\theta_1}(E))
+$$</p>
+<p><strong>3. 连续投影中只有最后一个投影是必要的</strong>
+$$
+\Pi_{L_1}(\Pi_{L_2}(...(\Pi_{L_n}(E)))) \equiv \Pi_{L_1}(E)
+$$</p>
+<p><strong>4. 选择 + 笛卡尔积可以合并为 theta join</strong>
+$$
+\sigma_{\theta}(E_1 \times E_2) \equiv E_1 \bowtie_{\theta} E_2
+$$</p>
+<p>也可以将 join 上的选择并入 join condition:
+$$
+\sigma_{\theta_1}(E_1 \bowtie_{\theta_2} E_2) \equiv E_1 \bowtie_{\theta_1 \land \theta_2} E_2
+$$</p>
+<p><strong>5. theta join 和 natural join 满足交换律</strong>
+$$
+E_1 \bowtie_{\theta} E_2 \equiv E_2 \bowtie_{\theta} E_1
+$$</p>
+<p><strong>6. natural join 满足结合律</strong>
+$$
+(E_1 \bowtie E_2) \bowtie E_3 \equiv E_1 \bowtie (E_2 \bowtie E_3)
+$$</p>
+<p><strong>Theta joins</strong> 有以下结合性质:
+$$
+(E_1 \bowtie_{\theta_1} E_2) \bowtie_{\theta_2 \land \theta_3} E_3
+=
+E_1 \bowtie_{\theta_1 \land \theta_3} (E_2 \bowtie_{\theta_2} E_3)
+$$
+- 当 $\theta_2$ 中 涉及到的属性只来自于 $E_2 and E_3$
+![[Pasted image 20260625182744.png]]
+<strong>7. selection 对 theta join 的分配律</strong></p>
+<p>先连后选 $\Rightarrow$ 先选后连</p>
+<p>若 $\theta_0$ 只涉及 $E_1$ 的属性:
+$$
+\sigma_{\theta_0}(E_1 \bowtie_{\theta} E_2) \equiv (\sigma_{\theta_0}(E_1)) \bowtie_{\theta} E_2
+$$</p>
+<p>若 $\theta_1$ 只涉及 $E_1$, $\theta_2$ 只涉及 $E_2$:
+$$
+\sigma_{\theta_1 \land \theta_2}(E_1 \bowtie_{\theta} E_2)
+\equiv
+(\sigma_{\theta_1}(E_1)) \bowtie_{\theta} (\sigma_{\theta_2}(E_2))
+$$</p>
+<blockquote>
+<p>尽早执行 selection 可以减少后续 join 的关系大小</p>
+</blockquote>
+<p><strong>8. projection 对 theta join 的分配</strong></p>
+<p>若 join condition 只涉及最终需要保留的属性, 可以将 projection 下推到 join 前</p>
+<p>先连后投 $\Rightarrow$ 先投后连</p>
+<p>情况一: 若 theta join 的条件 $\theta$ 只涉及 $L_1 \cup L_2$ 中的属性, 且:</p>
+<ul>
+<li>$L_1 \subseteq E_1$</li>
+<li>$L_2 \subseteq E_2$</li>
+</ul>
+<p>则:
+$$
+\Pi_{L_1 \cup L_2}(E_1 \bowtie_{\theta} E_2)
+\equiv
+(\Pi_{L_1}(E_1)) \bowtie_{\theta} (\Pi_{L_2}(E_2))
+$$</p>
+<p>情况 2: join condition 还需要额外属性</p>
+<p>考虑:
+$$
+E_1 \bowtie_{\theta} E_2
+$$</p>
+<p>设:</p>
+<ul>
+<li>$L_1$: 最终需要从 $E_1$ 保留的属性集合</li>
+<li>$L_2$: 最终需要从 $E_2$ 保留的属性集合</li>
+<li>$L_3$: $E_1$ 中参与 join condition $\theta$、但不在 $L_1 \cup L_2$ 中的属性</li>
+<li>$L_4$: $E_2$ 中参与 join condition $\theta$、但不在 $L_1 \cup L_2$ 中的属性</li>
+</ul>
+<p>则:
+$$
+\Pi_{L_1 \cup L_2}(E_1 \bowtie_{\theta} E_2)
+\equiv
+\Pi_{L_1 \cup L_2}
+\left(
+(\Pi_{L_1 \cup L_3}(E_1))
+\bowtie_{\theta}
+(\Pi_{L_2 \cup L_4}(E_2))
+\right)
+$$</p>
+<blockquote>
+<p>尽早执行 projection 可以减少中间 tuple 的属性数, 从而降低中间结果大小</p>
+</blockquote>
+<p><strong>9. union 和 intersection 满足交换律</strong>
+$$
+E_1 \cup E_2 \equiv E_2 \cup E_1
+$$
+$$
+E_1 \cap E_2 \equiv E_2 \cap E_1
+$$</p>
+<blockquote>
+<p>set difference 不满足交换律</p>
+</blockquote>
+<p><strong>10. union 和 intersection 满足结合律</strong>
+$$
+(E_1 \cup E_2) \cup E_3 \equiv E_1 \cup (E_2 \cup E_3)
+$$
+$$
+(E_1 \cap E_2) \cap E_3 \equiv E_1 \cap (E_2 \cap E_3)
+$$</p>
+<p><strong>11. selection 对集合操作的分配律</strong>
+$$
+\sigma_{\theta}(E_1 - E_2) \equiv \sigma_{\theta}(E_1) - \sigma_{\theta}(E_2)
+$$
+$$
+\sigma_{\theta}(E_1 \cup E_2) \equiv \sigma_{\theta}(E_1) \cup \sigma_{\theta}(E_2)
+$$
+$$
+\sigma_{\theta}(E_1 \cap E_2) \equiv \sigma_{\theta}(E_1) \cap \sigma_{\theta}(E_2)
+$$</p>
+<p>也有:
+$$
+\sigma_{\theta}(E_1 - E_2) \equiv \sigma_{\theta}(E_1) - E_2
+$$
+$$
+\sigma_{\theta}(E_1 \cap E_2) \equiv \sigma_{\theta}(E_1) \cap E_2
+$$</p>
+<p>但 union 不能这样单侧下推
+![[Pasted image 20260625193447.png]]
+<strong>12. projection 对 union 的分配律</strong>
+$$
+\Pi_L(E_1 \cup E_2) \equiv \Pi_L(E_1) \cup \Pi_L(E_2)
+$$</p>
+<h4 id="22-transformation-example">2.2 Transformation Example</h4>
+<p>查询: 找出 Music 系教师的名字以及他们教授课程的标题</p>
+<p>原表达式:
+$$
+\Pi_{name,title}(\sigma_{dept_name="Music"}(instructor \bowtie (teaches \bowtie \Pi_{course_id,title}(course))))
+$$</p>
+<p>将 selection 下推:
+$$
+\Pi_{name,title}((\sigma_{dept_name="Music"}(instructor)) \bowtie (teaches \bowtie \Pi_{course_id,title}(course)))
+$$</p>
+<blockquote>
+<p>先筛选 Music 系教师, 再 join, 可以显著减少 join 输入大小</p>
+</blockquote>
+<h4 id="23-join-ordering">2.3 Join Ordering</h4>
+<p>join 顺序会影响临时结果大小</p>
+<p>根据结合律:
+$$
+(r_1 \bowtie r_2) \bowtie r_3 \equiv r_1 \bowtie (r_2 \bowtie r_3)
+$$</p>
+<p>但如果:</p>
+<ul>
+<li>$r_1 \bowtie r_2$ 的结果很小</li>
+<li>$r_2 \bowtie r_3$ 的结果很大</li>
+</ul>
+<p>则应优先计算:
+$$
+(r_1 \bowtie r_2) \bowtie r_3
+$$</p>
+<blockquote>
+<p>让连接结果较小的 join 先进行, 可以减少临时关系大小</p>
+</blockquote>
+<h4 id="24-enumeration-of-equivalent-expressions">2.4 Enumeration of Equivalent Expressions</h4>
+<p>查询优化器可以系统地枚举等价表达式:</p>
+<ol>
+<li>对目前发现的每个表达式的每个子表达式应用等价规则</li>
+<li>将新生成的表达式加入集合</li>
+<li>重复直到没有新表达式生成</li>
+</ol>
+<p>问题:</p>
+<ul>
+<li>空间代价大</li>
+<li>时间代价高</li>
+<li>
+<p>相同子表达式可能被重复生成</p>
+<p>改进:</p>
+</li>
+<li>
+<p>共享公共子表达式</p>
+</li>
+<li>检测重复子表达式</li>
+<li>使用 dynamic programming, 不必生成所有表达式</li>
+</ul>
+<hr />
+<h3 id="3-statistical-information-for-cost-estimation">3. Statistical Information for Cost Estimation 成本估算所需要的统计信息</h3>
+<p>查询优化需要 catalog 中的统计信息来估计代价</p>
+<h4 id="31-catalog-information-about-relation">3.1 Catalog Information about Relation</h4>
+<p>常用统计量:</p>
+<ul>
+<li>$n_r$: 关系 $r$ 中 tuple 数</li>
+<li>$b_r$: 存储关系 $r$ 的 block 数</li>
+<li>$f_r$: blocking factor, 一个 block 中可容纳的 $r$ 的 tuple 数</li>
+<li>$l_r$: 关系 $r$ 中一个 tuple 的字节数</li>
+<li>$V(A,r)$: 关系 $r$ 中属性 $A$ 的 distinct values 数</li>
+<li>$SC(A,r)$: selection cardinality, 属性 $A$ 上等值选择平均满足的记录数</li>
+</ul>
+<p>若值均匀分布:
+$$
+SC(A,r) \approx \frac{n_r}{V(A,r)}
+$$</p>
+<h4 id="32-catalog-information-about-indices">3.2 Catalog Information about Indices</h4>
+<p>对索引也需要维护统计量:</p>
+<ul>
+<li>$F_i$: 对于B+树等树状结构索引，第i个索引内部节点的平均分支数</li>
+<li>$H_i$: index 高度</li>
+</ul>
+<p>对于 B+ tree:
+$$
+H_i = \lceil \log_{F_i}(V(A,r)) \rceil
+$$</p>
+<p>对于 hash index:
+$$
+H_i = 1
+$$</p>
+<h4 id="33-estimate-the-size-of-selection">3.3 Estimate the Size of Selection</h4>
+<p><strong>等值选择</strong>:
+$$
+\sigma_{A=v}(r)
+$$</p>
+<p>满足条件的记录数约为:
+$$
+SC(A,r)
+$$</p>
+<p>占用 block 数约为:
+$$
+\lceil \frac{SC(A,r)}{f_r} \rceil
+$$</p>
+<p>若 $A$ 是 key:
+$$
+SC(A,r)=1
+$$</p>
+<p><strong>比较选择</strong>:
+$$
+\sigma_{A \leq v}(r)
+$$</p>
+<p>若 catalog 中有 $min(A,r)$ 和 $max(A,r)$, 并假设值均匀分布:</p>
+<ul>
+<li>若 $v &lt; min(A,r)$, 结果大小为 0</li>
+<li>若 $v \geq max(A,r)$, 结果大小为 $n_r$</li>
+<li>否则按区间比例估计:
+$$
+n_r \times \frac{v - min(A,r)}{max(A,r)-min(A,r)}
+$$</li>
+</ul>
+<p>没有统计信息时, 通常估计:
+$$
+\frac{n_r}{2}
+$$</p>
+<h4 id="34-complex-selections">3.4 Complex Selections</h4>
+<p><strong>selectivity 中选率</strong>:</p>
+<p>若条件 $\theta_i$ 满足的 tuple 数为 $S_i$, 则:
+$$
+selectivity(\theta_i)=\frac{S_i}{n_r}
+$$</p>
+<p><strong>合取条件</strong>:
+$$
+\sigma_{\theta_1 \land \theta_2 \land ... \land \theta_n}(r)
+$$</p>
+<p>在独立性假设下, 结果大小估计为:
+$$
+n_r * \prod_{i=1}^{n}\frac{S_i}{n_r}
+$$</p>
+<p><strong>否定条件</strong>:
+$$
+\sigma_{\neg\theta}(r)
+$$</p>
+<p>结果大小估计为:
+$$
+n_r\times (1 - \frac{S_i}{n_r})
+$$</p>
+<p><strong>析取条件</strong>:
+$$
+\sigma_{\theta_1 \lor \theta_2 \lor ... \lor \theta_n}(r)
+$$</p>
+<p>利用:
+$$
+\theta_1 \lor \theta_2 \equiv \neg(\neg\theta_1 \land \neg\theta_2)
+$$</p>
+<p>估计为:
+$$
+n_r * (1 - \prod_{i=1}^{n}(1-\frac{S_i}{n_r}))
+$$</p>
+<h4 id="35-estimation-of-the-size-of-joins">3.5 Estimation of the Size of Joins</h4>
+<p><strong>Cartesian product 笛卡尔积</strong>:
+$$
+r \times s
+$$</p>
+<p>tuple 数:
+$$
+n_r * n_s
+$$</p>
+<p>tuple 大小:
+$$
+l_r + l_s
+$$</p>
+<p>若 $R\cap S = \emptyset$, 则 $r \bowtie s = r \times s$</p>
+<p>若 $R \cup S$ 是 r 的一个 key, 则 s 中的每个tuple最多与 r 中一个tuple连接
+- 因此, 若连接属性是 r 的candidate key, 则连接结果得到的行数 $\leq$ s的行数</p>
+<p><strong>外码连接</strong></p>
+<p>若 $R \cap S$ 是 $r$ 中引用 $s$ 的 foreign key, 则 结果行数等于参照关系行数
+$$
+size(r \bowtie s)=n_r
+$$</p>
+<p><strong>普通单属性连接</strong></p>
+<p>若 $R \cap S = {A}$, 且 $A$ 不是任何一方的 key, 在均匀分布假设下:
+$$
+\begin{gathered}
+size(r \bowtie s) \approx \frac{n_r * n_s}{V(A,s)} \
+平均选中几率 = \frac{n_s}{V(A,s)}
+\end{gathered}
+$$</p>
+<p>或:
+$$
+size(r \bowtie s) \approx \frac{n_r * n_s}{V(A,r)}
+$$</p>
+<p>若 $V(A,r) \neq V(A,s)$, 取二者中较小的估计通常更准确</p>
+<h4 id="36-size-estimation-for-other-operations">3.6 Size Estimation for Other Operations</h4>
+<p><strong>projection:</strong>
+$$
+size(\Pi_A(r)) \approx V(A,r)
+$$</p>
+<blockquote>
+<p>关系代数中会默认去重</p>
+</blockquote>
+<p><strong>aggregation:</strong>
+$$
+size(_A g_F(r)) \approx V(A,r)
+$$</p>
+<p>对于同一关系上的<strong>集合操作</strong>, 可改写为 selection 后估计:</p>
+<ul>
+<li>$\sigma_{\theta_1}(r) \cap \sigma_{\theta_2}(r)$ 可改写为 $\sigma_{\theta_1 \land \theta_2}(r)$</li>
+<li>$\sigma_{\theta_1}(r) \cup \sigma_{\theta_2}(r)$ 可改写为 $\sigma_{\theta_1 \lor \theta_2}(r)$</li>
+</ul>
+<p>不同关系上的集合操作:</p>
+<ul>
+<li>$size(r \cup s) \leq size(r) + size(s)$</li>
+<li>$size(r \cap s) \leq min(size(r), size(s))$</li>
+<li>$size(r - s) \leq size(r)$</li>
+</ul>
+<p><strong>outer join</strong></p>
+<ul>
+<li>估计左外连接的结果大小：</li>
+</ul>
+<p>$$
+  \text{size of } r \;\text{leftouterjoin}\; s
+  =
+  \text{size of } r \bowtie s
+  +
+  \text{size of } r
+  $$</p>
+<ul>
+<li>
+<p>右外连接的情况是对称的</p>
+</li>
+<li>
+<p>估计全外连接的结果大小：</p>
+</li>
+</ul>
+<p>$$
+  \text{size of } r \;\text{fullouterjoin}\; s
+  =
+  \text{size of } r \bowtie s
+  +
+  \text{size of } r
+  +
+  \text{size of } s
+  $$</p>
+<ul>
+<li>所有这些估计都可能相当不准确，但它们提供了结果大小的上界。</li>
+</ul>
+<h4 id="37-estimation-of-number-of-distinct-values">3.7 Estimation of Number of Distinct Values</h4>
+<p>对于 selection $\sigma_\theta(r)$:</p>
+<ul>
+<li>若 $\theta$ 强制 $A$ 为某个指定值:
+$$
+V(A,\sigma_\theta(r))=1
+$$</li>
+<li>若 $\theta$ 限制 $A$ 为若干指定值之一:
+$$
+V(A,\sigma_\theta(r))=指定值个数
+$$</li>
+<li>若 $\theta$ 为 $A\ op\ v$:
+$$
+\begin{gathered}
+V(A,\sigma_\theta(r)) \approx V(A,r) * selectivity(\theta) \
+op = {&lt;, &gt;, &gt;=, &lt;=, &lt;&gt;}
+\end{gathered}
+$$</li>
+<li>其他情况:
+$$
+min(V(A,r), n(\sigma_\theta(r)))
+$$</li>
+</ul>
+<p>对于 joins:</p>
+<ul>
+<li>若 A 中的所有属性都来自关系r: 
+$$
+V(A, r\bowtie s) = min(V(A,r), n_{r\bowtie s})
+$$</li>
+<li>若 A 中含有属性 A1 from r 和 A2 from s:
+$$
+V(A,r\bowtie s)= min{V(A1,r)<em>V(A2-A1,s), V(A1-A2,r)</em>V(A2,s), n_{r\bowtie s}}
+$$</li>
+</ul>
+<blockquote>
+<p>因为 A = A1 $\cup$ A2, 二者可能重叠</p>
+</blockquote>
+<p>对于 projection:
+$$
+V(A,\Pi_A(r))=V(A,r)
+$$</p>
+<p>对于 aggregation:</p>
+<ul>
+<li>grouping attribute 的 distinct value 与原关系相同</li>
+<li><code>sum</code>, <code>count</code>, <code>avg</code> 的结果可近似看作每组不同</li>
+<li><code>min(A)</code>, <code>max(A)</code> 可估计为:
+$$
+min(V(A,r), V(G,r))
+$$<blockquote>
+<p>其中 G 定义为分组属性</p>
+</blockquote>
+</li>
+</ul>
+<hr />
+<h3 id="4-choice-of-evaluation-plan">4. Choice of Evaluation Plan</h3>
+<p>一个 evaluation plan 需要明确:</p>
+<ol>
+<li>每个操作使用什么算法</li>
+<li>scan</li>
+<li>index</li>
+<li>merge-join</li>
+<li>hash-join</li>
+<li>多个操作如何协调执行</li>
+<li>materialization</li>
+<li>pipelining
+![[Pasted image 20260626130842.png]]<blockquote>
+<p>不能只为每个单独操作选择最便宜算法, 因为操作之间会相互影响</p>
+</blockquote>
+</li>
+</ol>
+<p>例如:</p>
+<ul>
+<li>merge-join 可能比 hash-join 更贵</li>
+<li>但 merge-join 输出有序, 可能降低上层 aggregation 或 join 的代价</li>
+<li>nested-loop join 可能提供 pipelining 机会</li>
+</ul>
+<p>优化器通常结合两类方法:</p>
+<ul>
+<li>cost-based optimization</li>
+<li>heuristic(启发式) optimization</li>
+</ul>
+<h4 id="41-cost-based-optimization">4.1 Cost-Based Optimization</h4>
+<p>对 $r_1 \bowtie r_2 \bowtie ... \bowtie r_n$ 寻找最佳 join order</p>
+<p>join order 数量增长非常快:</p>
+<ul>
+<li>$n=3$ 时有 12 种</li>
+<li>$n=7$ 时有 665280 种</li>
+<li>$n=10$ 时超过 176 billion</li>
+</ul>
+<p>因此不能枚举所有 join order</p>
+<p><strong>dynamic programming 思想</strong>:</p>
+<ul>
+<li>对每个关系子集 $S$, 只计算一次最优 plan</li>
+<li>将结果存起来, 后续复用</li>
+</ul>
+<p>寻找 $S$ 的最佳 plan:</p>
+<ol>
+<li>枚举 $S$ 的非空真子集 $S_1$</li>
+<li>令另一部分为 $S-S_1$</li>
+<li>递归求 $S_1$ 和 $S-S_1$ 的最佳 plan</li>
+<li>选择二者 join 的最佳算法</li>
+<li>取总代价最小者</li>
+</ol>
+<p>伪代码思想:</p>
+<pre><code class="language-text">findbestplan(S):
+    if bestplan[S] has been computed:
+        return bestplan[S]
+
+    if S contains one relation:
+        choose best access method
+    else:
+        for each non-empty proper subset S1 of S:
+            P1 = findbestplan(S1)
+            P2 = findbestplan(S - S1)
+            A = best join algorithm for P1 and P2
+            cost = P1.cost + P2.cost + cost(A)
+            update bestplan[S] if cheaper
+
+    return bestplan[S]
+</code></pre>
+<p>复杂度:</p>
+<ul>
+<li>时间复杂度: $O(3^n)$</li>
+<li>空间复杂度: $O(2^n)$</li>
+</ul>
+<blockquote>
+<p>cost-based optimization 很贵, 但对大数据集查询值得做; 实际查询中的 join 关系数通常小于 10</p>
+</blockquote>
+<h4 id="42-interesting-orders">4.2 Interesting Orders</h4>
+<p><strong>interesting sort order 感兴趣的排序顺序</strong>:</p>
+<p>某个中间结果的排序顺序如果对后续操作有用, 则称为 interesting order</p>
+<p>例如:</p>
+<ul>
+<li>$r_1 \bowtie r_2 \bowtie r_3$ 的输出若按与 $r_4$ 或 $r_5$ 公共属性排序, 后续 join 可能更便宜</li>
+<li>但若只按 $r_1$ 与 $r_2$ 的公共属性排序, 后续可能没用</li>
+</ul>
+<p>因此优化时不只要保存每个关系子集的 cheapest plan, 还要保存:</p>
+<ul>
+<li>每个关系子集</li>
+<li>每个 interesting order</li>
+</ul>
+<p>对应的最佳 plan</p>
+<h4 id="43-heuristic-optimization">4.3 Heuristic Optimization</h4>
+<p>cost-based optimization 即使用 dynamic programming 也仍然较贵, 因此系统常使用启发式规则减少搜索空间</p>
+<p>典型 heuristic:</p>
+<ul>
+<li>尽早执行 selection</li>
+<li>尽早执行 projection</li>
+<li>先执行最严格的 selection 和 join (即执行后留下的tuple数量尽可能少)</li>
+<li>将 selection 后的 Cartesian product 替换为 join</li>
+<li>尽可能使用 pipelining</li>
+</ul>
+<p>典型步骤:</p>
+<ol>
+<li>将合取 selection 拆分为单独 selection</li>
+<li>将 selection 尽量下推到 query tree 底部</li>
+<li>优先执行产生最小关系的 selection 和 join</li>
+<li>将 Cartesian product + selection 改写为 join</li>
+<li>将 projection list 分解并尽量下推</li>
+<li>识别可以 pipelined 的子树, 使用流水线执行</li>
+</ol>
+<hr />
+<h3 id="5-materialized-views">5. Materialized Views 实体化视图</h3>
+<p><strong>materialized view</strong>:</p>
+<blockquote>
+<p>内容已经被计算并存储下来的 view</p>
+</blockquote>
+<p>普通 view 只保存定义, materialized view 保存查询结果</p>
+<p>例如:</p>
+<pre><code class="language-sql">create view department_total_salary(dept_name, total_salary) as
+select dept_name, sum(salary)
+from instructor
+group by dept_name;
+</code></pre>
+<p>若经常查询每个部门工资总和, 将该 view materialize 可以避免反复扫描和聚合</p>
+<h4 id="51-materialized-view-maintenance">5.1 Materialized View Maintenance</h4>
+<p><strong>materialized view maintenance</strong>:</p>
+<blockquote>
+<p>保持 materialized view 与底层数据一致的任务</p>
+</blockquote>
+<p>维护方式:</p>
+<ul>
+<li>每次更新相关数据后重新计算 view</li>
+<li>更好的方法: <strong>incremental view maintenance 增量式视图维护</strong></li>
+</ul>
+<p>增量维护思想:</p>
+<ul>
+<li>利用底层关系的变化计算 view 的变化</li>
+<li>再将这些变化应用到 materialized view</li>
+</ul>
+<p>实现方式:</p>
+<ul>
+<li>手动定义 trigger</li>
+<li>手写维护代码</li>
+<li>DBMS 直接支持</li>
+</ul>
+<h4 id="56-query-optimization-and-materialized-views">5.6 Query Optimization and Materialized Views</h4>
+<p>优化器可以考虑使用 materialized view 重写查询</p>
+<p>例如已有:
+$$
+v = r \bowtie s
+$$</p>
+<p>用户查询:
+$$
+r \bowtie s \bowtie t
+$$</p>
+<p>可重写为:
+$$
+v \bowtie t
+$$</p>
+<p>但是否使用 materialized view 取决于代价估计</p>
+<p>有时反而应该将 materialized view 展开为原定义</p>
+<p>例如:</p>
+<ul>
+<li>materialized view $v=r \bowtie s$ 没有索引</li>
+<li>用户查询 $\sigma_{A=10}(v)$</li>
+<li>若 $r$ 在 $A$ 上有索引, $s$ 在公共属性上有索引</li>
+</ul>
+<p>更好计划可能是:
+$$
+\sigma_{A=10}(r) \bowtie s
+$$</p>
+<blockquote>
+<p>查询优化器应该同时考虑使用 materialized view 和展开 materialized view 两种选择</p>
+</blockquote>
+<h4 id="57-materialized-view-selection">5.7 Materialized View Selection</h4>
+<p><strong>materialized view selection</strong>:</p>
+<blockquote>
+<p>选择哪些 view 进行实体化</p>
+</blockquote>
+<p>依据:</p>
+<ul>
+<li>系统 workload</li>
+<li>查询频率</li>
+<li>维护代价</li>
+<li>存储代价</li>
+</ul>
+<p>index selection 与 materialized view selection 密切相关:</p>
+<ul>
+<li>index 可以看作一种特殊的 materialized view</li>
+<li>index selection 通常更简单</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

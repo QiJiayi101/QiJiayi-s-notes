@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://qijiayi101.github.io/QiJiayi-s-notes/18.%20%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>并发控制 - 数据库系统笔记</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../css/brands.min.css" rel="stylesheet">
+        <link href="../css/solid.min.css" rel="stylesheet">
+        <link href="../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">数据库系统笔记</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href=".." class="nav-link">首页</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../1.%20%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BB%8B%E7%BB%8D/" class="nav-link">数据库介绍</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../2.%20Relational%20Model/" class="nav-link">关系模型</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../3.%20Introduction%20to%20SQL/" class="nav-link">SQL 入门</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../4.%20Intermediate%20SQL/" class="nav-link">中级 SQL</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../6.%20Entity-Relationship%20Model/" class="nav-link">实体关系模型</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../7.%20Relational%20Database%20Design/" class="nav-link">关系数据库设计</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../12.%20%E7%89%A9%E7%90%86%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F%2613.%20%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/" class="nav-link">物理存储与数据存储结构</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../14.%20%E7%B4%A2%E5%BC%95/" class="nav-link">索引</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../15.%20%E6%9F%A5%E8%AF%A2%E8%BF%87%E7%A8%8B/" class="nav-link">查询过程</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../16.%20%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/" class="nav-link">查询优化</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../17.%20%E4%BA%8B%E5%8A%A1/" class="nav-link">事务</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="./" class="nav-link active" aria-current="page">并发控制</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../19.%20%E6%81%A2%E5%A4%8D%E7%B3%BB%E7%BB%9F/" class="nav-link">恢复系统</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../17.%20%E4%BA%8B%E5%8A%A1/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../19.%20%E6%81%A2%E5%A4%8D%E7%B3%BB%E7%BB%9F/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/QiJiayi101/QiJiayi-s-notes/edit/master/数据库系统%20DS/docs/18. 并发控制.md" class="nav-link">Edit on QiJiayi101/QiJiayi-s-notes
+                                    </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#chapter-18-concurrency-control" class="nav-link">Chapter 18: Concurrency Control</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="chapter-18-concurrency-control">Chapter 18: Concurrency Control</h1>
+<p>![[Pasted image 20260626203407.png]]</p>
+<h3 id="1-lock-based-protocols">1. Lock-Based Protocols</h3>
+<p>并发控制的基础是:</p>
+<blockquote>
+<p>产生 serializable schedule</p>
+</blockquote>
+<p><strong>lock 锁</strong>:</p>
+<blockquote>
+<p>控制多个事务并发访问同一数据项的机制</p>
+</blockquote>
+<p>数据项可以用两种模式加锁:</p>
+<ol>
+<li><strong>exclusive mode 排它锁 / X-lock</strong></li>
+<li>数据项既可以读, 也可以写</li>
+<li>使用 <code>lock-X</code> 请求</li>
+<li><strong>shared mode 共享锁 / S-lock</strong></li>
+<li>数据项只能读</li>
+<li>使用 <code>lock-S</code> 请求</li>
+</ol>
+<p>锁请求发送给 concurrency-control manager</p>
+<blockquote>
+<p>事务只有在锁请求被授予后才能继续执行</p>
+</blockquote>
+<h4 id="11-lock-compatibility">1.1 Lock Compatibility</h4>
+<p>锁兼容性矩阵:</p>
+<table>
+<thead>
+<tr>
+<th>已有锁</th>
+<th>请求 S-lock</th>
+<th>请求 X-lock</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S-lock</td>
+<td>compatible</td>
+<td>incompatible</td>
+</tr>
+<tr>
+<td>X-lock</td>
+<td>incompatible</td>
+<td>incompatible</td>
+</tr>
+</tbody>
+</table>
+<p>结论:</p>
+<ul>
+<li>任意多个事务可以同时持有同一数据项的 S-lock</li>
+<li>若某事务持有 X-lock, 其他事务不能持有任何锁</li>
+<li>若锁请求不相容, 请求事务必须等待</li>
+</ul>
+<h4 id="12-locking-protocol">1.2 Locking Protocol</h4>
+<p><strong>locking protocol 加锁协议</strong>:</p>
+<blockquote>
+<p>所有事务在请求和释放锁时必须遵守的一组规则</p>
+</blockquote>
+<p>加锁协议限制可能产生的 schedule, 以保证并发执行正确</p>
+<p>若协议设计不好, 可能出现:</p>
+<ul>
+<li>deadlock 死锁</li>
+<li>starvation 饿死: 例如一个事务想要请求对一个数据的X锁, 但是不断有事务在申请S锁, 使得其始终无法获得需要的资源</li>
+<li>inconsistent read</li>
+</ul>
+<hr />
+<h3 id="2-two-phase-locking-protocol">2. Two-Phase Locking Protocol 两段锁协议</h3>
+<p><strong>2PL</strong> 将事务的加锁过程分为两个阶段:</p>
+<p><strong>Phase 1: Growing Phase 增长阶段</strong></p>
+<ul>
+<li>可以获得锁</li>
+<li>不可以释放锁</li>
+</ul>
+<p><strong>Phase 2: Shrinking Phase 收缩阶段</strong></p>
+<ul>
+<li>可以释放锁</li>
+<li>不可以再获得新锁</li>
+</ul>
+<p><strong>lock point 锁点</strong>:</p>
+<blockquote>
+<p>事务获得最后一个锁的时刻</p>
+</blockquote>
+<p>2PL 的性质:</p>
+<blockquote>
+<p>若一个 schedule 遵守 2PL, 则该 schedule 一定 conflict serializable</p>
+</blockquote>
+<p>并且事务可以按 lock point 的顺序串行化</p>
+<p><strong>证明思路</strong>: 证明符合2PL的调度一定是冲突可串行化的</p>
+<ol>
+<li>
+<p>反证法:</p>
+</li>
+<li>
+<p>若 precedence graph 中有边 $T_i \rightarrow T_j$, 则 $T_i$ 的 lock point 必须早于 $T_j$</p>
+</li>
+<li>若图中存在环:
+$$
+T_0 \rightarrow T_1 \rightarrow ... \rightarrow T_{n-1} \rightarrow T_0
+$$
+则会推出:
+$$
+\alpha_0 &lt; \alpha_1 &lt; ... &lt; \alpha_{n-1} &lt; \alpha_0
+$$
+矛盾</li>
+</ol>
+<p>因此 precedence graph 无环</p>
+<ol>
+<li>对于符合2PL的调度, 假设$T_i$ 是第一个到达 lock point 的, 则可以将其所有的读写操作前移到调度的开头, 且没有通过任何冲突的操作, 这样递归下来便可以产生一个串行调度</li>
+</ol>
+<h4 id="21-2pl">2.1 2PL 的问题</h4>
+<p>2PL 可以保证 conflict serializability, 但:</p>
+<ul>
+<li>不能保证不会死锁</li>
+<li>可能产生 cascading rollback</li>
+</ul>
+<h4 id="22-strict-two-phase-locking">2.2 Strict Two-Phase Locking</h4>
+<p><strong>strict 2PL 严格两段锁</strong>:</p>
+<ul>
+<li>事务必须持有所有 X-lock 直到 commit 或 abort</li>
+</ul>
+<p>作用:</p>
+<ul>
+<li>避免其他事务读取未提交写入</li>
+<li>使回滚更加安全</li>
+<li>可以避免级联回滚</li>
+</ul>
+<h4 id="23-rigorous-two-phase-locking">2.3 Rigorous Two-Phase Locking</h4>
+<p><strong>rigorous 2PL 强两段锁</strong>:</p>
+<ul>
+<li>事务持有所有锁, 包括 S-lock 和 X-lock, 直到 commit 或 abort</li>
+</ul>
+<p>性质:</p>
+<ul>
+<li>事务可以按 commit 顺序串行化</li>
+</ul>
+<blockquote>
+<p>更严格的协议通常以降低并发度为代价</p>
+<p>2PL 得到的一定是冲突可串行化的, 但是得到冲突可串行化的不一定要2PL</p>
+</blockquote>
+<h4 id="24-lock-conversions">2.4 Lock Conversions 锁转换</h4>
+<p>为了提高并发性, 2PL 可以允许锁转换</p>
+<p>第一阶段:</p>
+<ul>
+<li>可以获得 S-lock</li>
+<li>可以获得 X-lock</li>
+<li>可以将 S-lock 升级为 X-lock</li>
+</ul>
+<p>第二阶段:</p>
+<ul>
+<li>可以释放 S-lock</li>
+<li>可以释放 X-lock</li>
+<li>可以将 X-lock 降级为 S-lock</li>
+</ul>
+<blockquote>
+<p>仍然可以保证 serializability</p>
+</blockquote>
+<h4 id="25-automatic-acquisition-of-locks">2.5 Automatic Acquisition of Locks</h4>
+<p>事务可以只发出普通 <code>read(D)</code> / <code>write(D)</code>, 不显式写锁指令</p>
+<p>DBMS 自动处理:</p>
+<p><code>read(D)</code>:</p>
+<ul>
+<li>若事务已有 D 上的锁, 直接读</li>
+<li>否则等待直到没有事务持有 D 的 X-lock</li>
+<li>授予 S-lock</li>
+<li>执行读</li>
+</ul>
+<p><code>write(D)</code>:</p>
+<ul>
+<li>若已有 X-lock, 直接写</li>
+<li>若已有 S-lock, 等待后升级为 X-lock</li>
+<li>若没有锁, 等待直到其他事务无锁, 再授予 X-lock</li>
+<li>执行写</li>
+</ul>
+<p>所有锁在 commit 或 abort 后释放</p>
+<hr />
+<h3 id="3-implementation-of-locking">3. Implementation of Locking</h3>
+<p>lock manager 通常作为独立模块/进程实现</p>
+<p>事务向 lock manager 发送:</p>
+<ul>
+<li>lock request</li>
+<li>unlock request</li>
+</ul>
+<p>lock manager 回复:</p>
+<ul>
+<li>lock grant message</li>
+<li>或要求事务 rollback 的消息(检测到了死锁)</li>
+</ul>
+<p>lock manager 维护:</p>
+<blockquote>
+<p><strong>lock table 锁表</strong>
+![[Pasted image 20260626203604.png]]
+lock table 通常是内存中的 hash table, 以数据项名为 key</p>
+</blockquote>
+<p>每个数据项的队列中记录:</p>
+<ul>
+<li>已授予的锁</li>
+<li>正在等待的请求</li>
+<li>锁模式</li>
+</ul>
+<p>处理规则:</p>
+<ul>
+<li>新请求加入队尾</li>
+<li>若与已有已授予锁相容, 则授予</li>
+<li>unlock 后删除请求, 并检查后续等待请求是否可授予</li>
+<li>若事务 abort, 删除该事务的所有等待锁和已授予锁</li>
+</ul>
+<hr />
+<h3 id="4-graph-based-protocols">4. Graph-Based Protocols 基于图的加锁协议</h3>
+<p>graph-based protocol 是 2PL 的替代方案</p>
+<p>基本思想:</p>
+<ul>
+<li>在所有数据项集合 $D={d_1,d_2,...,d_h}$ 上定义偏序 $\rightarrow$</li>
+<li>若 $d_i \rightarrow d_j$, 则任何同时访问 $d_i$ 和 $d_j$ 的事务必须先访问 $d_i$</li>
+<li>数据项可看作一个 <strong>directed acyclic graph</strong>, 也称为 database graph</li>
+</ul>
+<h4 id="41-tree-protocol">4.1 Tree Protocol 树形协议</h4>
+<p>tree protocol 是一种简单的 graph protocol
+![[Pasted image 20260627100147.png]]
+![[Pasted image 20260627100411.png]]
+规则:</p>
+<ol>
+<li>只允许 X-lock</li>
+<li>事务第一次加锁可以锁任意数据项</li>
+<li>此后事务只能在当前持有 parent 锁时, 才能锁 child</li>
+<li>数据项可以任意时间解锁</li>
+<li>同一事务释放某数据项后, 不能再次锁该数据项</li>
+</ol>
+<p>优点:</p>
+<ul>
+<li>保证 conflict serializability</li>
+<li>保证 deadlock-free</li>
+<li>可比 2PL 更早释放锁</li>
+<li>等待时间可能更短, 并发性更高</li>
+</ul>
+<p>缺点:</p>
+<ul>
+<li>事务可能必须锁它不访问的数据项</li>
+<li>增加锁开销和等待时间</li>
+<li>可能降低并发性</li>
+</ul>
+<blockquote>
+<p>tree protocol 可产生某些 2PL 不能产生的 schedule, 反之亦然</p>
+</blockquote>
+<hr />
+<h3 id="7-multiple-granularity">7. Multiple Granularity 多粒度</h3>
+<blockquote>
+<p>例如 <code>SELECT * FROM ACCOUNT;</code> 需要对所有数据项进行加锁, 可能产生很大的开销</p>
+</blockquote>
+<p>为了方便, DBMS 允许以不同大小的数据项加锁</p>
+<p>例如:</p>
+<ul>
+<li>database</li>
+<li>area</li>
+<li>file / table</li>
+<li>record / tuple</li>
+</ul>
+<p>这些粒度形成层次树 (注意区分于加锁的树形协议)
+![[Pasted image 20260627101551.png]]
+若事务显式锁住某个节点, 则隐式锁住该节点所有 descendants</p>
+<p>粒度选择:</p>
+<ul>
+<li>fine granularity 细粒度: 树结构较低位置</li>
+<li>并发度高</li>
+<li>加锁开销高</li>
+<li>coarse granularity 粗粒度: 树结构较高位置</li>
+<li>加锁开销低</li>
+<li>并发度低</li>
+</ul>
+<h4 id="71-intention-locks">7.1 Intention Locks 意向锁</h4>
+<p>问题:</p>
+<ul>
+<li>若一个事务锁了某个 tuple</li>
+<li>另一个事务想锁整张表</li>
+<li>如果没有额外信息, 需要搜索整棵树检查所有 descendants</li>
+</ul>
+<p><strong>intention lock</strong>:</p>
+<blockquote>
+<p>在显式锁某个节点前, 先在它的所有 ancestors 上加意向锁</p>
+</blockquote>
+<p>作用:</p>
+<ul>
+<li>让高层节点能快速判断其子树中是否已有锁</li>
+<li>不需要检查所有 descendants</li>
+</ul>
+<h4 id="72-intention-lock-modes">7.2 Intention Lock Modes</h4>
+<p>三种意向锁:</p>
+<p><strong>IS intention-shared 共享型意向锁</strong></p>
+<ul>
+<li>表示后代节点上将有 S-lock</li>
+</ul>
+<p><strong>IX intention-exclusive 排它型意向锁</strong></p>
+<ul>
+<li>表示后代节点上将有 X-lock</li>
+</ul>
+<p><strong>SIX shared and intention-exclusive 共享排它型意向锁</strong></p>
+<ul>
+<li>当前节点以 S-mode 显式锁定</li>
+<li>同时后代节点上可能有 X-lock</li>
+</ul>
+<p>可以理解为:
+$$
+SIX = S + IX
+$$</p>
+<h4 id="73-multiple-granularity-locking-scheme">7.3 Multiple Granularity Locking Scheme</h4>
+<p>事务 $T_i$ 加锁节点 $Q$ 时必须遵守:
+![[Pasted image 20260627102736.png]]
+1. 锁相容矩阵必须满足
+2. 必须先锁 root, root 可用任意模式
+3. 若要对 $Q$ 加 S 或 IS, 其 parent 必须已被 $T_i$ 以 IX 或 IS 锁住
+4. 若要对 $Q$ 加 X, SIX 或 IX, 其 parent 必须已被 $T_i$ 以 IX 或 SIX 锁住
+5. 事务释放过任何锁后, 不能再获得新锁
+6. 事务只能在 $Q$ 的 children 都没有被自己锁住时释放 $Q$</p>
+<p>即:</p>
+<ul>
+<li>加锁自顶向下</li>
+<li>解锁自底向上</li>
+<li>同时遵守 2PL</li>
+</ul>
+<p>优点:</p>
+<ul>
+<li>增强并发性</li>
+<li>降低加锁开销</li>
+</ul>
+<hr />
+<h3 id="9-deadlock-handling">9. Deadlock Handling 死锁处理</h3>
+<p>系统处于 deadlock 当且仅当:</p>
+<blockquote>
+<p>存在一组事务, 其中每个事务都在等待该组中另一个事务</p>
+</blockquote>
+<p>处理方式:</p>
+<ul>
+<li>deadlock prevention</li>
+<li>deadlock detection and recovery</li>
+</ul>
+<h4 id="91-deadlock-prevention">9.1 Deadlock Prevention</h4>
+<p>预防策略保证系统永远不会进入死锁状态</p>
+<p><strong>1. Predeclaration / Conservative 2PL</strong></p>
+<ul>
+<li>事务开始前一次性锁定所有需要的数据项</li>
+<li>要么全部获得, 要么一个都不获得</li>
+</ul>
+<p>缺点:</p>
+<ul>
+<li>并发度低</li>
+<li>很难提前知道所有需要访问的数据项</li>
+</ul>
+<p><strong>2. Partial ordering</strong></p>
+<ul>
+<li>对所有数据项定义偏序</li>
+<li>事务只能按该顺序加锁</li>
+<li>因而不可能形成环</li>
+</ul>
+<p><strong>3. Wait-die scheme</strong></p>
+<ul>
+<li>非抢占式</li>
+<li>老事务可以等待年轻事务</li>
+<li>年轻事务不能等待老事务, 会被 rollback</li>
+</ul>
+<p><strong>4. Wound-wait scheme</strong></p>
+<ul>
+<li>抢占式</li>
+<li>老事务 rollback</li>
+<li>年轻事务等待老事务</li>
+</ul>
+<blockquote>
+<p>rollback 的事务重启时保留原 timestamp, 可以避免 starvation
+![[Pasted image 20260627104338.png]]
+<strong>5. Timeout-Based Scheme</strong></p>
+</blockquote>
+<ul>
+<li>事务等待锁超过指定时间后自动 rollback</li>
+</ul>
+<p>优点:</p>
+<ul>
+<li>简单</li>
+<li>不会死锁</li>
+</ul>
+<p>缺点:</p>
+<ul>
+<li>可能 starvation</li>
+<li>timeout 时间难以设定</li>
+</ul>
+<h4 id="92-deadlock-detection">9.2 Deadlock Detection</h4>
+<p>使用 <strong>wait-for graph 等待图</strong></p>
+<p>图 $G=(V,E)$:</p>
+<ul>
+<li>$V$: 系统中所有事务</li>
+<li>$E$: 等待关系</li>
+</ul>
+<p>若 $T_i$ 等待 $T_j$ 释放某数据项, 则有边:
+$$
+T_i \rightarrow T_j
+$$</p>
+<p>规则:</p>
+<ul>
+<li>当 $T_i$ 请求的数据项被 $T_j$ 持有时, 插入边</li>
+<li>当 $T_j$ 不再持有 $T_i$ 需要的数据项时, 删除边</li>
+</ul>
+<p><strong>判断:</strong></p>
+<blockquote>
+<p>wait-for graph 有环当且仅当系统死锁</p>
+</blockquote>
+<p>系统需要周期性运行 deadlock detection algorithm 检测环
+![[Pasted image 20260627105044.png]]</p>
+<h4 id="93-deadlock-recovery">9.3 Deadlock Recovery</h4>
+<p>检测到死锁后:</p>
+<ol>
+<li>选择某个事务作为 victim</li>
+<li>rollback victim 以打破死锁</li>
+</ol>
+<p>victim 选择:</p>
+<ul>
+<li>选择 rollback 代价最小的事务</li>
+</ul>
+<p>rollback 范围:</p>
+<ul>
+<li>total rollback</li>
+<li>回滚整个事务并重启</li>
+<li>partial rollback</li>
+<li>只回滚到足以打破死锁的位置</li>
+</ul>
+<p>避免 starvation:</p>
+<ul>
+<li>将事务被 rollback 的次数加入 victim 选择代价</li>
+</ul>
+<hr />
+<h3 id="10-insert-delete-and-predicate-reads">10. Insert, Delete, and Predicate Reads</h3>
+<p>在 2PL 下:</p>
+<ul>
+<li>delete tuple 前必须持有该 tuple 的 X-lock</li>
+<li>insert 新 tuple 后事务获得该 tuple 的 X-lock</li>
+</ul>
+<p>问题:</p>
+<blockquote>
+<p>insertion 和 update 可能导致 phantom phenomenon <strong>幻影现象</strong></p>
+</blockquote>
+<p>例如:</p>
+<ul>
+<li>事务 $T_1$ 扫描关系中满足某谓词的 tuple</li>
+<li>事务 $T_2$ 插入一个满足该谓词的新 tuple</li>
+<li>二者可能没有访问任何相同 tuple</li>
+<li>但逻辑上发生冲突</li>
+</ul>
+<p>若只使用 tuple locks, 可能得到 non-serializable schedule</p>
+<h4 id="101-relation-level-predicate-information-lock">10.1 Relation-Level Predicate Information Lock</h4>
+<p>一种简单方案:</p>
+<ul>
+<li>为关系设置一个代表“关系包含哪些 tuple”的数据项</li>
+<li>扫描关系的事务对该数据项加 S-lock</li>
+<li>插入或删除 tuple 的事务对该数据项加 X-lock</li>
+</ul>
+<p>缺点:</p>
+<ul>
+<li>并发度非常低</li>
+<li>两个插入不同 tuple 的事务也会互相阻塞</li>
+</ul>
+<h4 id="102-index-locking-protocol">10.2 Index Locking Protocol</h4>
+<p>更好的方案是使用 index locking</p>
+<p>规则:</p>
+<ol>
+<li>每个关系至少有一个索引</li>
+<li>对关系的访问必须通过某个索引</li>
+<li>lookup 时, 事务必须对访问到的 index leaf nodes 加 S-lock</li>
+<li>insert/delete/update tuple 时, 必须更新该关系所有索引</li>
+<li>对每个受影响的 index leaf node 加 X-lock</li>
+<li>遵守 2PL</li>
+</ol>
+<blockquote>
+<p>index locking 能以更高并发度防止 phantom phenomenon</p>
+</blockquote>
+<hr />
+<h3 id="11-weak-levels-of-consistency">11. Weak Levels of Consistency</h3>
+<p>某些系统允许低于 serializable 的一致性级别</p>
+<h4 id="111-degree-two-consistency">11.1 Degree-Two Consistency</h4>
+<p>与 2PL 的区别:</p>
+<ul>
+<li>S-lock 可以随时释放</li>
+<li>锁可以随时获得</li>
+<li>X-lock 必须持有到事务结束</li>
+</ul>
+<p>特点:</p>
+<ul>
+<li>不保证 serializability</li>
+<li>需要程序员保证不会产生错误状态</li>
+</ul>
+<h4 id="112-cursor-stability">11.2 Cursor Stability</h4>
+<p>cursor stability 是 degree-two consistency 的特例:</p>
+<ul>
+<li>读取时, 每个 tuple 被锁定</li>
+<li>读完立即释放锁</li>
+<li>X-lock 持有到事务结束</li>
+</ul>
+<h4 id="113-sql-isolation-levels">11.3 SQL Isolation Levels</h4>
+<p>SQL 允许 non-serializable executions</p>
+<p><strong>Serializable</strong></p>
+<ul>
+<li>默认最高级别</li>
+<li>保证 serializable</li>
+</ul>
+<p><strong>Repeatable Read</strong></p>
+<ul>
+<li>只能读取已提交记录</li>
+<li>重复读取同一记录应返回相同值</li>
+<li>但不能防止 phantom phenomenon</li>
+</ul>
+<p><strong>Read Committed</strong></p>
+<ul>
+<li>类似 degree-two consistency</li>
+<li>多数系统按 cursor stability 实现</li>
+</ul>
+<p><strong>Read Uncommitted</strong></p>
+<ul>
+<li>允许读取未提交数据</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

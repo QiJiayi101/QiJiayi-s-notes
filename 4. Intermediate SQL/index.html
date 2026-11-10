@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://qijiayi101.github.io/QiJiayi-s-notes/4.%20Intermediate%20SQL/">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>中级 SQL - 数据库系统笔记</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../css/brands.min.css" rel="stylesheet">
+        <link href="../css/solid.min.css" rel="stylesheet">
+        <link href="../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">数据库系统笔记</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href=".." class="nav-link">首页</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../1.%20%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BB%8B%E7%BB%8D/" class="nav-link">数据库介绍</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../2.%20Relational%20Model/" class="nav-link">关系模型</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../3.%20Introduction%20to%20SQL/" class="nav-link">SQL 入门</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="./" class="nav-link active" aria-current="page">中级 SQL</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../6.%20Entity-Relationship%20Model/" class="nav-link">实体关系模型</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../7.%20Relational%20Database%20Design/" class="nav-link">关系数据库设计</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../12.%20%E7%89%A9%E7%90%86%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F%2613.%20%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/" class="nav-link">物理存储与数据存储结构</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../14.%20%E7%B4%A2%E5%BC%95/" class="nav-link">索引</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../15.%20%E6%9F%A5%E8%AF%A2%E8%BF%87%E7%A8%8B/" class="nav-link">查询过程</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../16.%20%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/" class="nav-link">查询优化</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../17.%20%E4%BA%8B%E5%8A%A1/" class="nav-link">事务</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../18.%20%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/" class="nav-link">并发控制</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../19.%20%E6%81%A2%E5%A4%8D%E7%B3%BB%E7%BB%9F/" class="nav-link">恢复系统</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../3.%20Introduction%20to%20SQL/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../6.%20Entity-Relationship%20Model/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/QiJiayi101/QiJiayi-s-notes/edit/master/数据库系统%20DS/docs/4. Intermediate SQL.md" class="nav-link">Edit on QiJiayi101/QiJiayi-s-notes
+                                    </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#chapter-4-intermediate-sql" class="nav-link">Chapter 4: Intermediate SQL</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="chapter-4-intermediate-sql">Chapter 4: Intermediate SQL</h1>
+<p>![[attachments/image-20260330190046253-1774868601149-2.png]]</p>
+<h3 id="1-sql-data-types-and-schemas">1. SQL Data Types and Schemas</h3>
+<ul>
+<li>
+<p>Built-in Data Types in SQL SQL中的内置数据类型</p>
+</li>
+<li>
+<p>User-Defined Types 用户自定义类型</p>
+</li>
+</ul>
+<pre><code class="language-sql">create type Dollars as numeric(12,2);
+
+-- 使用自定义类型
+create table department
+    (dept_name varchar(20),
+    building varchar(15),
+    budget Dollars);
+
+-- 创建新的domain
+create domain Dollars as numeric(12,2) not null;
+create domain Pounds as numeric(12,2);
+
+-- 使用自定义的domain
+CREATE TABLE instructor
+    (ID char(5) primary key,
+    name varchar(20),
+    dept_name varchar(20),
+    salary Dollars,
+    comm Pounds);
+</code></pre>
+<blockquote>
+<p><strong>create type 和 create domain 的区别</strong></p>
+<ul>
+<li>Domain 可以拥有约束, 例如:<code>not null</code>, 并且可以为该域类型的变量定义默认值</li>
+<li>域不是强类型的, 而且只要底层类型兼容, 一种域类型的值就可以赋值给另一种域类型的值</li>
+</ul>
+</blockquote>
+<ul>
+<li>Large-Object Types 大对象类型: photos, videos, CAD files等作为大对象进行存储</li>
+<li>blob: 二进制大对象, 对象是大量未解释的二进制数据, 其解释权留给数据库系统之外的应用程序</li>
+<li>clob: 字符大对象, 对象是大量字符数据的集合</li>
+<li>当查询返回大对象时, 返回的是一个指针, 而不是大对象本身</li>
+<li>Catalogs (目录), schemas and environments</li>
+</ul>
+<p>![[attachments/image-20260331134558155.png]]</p>
+<hr />
+<h3 id="2-integrity-constraints">2. Integrity Constraints 完整性约束</h3>
+<p><strong>完整性约束</strong> 防止对数据库的意外损坏, 通过确保对数据库的授权更改, 不会导致数据一致性的丢失; 例如:</p>
+<ul>
+<li>instructor_name 不能为 null</li>
+<li>任意两个instructor不能拥有相同的ID</li>
+</ul>
+<p>包括 <strong>域完整性, 实体完整性(主键的约束), 参照完整性(外键的约束) 和 用户自定义的完整性约束</strong></p>
+<p>完整性约束 是 <strong>数据库实例 Instance</strong> 必须遵循的</p>
+<p>完整性约束由 <strong>DBMS</strong> 维护</p>
+<p>在单一关系上的约束:</p>
+<ul>
+<li>not null</li>
+<li>primary key</li>
+<li>unique</li>
+<li>check(P), 其中 P 是一个谓词</li>
+</ul>
+<p>在SQL-92中, 允许使用check子句, 对domains进行限制:</p>
+<pre><code class="language-sql">CREATE DOMAIN hourly-wage numeric(5,2)
+    constraint value-test check(value &gt;= 4.00);
+-- 其中 value-test 作为约束自定义名称是可选的, 用于指示update违反了哪个constraint;
+</code></pre>
+<h4 id="21-referential-integrity">2.1 Referential Integrity 参照完整性约束</h4>
+<p><strong>参照完整性</strong> 要求外键的值, 必须是其引用的主表中<strong>主键</strong>的合法值, 或者是NULL</p>
+<p>若 $r_1(R_1)$ 和 $r_2(R_2)$ 分别为 主键是$K_1$与$K_2$的关系</p>
+<p>![[attachments/image-20260331143811340.png]]</p>
+<p>参照完整性约束 也可以被叫做<strong>子集依赖性</strong>, 因为:
+$$
+\Pi_\alpha(r_2) \subset \Pi_{K_1}(r_1)
+$$</p>
+<hr />
+<p><strong>数据库修改时, 关于参照完整性约束的检查</strong>:</p>
+<ol>
+<li>Insert: 插入是外键的值必须在被参照关系中存在</li>
+<li>Delete: 当在被参照关系中要删除一个元组, 若该被参照的属性值在参照关系中存在, 则:</li>
+<li>拒绝删除请求, 并抛出一个错误</li>
+<li>
+<p>同时删除参照关系中的元组</p>
+</li>
+<li>
+<p>Update: </p>
+</li>
+<li>若修改参照关系中的元组, 类似于Insert</li>
+<li>若修改被参照关系中的元组, 类似于Delete</li>
+</ol>
+<hr />
+<p>默认情况下, 外键引用<strong>被参照关系</strong>中的<strong>主键属性</strong></p>
+<ul>
+<li>被引用表中的引用列可以显示指定, 但是必须被声明为<strong>主键/候选键</strong></li>
+</ul>
+<hr />
+<p><strong>SQL 中的级联操作 Cascading Actions</strong></p>
+<p>![[attachments/image-20260410134158230.png]]</p>
+<ul>
+<li>由于 <code>on delete cascade</code> 子句的存在，如果删除 <strong>department</strong> 中的一个元组会导致参照完整性约束违规，那么该删除操作将“级联”到 <strong>course</strong> 关系，删除 <strong>course</strong> 中引用了被删除 <strong>department</strong> 的元组。</li>
+<li>级联更新类似</li>
+</ul>
+<p>如果存在一条跨越多个关系的外键依赖链，且每条依赖都指定了 <code>on delete cascade</code>（删除级联），那么<strong>在链的一端进行的删除或更新操作可以传播到整个链</strong>。</p>
+<p>但是，如果级联更新或删除导致了<strong>约束违规（constraint violation）</strong>，且该违规无法通过进一步的级联操作来处理，系统将<strong>中止该事务（aborts the transaction）</strong>。</p>
+<ul>
+<li>结果是，由该事务及其级联操作引起的<strong>所有更改都会被撤销（undone）</strong>。</li>
+</ul>
+<blockquote>
+<p><strong>注意：</strong> 约束也可以被指定为<strong>可延迟的（deferrable）</strong>，这意味着默认情况下它会立即被检查，但在需要时可以推迟检查。对于声明为可延迟的约束，指定约束的检查会被推迟到该事务结束之时。</p>
+<ul>
+<li><strong>也就是说：</strong> 只要后续步骤在事务结束前消除了违规，中间步骤是被允许违反参照完整性的。</li>
+<li><strong>否则，</strong> 创建某些数据库状态将会很困难，例如，插入两个外键相互指向对方的元组（记录）。</li>
+<li><strong>例如</strong> 关系中的配偶属性：
+    <strong><em>marriedperson (name, address, spouse)</em></strong></li>
+</ul>
+</blockquote>
+<p><strong>级联的替代方案</strong>:</p>
+<ul>
+<li><code>on delete set null</code></li>
+<li><code>on delete set default</code></li>
+</ul>
+<hr />
+<h4 id="22-assertions">2.2 Assertions 断言</h4>
+<p>断言 是一个 <strong>predicate</strong> , 表达了我们希望数据库始终满足的条件</p>
+<ul>
+<li>用于多个关系上的复杂条件检查</li>
+</ul>
+<pre><code class="language-sql">CREATE ASSERTION &lt;断言名称&gt;
+CHECK &lt;谓词&gt;;
+</code></pre>
+<p>当建立断言时，系统会在 <strong>每一次可能违反断言的更新操作</strong> 上测试其有效性。（当 <strong>谓词</strong> 为真时，操作通过；否则报告错误。）</p>
+<p>这种测试可能会引入大量的 <strong>开销</strong>；因此应 <strong>非常谨慎地使用断言</strong>。</p>
+<hr />
+<h4 id="23-triggers">2.3 Triggers 触发器</h4>
+<p><strong>触发器（Trigger）</strong> 是一条由系统<strong>自动</strong>执行的语句，它是作为<strong>对数据库进行修改</strong>的<strong>副作用</strong>而发生的。</p>
+<p><strong>要设计触发器机制，我们必须：</strong></p>
+<ul>
+<li>指定触发器执行的<strong>条件</strong>。</li>
+<li>指定触发器执行时采取的<strong>动作</strong>。</li>
+</ul>
+<p><strong>Triggering event</strong>: Insert, Delete, Update</p>
+<ul>
+<li>对于Update的触发器, 可以限制具体属性</li>
+<li><code>create trigger overdraft-trigger after update of balance on account</code></li>
+</ul>
+<p>可以指明 <strong>before</strong> 与 <strong>after</strong></p>
+<ul>
+<li>可以引用更新前后的属性值:</li>
+<li>将旧行引用为<code>orow</code></li>
+<li>新行引用为<code>nrow</code></li>
+</ul>
+<p><strong>语句级触发器(for each statement)</strong>, 相较于<strong>行级触发器(for each row)</strong>, 在处理更新大量行的SQL语句时, 效率可能更高</p>
+<ul>
+<li>使用referencing old table 或 referencing new table来指代包含受影响的行的<strong>临时表</strong>(称为 transition tables/转换表)</li>
+</ul>
+<p><strong>外部世界动作</strong>:</p>
+<ul>
+<li>
+<p>我们有时需要在数据库更新时触发外部世界的动作, <strong>触发器不能直接用于实现外部世界的动作，但是</strong>触发器可用于在单独的表中记录<strong>待采取的动作</strong>；</p>
+</li>
+<li>
+<p>设置一个外部进程，反复扫描该表，执行外部世界的动作，并从表中删除已执行的动作。</p>
+</li>
+</ul>
+<pre><code class="language-sql">-- 定义局部变量
+DECLARE
+-- 先定义变量, 再使用BEGIN
+BEGIN
+END;
+</code></pre>
+<hr />
+<h3 id="3-authorization">3. Authorization 授权</h3>
+<blockquote>
+<p><strong>安全性</strong> - 防止恶意尝试<strong>窃取</strong>或<strong>修改数据</strong>。</p>
+<p><strong>数据库系统级别</strong></p>
+<ul>
+<li><strong>Authentication (验证)</strong> 和 <strong>authorization (授权)</strong> 机制允许特定用户仅访问<strong>所需数据</strong></li>
+<li>本章其余部分重点关注授权</li>
+</ul>
+<p><strong>操作系统级别</strong></p>
+<ul>
+<li>操作系统超级用户可以对他们想要的数据库做任何事情！需要良好的操作系统级安全性。</li>
+</ul>
+<p><strong>网络级别</strong>：必须使用加密来防止</p>
+<ul>
+<li><strong>窃听</strong>（未经授权读取消息）</li>
+<li><strong>伪装</strong>（假装是授权用户或发送据称来自授权用户的消息）</li>
+</ul>
+</blockquote>
+<h4 id="31-authorization">3.1 Authorization 授权</h4>
+<p>数据库部分的授权形式:</p>
+<ul>
+<li>Read: 只允许 read, 不允许 modify</li>
+<li>Insert: 允许插入新数据, 不允许对现有数据进行更改</li>
+<li>Update: 允许modify, 但是不允许删除</li>
+<li>Delete: 允许删除数据</li>
+</ul>
+<p>修改数据库模式的授权形式: </p>
+<ul>
+<li>Index: 允许创建与删除索引</li>
+<li>Resources: 允许创建新的关系</li>
+<li>alteration: 允许对一个关系中 添加 或 修改 属性</li>
+<li>Drop: 允许删除关系</li>
+</ul>
+<h4 id="32-authorization-and-views">3.2 Authorization and Views 授权和视图</h4>
+<p>用户可以被授予 <strong>视图上的权限</strong>, 而无需被授予视图定义中<strong>所用关系的任何权限</strong></p>
+<p>创建 view 不需要 <strong>resources</strong>权限, 因为没有创造一个真正的关系</p>
+<p><strong>视图的创建者</strong>仅获得那些未超出其已有权限范围的权限。</p>
+<ul>
+<li>例如，如果视图 <em>cust-loan</em> 的创建者在 <em>borrower</em> 和 <em>loan</em> 上仅有读取权限，那么他在 <em>cust-loan</em> 上也仅获得读取权限。</li>
+</ul>
+<h4 id="33-granting-of-privileges">3.3 Granting of Privileges 权限的授予</h4>
+<p>![[attachments/image-20260410214226483.png]]</p>
+<ul>
+<li>
+<p>DBA 为数据库管理员</p>
+</li>
+<li>
+<p><strong>权限图</strong> 中的所有边, 必须是源于DBA的path的一部分</p>
+</li>
+<li>如果DBA <strong>撤销授予(revoke grant)</strong> U1</li>
+<li>那么U4 的权限也会被 撤销授予 </li>
+<li>U5 的权限不会被revoke grant, 因为它也被 U2授予了权限</li>
+<li>一定要避免 没有从root出发的 cycles of grants</li>
+</ul>
+<h4 id="34-security-specification-in-sql">3.4 Security Specification in SQL</h4>
+<p><strong>GRANT statement</strong>:</p>
+<pre><code class="language-sql">GRANT &lt;privilege list&gt; ON &lt;relation name or view name&gt;
+    TO &lt;user list&gt;;
+</code></pre>
+<ul>
+<li><code>&lt;user list&gt;</code>:</li>
+<li>a user-id</li>
+<li>public, 这允许所有有效用户获得授予的权限<ul>
+<li><code>grant &lt;privilege-list&gt; ON &lt;table&gt; TO PUBLIC;</code></li>
+</ul>
+</li>
+<li>A role</li>
+</ul>
+<blockquote>
+<p>视图上授予权限不意味着对底层关系授予任何权限</p>
+<p>权限的授予者 一定已经持有了对具体对象的权限</p>
+</blockquote>
+<p><strong>Privileges in SQL</strong>:</p>
+<ul>
+<li><code>select</code>: 允许对关系的读取, 或者使用视图进行查询的能力</li>
+<li><code>insert</code></li>
+<li><code>update</code></li>
+<li><code>delete</code></li>
+<li><code>references</code>: 当创建关系时, 声明外键的能力</li>
+<li><code>all privileges</code>: 用作所有允许权限的简写形式</li>
+<li><code>with grant option</code>: 允许一个用户将自己的权限授权给其他用户</li>
+<li>例如: <code>grant select on department to U1 with grant option</code></li>
+</ul>
+<p><strong>Roles (角色)</strong>:</p>
+<p>角色允许为某一类用户指定<strong>通用权限</strong>，只需创建相应的“角色”即可一次性完成指定。</p>
+<p>权限可以像授予用户一样授予角色或从角色中撤销；角色可以分配给用户，甚至可以分配给其他角色。</p>
+<pre><code class="language-sql">create role instructor;
+grant select on takes to instructor;
+grant dean to Amit;
+create role dean;
+grant instructor to dean;
+grant dean to Satoshi;
+</code></pre>
+<h4 id="35-revoking-authorization-in-sql">3.5 Revoking Authorization in SQL</h4>
+<pre><code class="language-sql">REVOKE &lt;privilege list&gt; ON &lt;relation name or view name&gt;
+    FROM &lt;user list&gt; [restrict | cascade]
+
+-- cascade 表示级联撤销他们给别人的privilege
+-- restrict 用来防止级联撤销, 但是通常这是默认的, 若需要联级撤销则报错
+</code></pre>
+<ul>
+<li>
+<p>若 <code>&lt;revoke-list&gt;</code> 包括 PUBLIC, 那么所有用户丢失这个privilege, 除非他被具体授予</p>
+</li>
+<li>
+<p>若同一个privilege 通过不同的grantee 被授予同一个用户两次, 这个用户在revoke之后仍有这个privilege</p>
+</li>
+</ul>
+<h4 id="36-limiations-of-sql-authorization">3.6 Limiations of SQL Authorization</h4>
+<p>SQL 不支持在 <strong>元组层面</strong> 的授权</p>
+<p>终端用户没有数据库用户ID，他们都被映射到 <strong>同一个数据库用户ID</strong>；</p>
+<hr />
+<h3 id="4-audit-trails">4. Audit Trails 审计跟踪</h3>
+<p><strong>审计跟踪</strong>（Audit trail）是数据库中所有<strong>更改</strong>（插入/删除/更新）的<strong>日志</strong>，其中包含诸如<strong>哪个用户</strong>执行了更改以及<strong>何时</strong>执行了更改等信息。</p>
+<p>用于<strong>追踪错误/欺诈性更新</strong>。</p>
+<p>可以使用<strong>触发器</strong>（triggers）来实现，但许多数据库系统提供了<strong>直接支持</strong></p>
+<pre><code class="language-sql">AUDIT &lt;st-opt&gt; [BY &lt;users&gt;][BY SEESION | ACCESS][WHENEVER SUCCESSFUL | WHENEVER NOT SUCCESSFUL]
+</code></pre>
+<ul>
+<li>当没有BY <code>&lt;users&gt;</code> 时, 对所有用户审计</li>
+<li>
+<p>BY SESSION 每次对话期间, 相同类型的需审计的SQL语句仅记录一次</p>
+</li>
+<li>
+<p>常用的 <code>&lt;st-opt&gt;</code>: table, view, role, index</p>
+</li>
+<li>取消审计: NOAUDIT...</li>
+<li>审计结果记录在 数据字典表: sys.aud$中, 也可从dba_audit_trail, dba_audit_statement, dba_audit_object 中获取相关情况</li>
+</ul>
+<hr />
+<h3 id="5-embedded-sql-sql">5. Embedded SQL 嵌入式SQL</h3>
+<p>SQL的功能不完备性。（计算，资源...）</p>
+<p>SQL 标准定义了 SQL 在多种编程语言中的嵌入方式，例如 Pascal、PL/I、Fortran、C 和 Cobol。</p>
+<p>嵌入 SQL 查询的语言被称为 <strong>宿主语言 (Host language)</strong>，而在宿主语言中允许的 SQL 结构构成了 <em>嵌入式 SQL</em>。</p>
+<p><strong>EXEC SQL</strong> 语句用于向预处理器标识嵌入式 SQL 请求：</p>
+<ul>
+<li><code>EXEC SQL &lt;嵌入式 SQL 语句&gt; END_EXEC</code></li>
+<li>因语言而异</li>
+</ul>
+<h4 id="51-queryoracle">5.1 Query(Oracle)</h4>
+<pre><code class="language-c">EXEC SQL BEGIN DECLARE SECTION;
+char V_an[20], bn[20];
+float bal;
+EXEC SQL END DECLARE SECTION;
+// ......
+scanf(&quot;%s&quot;, V_an);   // 读入账号, 然后据此在下面的语句获得bn, bal的值
+EXEC SQL SELECT branch_name, balance INTO:bn, :bal FROM account WHERE account_number = :V_an;
+END_EXEC
+printf(&quot;%s, %s, %s&quot;, V_an, bn, bal);
+</code></pre>
+<p><code>:V_an, :bn, :bal</code>是宿主变量, 在宿主语言中使用时不加<code>:</code></p>
+<p>普通的 C 语言变量 SQL 是看不懂的。必须把它们包裹在 <code>EXEC SQL BEGIN DECLARE SECTION</code> 和 <code>END DECLARE SECTION</code> 之间，告诉预处理器：“这几个变量，一会儿 SQL 语句也要用，请给它们开个绿灯。”</p>
+<pre><code class="language-C">// 多行查询
+// Step1: 指明SQL查询语句, 并且为其声明一个游标
+EXEC SQL
+    DECLARE c CURSOR FOR
+    SELECT customer_name, customer_city
+    FROM depositor D, customer B, account A
+    WHERE D.customer_name = B.customer_name
+END_EXEC
+
+// Step2: 使用OPEN语句, 开始查询
+EXEC SQL OPEN c END_EXEC
+
+// Step3: 使用fetch语句, 将查询结果放入变量
+EXEC SQL FETCH c INTO :cn, :ccity END_EXEC
+
+// Step4: 使用close语句, 使数据库删除暂时的关系
+EXEC SQL CLOSE c END_EXEC
+
+// 上述细节也会随着语言变动
+</code></pre>
+<p><strong>游标</strong> 指向查询结果集中的某一行</p>
+<p>需要在C中的循环语句中反复使用<code>fetch</code></p>
+<p><strong>结束标志</strong>: SQLSTATE = '02000', 表示没有数据了</p>
+<h4 id="52-update">5.2 Update</h4>
+<p><strong>单行修改</strong>:</p>
+<pre><code class="language-C">EXEC SQL update account set balance = balance + :bal
+</code></pre>
+<p><strong>多行修改</strong>:</p>
+<pre><code class="language-C">// 通过将游标声明为 for update, 可以更新fetch的元组
+EXEC SQL DECLARE csr CURSOR FOR
+    SELECT *
+    FROM account
+    WHERE branch_name = 'Perryridge'
+    FOR UPDATE OF balance;
+    ...
+
+...
+        EXEC SQL update account
+        set balance = balance + 100
+        where CURRENT OF csr;
+</code></pre>
+<ul>
+<li><code>where CURRENT OF csr</code> 表示游标指向的那行, 无需复杂的<code>where</code>语句去匹配</li>
+</ul>
+<h3 id="6-dynamic-sql-sql">6. Dynamic SQL 动态SQL</h3>
+<p>允许程序在运行时构建SQL查询语句</p>
+<pre><code class="language-c">char *sqlprog = &quot;update account
+                 set balance = balance * 1.05
+                 where account_number = ?&quot;;
+EXEC SQL PREPARE dynprog FROM :sqlprog;  // 准备预编译语句
+char v_account[10] = &quot;A_101&quot;;
+...
+EXEC SQL EXECUTE dynprog USING :v_account;
+</code></pre>
+<ul>
+<li><strong>静态 SQL 的局限</strong>：通常我们在 C 语言里写 <code>EXEC SQL SELECT ...</code> 时，SQL 语句是固定的。</li>
+<li><strong>动态 SQL 的优势</strong>：有时候，我们直到程序运行起来（比如用户输入了某些条件后），才知道要执行什么样的查询。动态 SQL 允许我们将 SQL 语句像字符串一样拼接、构建，然后交给数据库执行。</li>
+</ul>
+<p><strong>?</strong>: 它是一个<strong>占位符</strong> (placeholder)，用于在 SQL 程序执行时由 <code>using</code> 子句提供的变量填入具体的值。</p>
+<h3 id="7-odbc">7. ODBC</h3>
+<p>open database connectivity 开放数据库连(ODBC)</p>
+<p>![[attachments/image-20260412213758802.png]]</p>
+<p>![[attachments/image-20260412214226843.png]]</p>
+<p><strong>(1) ODBC 程序首先分配一个 SQL 环境（SQL environment），然后分配一个数据库连接句柄（database connection handle）。</strong></p>
+<p><strong>(2) 使用 <code>SQLConnect()</code> 打开数据库连接。</strong>
+<strong><code>SQLConnect</code> 的参数：</strong></p>
+<ul>
+<li>
+<p>连接句柄（connection handle），</p>
+</li>
+<li>
+<p>要连接的服务器</p>
+</li>
+<li>
+<p>用户标识符（the user identifier），</p>
+</li>
+<li>
+<p>密码（password）</p>
+</li>
+</ul>
+<p><strong>还必须指定参数类型：</strong></p>
+<ul>
+<li><code>SQL_NTS</code> 表示前一个参数是一个空终止字符串（null terminated string）。</li>
+</ul>
+<p>![[attachments/image-20260412215554351.png]]</p>
+<ul>
+<li><strong>应用程序</strong>位于最顶层，发起请求。</li>
+<li><strong>环境句柄</strong>是全局容器，管理着所有的连接。</li>
+<li><strong>连接句柄</strong>代表与特定数据源的一个会话。一个环境句柄下可以管理多个连接句柄（即同时连接多个数据库）。</li>
+<li><strong>语句句柄</strong>依附于连接句柄。一个连接下可以分配多个语句句柄，用于执行具体的 SQL 命令（如查询、更新）。</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

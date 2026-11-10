@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://qijiayi101.github.io/QiJiayi-s-notes/12.%20%E7%89%A9%E7%90%86%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F%2613.%20%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>物理存储与数据存储结构 - 数据库系统笔记</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../css/brands.min.css" rel="stylesheet">
+        <link href="../css/solid.min.css" rel="stylesheet">
+        <link href="../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">数据库系统笔记</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href=".." class="nav-link">首页</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../1.%20%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BB%8B%E7%BB%8D/" class="nav-link">数据库介绍</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../2.%20Relational%20Model/" class="nav-link">关系模型</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../3.%20Introduction%20to%20SQL/" class="nav-link">SQL 入门</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../4.%20Intermediate%20SQL/" class="nav-link">中级 SQL</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../6.%20Entity-Relationship%20Model/" class="nav-link">实体关系模型</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../7.%20Relational%20Database%20Design/" class="nav-link">关系数据库设计</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="./" class="nav-link active" aria-current="page">物理存储与数据存储结构</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../14.%20%E7%B4%A2%E5%BC%95/" class="nav-link">索引</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../15.%20%E6%9F%A5%E8%AF%A2%E8%BF%87%E7%A8%8B/" class="nav-link">查询过程</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../16.%20%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/" class="nav-link">查询优化</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../17.%20%E4%BA%8B%E5%8A%A1/" class="nav-link">事务</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../18.%20%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/" class="nav-link">并发控制</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../19.%20%E6%81%A2%E5%A4%8D%E7%B3%BB%E7%BB%9F/" class="nav-link">恢复系统</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../7.%20Relational%20Database%20Design/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../14.%20%E7%B4%A2%E5%BC%95/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/QiJiayi101/QiJiayi-s-notes/edit/master/数据库系统%20DS/docs/12. 物理存储系统&13. 数据存储结构.md" class="nav-link">Edit on QiJiayi101/QiJiayi-s-notes
+                                    </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            
+            
+            
+            
+            
+            
+            
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h2>Chapter 12: Physical Storage Systems<br> Chapter 13: Data Storage Structures</h2>
+
+<p>![[attachments/image-20260427190244928.png]]</p>
+<h3 id="introduction">Introduction</h3>
+<p>DBMS 可以被分为两个大部分:</p>
+<ul>
+<li>查询处理器</li>
+<li>解析翻译</li>
+<li>优化</li>
+<li>评估</li>
+<li>存储管理器</li>
+<li>文件管理器</li>
+<li>缓冲区管理器</li>
+<li>事务管理器</li>
+<li>授权与完整性管理器</li>
+</ul>
+<p>![[attachments/image-20260427190814989.png]]</p>
+<p>存储管理器在文件系统 与 提交给系统的应用程序和查询 之间提供接口</p>
+<p>负责在数据库中高效地存储, 检索 和 更新数据</p>
+<p>![[attachments/image-20260427191159734.png]]</p>
+<p>![[attachments/image-20260427191453231.png]]</p>
+<h3 id="1-overview-of-physical-storage-media">1. Overview of Physical Storage Media 物理存储介质概览</h3>
+<p>数据库的数据是以<strong>文件形式</strong>存储在物理介质上的(.mdf, .ldf, .ora, .dbf)</p>
+<p>存储介质的分类标准:</p>
+<ul>
+<li>数据访问速度![[attachments/image-20260427201745506.png]]</li>
+<li>Cache</li>
+<li>主存</li>
+<li>闪存 Flash memory</li>
+<li>磁性磁盘</li>
+<li>光盘<ul>
+<li>一次写入, 多次读取</li>
+<li>多次写入</li>
+<li>性能比磁盘慢</li>
+</ul>
+</li>
+<li>磁带存储</li>
+<li>单位数据成本</li>
+<li>可靠性: 存储介质在存储与访问时的稳定性</li>
+<li>易失性存储</li>
+<li>非易失性存储</li>
+</ul>
+<p><strong>primary storage</strong>: 快 volatile</p>
+<p><strong>secondary storage</strong>(辅助存储器, 联机存储器): non-volatile</p>
+<ul>
+<li>也叫做 on-line storage</li>
+</ul>
+<p><strong>tertiary storage</strong>(三级存储器, 脱机存储器)</p>
+<ul>
+<li>也叫做 off-line storage</li>
+</ul>
+<h3 id="2-magnetic-hard-disk-mechanism">2. Magnetic Hard Disk Mechanism 磁盘</h3>
+<p>![[attachments/image-20260427202134404.png]]</p>
+<ul>
+<li><code>platter</code> 盘片: 存储数据</li>
+<li><code>spindle</code> 主轴: 旋转, 提供盘片安装</li>
+<li><code>tracks</code> 磁道: 每个盘片的表面都被分成许多<strong>同心圆</strong>，这些圆称为磁道。数据就是沿着这些磁道存储的</li>
+<li>
+<p><code>sectors</code> 扇区: 每个磁道都被进一步划分为更小的单元, 作为磁盘上<strong>最小可寻址存储单位</strong></p>
+</li>
+<li>
+<p><code>cylinders</code> 柱面: 位于<strong>相同半径</strong>的磁道组成一个柱面; 寻址时先定位到柱面, 然后在其上某个盘面找到对应扇区</p>
+</li>
+<li><code>arm assembly</code> 臂总成: 可移动组件, 包含多个臂</li>
+<li><code>Read-write head</code> 读写头: <strong>读取或写入</strong>磁性数据</li>
+</ul>
+<h4 id="21-magnetic-disks">2.1. Magnetic Disks 磁盘</h4>
+<p>读写头:</p>
+<ul>
+<li>十分接近盘片表面</li>
+</ul>
+<p>扇区: 大多是512 bytes</p>
+<p>head-disk assemblies 头盘组合: </p>
+<ul>
+<li>每个盘片有两个磁头, 因为盘片两面都可以存储数据</li>
+</ul>
+<p><strong>Disk controller 磁盘控制器</strong>: </p>
+<ul>
+<li>在计算机系统和磁盘驱动器硬件之间进行接口连接</li>
+<li>接受读写扇区的高级命令, 磁盘控制器负责将高级命令转化为对硬盘硬件的低级控制信号，指挥臂的移动和磁头的读写操作</li>
+<li>
+<p>数据校验: 为每个扇区计算并附加校验和，以验证数据是否正确读回</p>
+</li>
+<li>
+<p>确保正常写入: 控制器在写入数据后会立即读取一遍，以确认数据被正确写入</p>
+</li>
+<li><strong>坏扇区重映射</strong>: </li>
+<li>硬盘在生产过程中可能会有一些物理缺陷，导致某些扇区无法正常读写，这些被称为“坏扇区”。</li>
+<li>磁盘控制器会检测到这些坏扇区，并将它们标记出来，然后将数据重定向（映射）到硬盘上预留的备用扇区。这个映射关系会被记录下来，以确保将来对该“逻辑扇区”的访问都能正确地指向备用物理扇区。</li>
+</ul>
+<h4 id="22-disk-subsystem">2.2. Disk Subsystem</h4>
+<p>![[attachments/image-20260427231022536.png]]</p>
+<p><strong>磁盘接口标准家族</strong>:</p>
+<ul>
+<li>ATA(AT adaptor) 标准家族</li>
+<li>SCSI</li>
+<li>每个标准都有几个变体: 不同的速度与能力</li>
+<li>RAID: 独立磁盘冗余阵列</li>
+<li>SAN: 存储区域网络</li>
+</ul>
+<h4 id="23-performance-measures-of-disks">2.3. Performance Measures of Disks 磁盘性能度量</h4>
+<p><strong>访问时间(Access time)</strong>: 从发出读或写请求到数据传输开始所需的时间</p>
+<ul>
+<li>= 寻道时间 + 旋转等待时间![[attachments/image-20260427232234490.png]]</li>
+<li><strong>寻道时间 Seek time</strong>: 臂移动以将磁头重新定位到正确磁道所需的时间</li>
+<li><strong>旋转等待时间 Rotational latency time</strong>: 扇区被访问所需时间</li>
+<li>平均延迟 是 最大延迟的一半</li>
+</ul>
+<p><strong>数据传输速率 Data-transfer rate</strong>: 数据在磁盘与主存之间的传输速度</p>
+<ul>
+<li>取决于 <strong>旋转速度</strong>(盘片旋转越快，每秒经过的扇区越多，传输速率也越高) 和 <strong>磁盘接口</strong>(带宽决定传输的最大速率)</li>
+<li>如果多个磁盘共享同一个控制器，控制器的处理能力也会成为瓶颈</li>
+</ul>
+<p><strong>平均故障时间(MTTF, Mean time to failure)</strong>: 预期的无故障运行的平均时间</p>
+<h4 id="24-optimization-of-disk-block-access">2.4. Optimization of Disk-Block Access 磁盘块访问优化</h4>
+<p><strong>1. Block 块</strong>: 来自<strong>单个磁道</strong>的<strong>连续扇区</strong></p>
+<ul>
+<li>数据在磁盘和主内存之间以<strong>块</strong>的形式传输</li>
+<li>大小一般在 4 to 16 kb/Block</li>
+</ul>
+<p><strong>2. Disk-arm-scheduling algorithms 磁盘臂调度算法</strong>:(磁盘臂调度算法) 按顺序处理待定的访问到<strong>磁道</strong>，从而使磁盘臂移动量最小化</p>
+<ul>
+<li><strong>电梯算法 (elevator algorithm)</strong>: 磁盘臂朝一个方向移动（从外轨道到内轨道或反之），处理该方向上的下一个请求，直到该方向上没有更多请求，然后反向移动并重复</li>
+</ul>
+<p><strong>3. File organization 文件组织</strong>: 通过组织块以匹配数据访问方式来优化块访问时间</p>
+<ol>
+<li>
+<p>将相关信息存储在<strong>相同或相邻的柱面</strong>上</p>
+</li>
+<li>
+<p>文件可能会随着时间<strong>碎片化 (fragmented)</strong></p>
+</li>
+<li>
+<p>例如，如果数据被插入到/从文件中删除。</p>
+</li>
+<li>
+<p>或者磁盘上的空闲块是分散的，新创建的文件其块分散在磁盘上。</p>
+</li>
+</ol>
+<p><strong>4. Nonvolatile write buffers 非易失性写缓冲区</strong>: </p>
+<ul>
+<li>通过将块立即写入非易失性 RAM 缓冲区来<strong>加速磁盘写入</strong></li>
+</ul>
+<p><strong>5. Log disk 日志盘</strong>: 按顺序记录下所有对数据块的更改（更新、插入、删除等）的操作日志</p>
+<hr />
+<h3 id="3-raid">* 3. RAID</h3>
+<hr />
+<h3>4. File Organization 文件组织<br>----定长记录和不定长记录组织</h3>
+
+<p>Database 以文件集的形式存储</p>
+<p>每个文件是<strong>记录的序列</strong>: 文件是按照一定的顺序存储数据的，而这些数据是以“记录”为单位组织的</p>
+<p>记录是<strong>字段的序列</strong></p>
+<ul>
+<li>定长记录 Fixed-length records</li>
+<li>不定长记录 Variable-length records</li>
+</ul>
+<h4 id="41">4.1 定长记录</h4>
+<p>advantages:</p>
+<ul>
+<li>对于 record i 的存储, 从byte $n*(i-1)$开始, 其中n是每个record的大小![[attachments/image-20260428115517443.png]]</li>
+<li>记录访问很快, 但是record 可能会跨越 block</li>
+<li>修改: 不允许 record 跨越 block</li>
+</ul>
+<p>删除 record i 可选方法:</p>
+<ul>
+<li>method 1: 将 records i+1, ..., n 移动到 i, ..., n-1</li>
+<li>method 2: 将 record n 移动到 i</li>
+<li>method 3: 不移动 records, 但将所有空记录连接到一个<strong>空闲列表(free list)</strong></li>
+</ul>
+<p><strong>free lists</strong>:</p>
+<p>![[attachments/image-20260428120041025.png]]</p>
+<ul>
+<li>
+<p>在文件头存储<strong>第一个被删除记录的地址</strong></p>
+</li>
+<li>
+<p>用第一个record存储第二个被删除记录的地址, 等等</p>
+</li>
+<li>可以将这些存储的地址视为指针, 因为它们"指向"记录的位置</li>
+<li>优点: 更节省空间的表示方法：<strong>重用空间</strong>来存储空闲记录的常规属性，以存储指针。（在使用的记录中不存储指针）</li>
+</ul>
+<p>插入: 先找到header中记录着的第一个空闲record, 写入数据后调整header使其指向下一个空闲record</p>
+<h4 id="42">4.2 不定长记录</h4>
+<p>不定长记录如何产生:</p>
+<ul>
+<li>记录类型允许一个或多个字段的<strong>可变长度</strong></li>
+<li>在一个文件中存储<strong>多种记录类型</strong></li>
+<li>记录类型允许<strong>重复字段</strong></li>
+</ul>
+<p>属性按照顺序存储</p>
+<p>可变长度属性由<strong>固定大小( 偏移量, 长度 )</strong>表示, 实际数据存储在所有固定长度属性之后</p>
+<p>null 值由 null-value 位图表示</p>
+<p><strong>分槽的页结构</strong>![[attachments/image-20260508133302569.png]]![[attachments/image-20260508133511723.png]]</p>
+<ul>
+<li>槽页(slotted page) 头包含:</li>
+<li>记录的数量(即槽的数量)</li>
+<li>指示页内可用空间的结束位置</li>
+<li>
+<p>每个记录在页内的具体位置(偏移量) 和 大小</p>
+</li>
+<li>
+<p>记录的页内移动: </p>
+</li>
+<li>
+<p>记录可以在页面内移动，以使它们保持连续且之间没有空隙；头部中的条目必须更新。</p>
+</li>
+<li>
+<p>间接指针: 索引中的指针不直接指向记录在页中的实际位置, 而是指向页头中的<strong>槽</strong> <code>rid = &lt;slot# pid&gt;</code></p>
+</li>
+</ul>
+<p>![[attachments/image-20260508134436124.png]]</p>
+<h3 id="5-organization-of-records-in-files-">5. Organization of Records in Files 文件中记录的组织 ---- 关于存放次序</h3>
+<ul>
+<li>堆文件(Heap file): 记录可以放置在文件中任何有空间的地方</li>
+<li>顺序文件(Sequential file): 根据每条记录的搜索键值, 按顺序存储</li>
+<li>
+<p>散列文件(Hashing file): 在每条记录的<strong>某个属性</strong>上计算<strong>哈希函数</strong>；结果指定了记录应放置在文件的哪个块中</p>
+</li>
+<li>
+<p>聚集文件组织 (Clustering file organization): 几个不同关系的记录可以存储在同一个文件中</p>
+</li>
+<li><strong>动机</strong>：将<strong>不同关系</strong>中的相关记录存储在<strong>同一个块</strong>上，以最小化 I/O</li>
+</ul>
+<h4 id="1-heap-file-organization">1. Heap File Organization</h4>
+<p>记录可以放置在<strong>任意free space</strong></p>
+<p>记录通常不移动, 一次分配</p>
+<p>重要的是如何高效找到其中的 free space: <strong>Free-space map</strong></p>
+<ul>
+<li>
+<p>一个数组, 文件的每个块在数组中都有一个对应项。每个项占几位到一个字节，记录该块的空闲比例![[attachments/image-20260508142529607.png]]</p>
+</li>
+<li>
+<p>当文件非常大时, 扫描整个一级映射表也会变慢, 可以有二级free-space map:</p>
+</li>
+<li>
+<p>二级映射中的每一个项代表一级映射中一组项的最大值![[attachments/image-20260508142640108.png]]</p>
+</li>
+<li>
+<p>空闲空间图<strong>定期写入磁盘</strong>，允许部分条目拥有错误（旧）值（会被检测并修复）</p>
+</li>
+</ul>
+<h4 id="2-sequential-file-organization">2. Sequential File Organization 顺序文件组织</h4>
+<p>适合需要顺序处理文件的应用</p>
+<p>文件中的记录是根据<strong>搜索键(Search-key)</strong> 的大小顺序排列的</p>
+<p>![[attachments/image-20260511104021979.png]]</p>
+<ul>
+<li>
+<p><strong>Deletion</strong>: 使用<strong>指针链(Pointer chains)</strong> </p>
+</li>
+<li>
+<p>在逻辑上进行删除</p>
+</li>
+<li>
+<p><strong>Insertion</strong>: 插入的新纪录需要保持逻辑上的排序</p>
+</li>
+<li>
+<p>定位位置</p>
+</li>
+<li><strong>有空闲空间</strong>: 直接插入并且更新指针</li>
+<li>
+<p><strong>无空闲空间</strong>, 插入到<strong>溢出块(Overflow block)</strong> 中, 更新指针链![[attachments/image-20260511104507181.png]]</p>
+</li>
+<li>
+<p>需要定期对文件重新排序: 随着插入的记录越来越多，大量的记录会被存放在溢出块中，且指针链会变得非常乱（在磁盘的不同位置跳来跳去）。这会导致原本很快的顺序扫描变得非常慢</p>
+<ul>
+<li><strong>解决方法</strong>：<strong>定期对文件进行重组（Reorganize）</strong>, 系统会找个时间（如深夜），把所有记录按顺序重新读出来，然后整齐地、物理连续地写回主存储区，清空溢出块，恢复完美的物理顺序。</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-clustering-file-organization">3. Clustering File Organization 聚簇文件组织</h4>
+<p>传统做法: 通常数据库将每个关系（表）存储在一个独立的文件中</p>
+<p><strong>聚簇文件</strong>: 将<strong>多个相关的表</strong>（例如“部门”表和“教师”表）混合存储在<strong>同一个文件</strong>中</p>
+<p><strong>存储逻辑</strong>: 将那些在连接查询（Join）中经常一起出现、具有相同属性值的记录，在物理磁盘上存放在一起</p>
+<p>![[attachments/image-20260511104914086.png]]</p>
+<p><strong>优点</strong>: </p>
+<ul>
+<li><strong>极大地提高连接查询（Join）效率</strong>：当你执行 department ⋈ instructor（查询部门及其对应的教师）时，数据库磁头只需在磁盘的一个连续区域读取，不需要在两个不同的文件之间来回跳跃，大幅减少了磁盘 I/O 开销。</li>
+<li><strong>适用于父子关系</strong>：例如“一个客户及其所有账户信息”，这种经常需要一起调用的数据非常适合聚簇存放</li>
+</ul>
+<p><strong>缺点</strong>: </p>
+<ul>
+<li><strong>单表查询性能下降</strong>：如果你只想查询“所有部门的名称”，系统在扫描文件时，必须被迫跳过夹杂在其中的大量教师记录。这比扫描一个纯粹的部门表要慢得多</li>
+<li><strong>记录长度不固定（Variable size records）</strong>：由于每个部门下的教师数量不等，导致物理存储块中的记录长度不一，增加了空间管理的复杂性</li>
+</ul>
+<h3 id="6-data-dictionary-storage">6. Data Dictionary Storage 数据的字典存储</h3>
+<p>数据字典，也常被称为<strong>系统目录 (System Catalog)</strong>，是数据库管理系统（DBMS）存放<strong>元数据（Metadata）</strong> 的地方。所谓元数据，简单来说就是“ <strong>关于数据的数据</strong>”</p>
+<p><strong>关键内容</strong>:</p>
+<ol>
+<li>关于关系（表）的信息 (Information about relations)</li>
+<li><strong>关系名</strong>：表的名称是什么。</li>
+<li><strong>属性的名字和类型</strong>：每一列叫什么名字，存储的是整数、字符串还是日期等。</li>
+<li><strong>视图的名称和定义</strong>：虚拟表的定义逻辑。</li>
+<li>
+<p><strong>完整性约束</strong>：例如主键（Primary Key）、外键（Foreign Key）以及哪些列不能为空等规则。</p>
+</li>
+<li>
+<p>用户与账户信息 (User and accounting information), 包括密码</p>
+</li>
+<li>
+<p>统计与描述性数据 (Statistical and descriptive data)</p>
+</li>
+<li>
+<p><strong>每个关系中的元组（行）数量</strong>：了解表的大小，帮助数据库决定是用索引查找还是全表扫描更快</p>
+</li>
+<li>
+<p>物理文件组织信息 (Physical file organization information) :描述数据在磁盘上是怎么放的：</p>
+</li>
+<li>
+<p><strong>存储方式</strong>：是顺序存储、哈希存储还是堆文件组织</p>
+</li>
+<li>
+<p><strong>物理位置</strong>：在操作系统中的文件名，或者在磁盘上的具体块地址</p>
+</li>
+<li>
+<p>关于索引的信息 (Information about indices)</p>
+</li>
+</ol>
+<p><strong>目录结构</strong> 的两种选择: </p>
+<ul>
+<li>专门的数据结构</li>
+<li>一组关系表: 直接用数据库现有表处理功能来存储元数据</li>
+</ul>
+<p>通常选择后者</p>
+<p>![[attachments/image-20260511190041107.png]]</p>
+<h3 id="7-data-buffer">7. Data Buffer 数据缓冲</h3>
+<blockquote>
+<p>磁盘的访问速度比内存慢了约 <strong>100万倍</strong>（1毫秒 = 1,000,000纳秒）。如果数据库每次读写都直接找磁盘，CPU大部分时间都会处于无所事事的等待状态</p>
+</blockquote>
+<p><strong>缓冲区</strong>: 指内存（RAM）中专门划出来的一块区域，用于存放从磁盘读入的数据块副本</p>
+<p><strong>目标</strong>: 尽量减少磁盘与内存之间的块传输次数</p>
+<p><strong>缓冲区管理器</strong>: </p>
+<ol>
+<li>
+<p><strong>分配空间</strong>：在内存中为读入的数据块分配位置</p>
+</li>
+<li>
+<p><strong>命中处理</strong>：当程序请求某个块时，先看缓冲区里有没有。如果有（称为缓存命中），直接给CPU，速度极快</p>
+</li>
+<li><strong>替换策略</strong>：当缓冲区满了，又有新的块要进来时，决定把哪个旧的块“踢出”内存，写回磁盘</li>
+</ol>
+<p>![[attachments/image-20260511191442791.png]]</p>
+<p><strong>映射表</strong>(<frame#, pageid>): 系统维护着一张表，记录哪个内存帧（Frame #）里存着哪一个数据页（Page ID）</p>
+<p><strong>替换策略</strong>: </p>
+<ul>
+<li>LRU 最近最少使用 : 在重复扫描模式下会变得非常糟糕![[attachments/image-20260511192553071.png]]</li>
+<li>
+<p>MRU 最近最多使用</p>
+</li>
+<li>
+<p>使用脏块写回</p>
+</li>
+<li>
+<p>当<code>dirty bit = 1</code>则必须写回, 若<code>dirty bit = 0</code>, 直接覆盖即可</p>
+</li>
+<li>
+<p><strong>Pinned Block 钉住的块</strong>: 当一个事务（程序）正在操作某个内存块时，它会把这个块“钉住（Pin）”。被钉住的块<strong>绝对不允许</strong>被写回磁盘或被其他数据替换。</p>
+</li>
+<li>Pin count: 记录一个数据块正在被多少个事务使用, 只有当<code>pin count = 0</code>时, 才允许被替换</li>
+<li><strong>Toss-immediate</strong>: 用后立即丢弃</li>
+</ul>
+<h3 id="8-column-oriented-storage">8. Column-Oriented Storage 列式存储</h3>
+<p>将一个属性的所有值存放在一起![[attachments/image-20260511193108855.png]]</p>
+<p>优点: </p>
+<ul>
+<li><strong>减少 IO 开销</strong>：如果查询只访问部分属性（列），则只需从磁盘读取对应的列，无需读取整行数据。</li>
+<li><strong>提高 CPU 缓存性能</strong>：由于同一列的数据连续存储，具有更高的数据局部性，能更有效地利用 CPU 缓存，减少缓存失效。</li>
+<li><strong>提高压缩效率</strong>：同一列的数据类型相同且相似度高，压缩效果远好于行式存储，节省空间。</li>
+<li><strong>支持现代 CPU 架构的向量化处理 (Vector processing)</strong>：现代 CPU 可以利用 SIMD 指令集一次处理多个数据值（如同时对一列数值求和），性能极高。</li>
+</ul>
+<p>缺点:</p>
+<ul>
+<li><strong>元组重构成本高</strong>：如果需要查询整行记录（SELECT *），数据库必须从各个不同的列文件中把碎片拼凑起来，这个过程（Tuple Reconstruction）非常耗时。</li>
+<li><strong>删除和更新成本高</strong>：修改或删除一行数据意味着需要同时操作多个列文件，维护成本极高。</li>
+<li><strong>解压缩成本</strong>：虽然节省了空间，但读取数据时需要消耗额外的 CPU 资源进行解压缩。</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

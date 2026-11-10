@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://qijiayi101.github.io/QiJiayi-s-notes/2.%20Relational%20Model/">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>关系模型 - 数据库系统笔记</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../css/brands.min.css" rel="stylesheet">
+        <link href="../css/solid.min.css" rel="stylesheet">
+        <link href="../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">数据库系统笔记</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href=".." class="nav-link">首页</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../1.%20%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BB%8B%E7%BB%8D/" class="nav-link">数据库介绍</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="./" class="nav-link active" aria-current="page">关系模型</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../3.%20Introduction%20to%20SQL/" class="nav-link">SQL 入门</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../4.%20Intermediate%20SQL/" class="nav-link">中级 SQL</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../6.%20Entity-Relationship%20Model/" class="nav-link">实体关系模型</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../7.%20Relational%20Database%20Design/" class="nav-link">关系数据库设计</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../12.%20%E7%89%A9%E7%90%86%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F%2613.%20%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/" class="nav-link">物理存储与数据存储结构</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../14.%20%E7%B4%A2%E5%BC%95/" class="nav-link">索引</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../15.%20%E6%9F%A5%E8%AF%A2%E8%BF%87%E7%A8%8B/" class="nav-link">查询过程</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../16.%20%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/" class="nav-link">查询优化</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../17.%20%E4%BA%8B%E5%8A%A1/" class="nav-link">事务</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../18.%20%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/" class="nav-link">并发控制</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../19.%20%E6%81%A2%E5%A4%8D%E7%B3%BB%E7%BB%9F/" class="nav-link">恢复系统</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../1.%20%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BB%8B%E7%BB%8D/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../3.%20Introduction%20to%20SQL/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/QiJiayi101/QiJiayi-s-notes/edit/master/数据库系统%20DS/docs/2. Relational Model.md" class="nav-link">Edit on QiJiayi101/QiJiayi-s-notes
+                                    </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#chapter-2-relational-model" class="nav-link">Chapter 2: Relational Model</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="chapter-2-relational-model">Chapter 2: Relational Model</h1>
+<p><img alt="image-20260323183938832" src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260323183938832.png" /></p>
+<hr />
+<h3 id="1-structure-of-relational-ds">1. Structure of Relational DS</h3>
+<p><strong>关系型数据库(relational ds)</strong>: 一组由单个或基于多个关系模型的<strong>关系</strong>构成的容器</p>
+<p><strong>关系模型(relational model)</strong>: 一种基于关系定义的数据库抽象</p>
+<ul>
+<li>用简单的数据结构(关系)存储数据库</li>
+<li>物理存储由DBMS实现</li>
+<li>通过高级语言访问数据, DBMS会帮我们找到最佳执行策略</li>
+<li>结构上, 数据库关系以及其内容的定义和它们的物理表示相互独立</li>
+<li>完整性上, 能够确保数据库满足指定的<strong>约束</strong></li>
+<li>操作上, 提供了访问和修改数据库内容的编程接口</li>
+</ul>
+<p><strong>关系(relations)</strong>: 一个无序集合, 里面包含了表示实体的属性的联系, 是用<strong>行(rows)</strong> 与 <strong>列(columns)</strong> 表示的一张 <strong>表(table)</strong></p>
+<h3 id="2-basic-structure">2. Basic Structure</h3>
+<p>考虑集合$D_1, D_2, ..., D_n(D_i = a_{ij}|j=1...k)$, 一个关系<strong>r</strong>是$D_1 \times D_2 \times ... \times D_n$的子集(其中$\times$表示的是笛卡尔积)</p>
+<ul>
+<li>因此一个关系是<strong>n-tuples(元组)</strong>$(a_{1j}, a_{2j},...a_{nj})$的集合</li>
+</ul>
+<p><strong>1. 属性类型(Attribute Types)</strong>:</p>
+<ul>
+<li>一个类型的每个属性都有一个名称</li>
+<li>
+<p><strong>domain(域)</strong>:对于每个<strong>属性</strong>, 所有其被允许的<strong>values</strong>的集合称作它的<strong>域</strong></p>
+</li>
+<li>
+<p>第一范式: 属性值必须是 <strong>atomic(原子)</strong> 的, 即不能被进一步分解的</p>
+</li>
+<li>特殊值<strong>null</strong>是每一个domain的成员</li>
+<li>null会在许多操作的定义中引发复杂问题</li>
+</ul>
+<p><strong>2. 关系相关概念(Concepts about relation)</strong>:</p>
+<ul>
+<li>一个关系关注两个概念: <strong>relation schema(关系模式)</strong>和 <strong>relation instance(关系实例)</strong></li>
+<li>
+<p>relation schema描述了关系的结构</p>
+<pre><code>&gt; 例如:![image-20260323191440680](C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260323191440680.png)
+</code></pre>
+<ul>
+<li>relation instance: 对应于某一时刻关系中数据的snapshot(快照)</li>
+</ul>
+<hr />
+</li>
+<li>
+<p><strong>Relation schema</strong>: </p>
+</li>
+</ul>
+<p>$A_1, A_2, ..., A_n$是属性</p>
+<p>通常表示: $R = (A_1, A_2, ..., A_n)$是一个relation schema</p>
+<p><strong>r(R)</strong> 是在<strong>relation schema R</strong>上的一组关系</p>
+<ol>
+<li><strong>Relation Instance</strong></li>
+</ol>
+<p>​   关系中的当前值, 通过一张表描述出来, 且会随着关系的更新而改变</p>
+<p>​   关系中的一个元素<strong>t</strong>是一个元组, 在表中用<strong>一行(row)</strong> 表示</p>
+<p>​   设一个元组变量<strong>t</strong>表示一个元组, 那么<strong>t[name]</strong> 表示元组<strong>t</strong>在<code>name</code>属性上的值</p>
+<ol>
+<li><strong>Relations are Unordered</strong></li>
+</ol>
+<p>​   元组的顺序是无关的, 并且关系中的元组是没有<strong>重复(duplicate)</strong>的</p>
+<ol>
+<li><strong>Keys(码, 键)</strong></li>
+</ol>
+<p>​   $K\subseteq R$</p>
+<blockquote>
+<p>下述的所有键都可能包含多个属性, 且主键也不一定只包含一个属性</p>
+</blockquote>
+<ul>
+<li><strong>superkey(超码)</strong>: 若通过K的一个value, 就可以在每一个可能的$r(R)$中, 唯一确定一个tuple </li>
+<li>eg. {instructor-ID}</li>
+<li><strong>candidate key(候选码)</strong>: 若K是<strong>minimal superkey</strong>, 即没有其子集是一个superkey了</li>
+<li><strong>primary key(主码)</strong>: 如果K是一个<strong>candidate key</strong>并且被用户明确定义了;</li>
+<li>
+<p>primary key通常被下横线标记</p>
+</li>
+<li>
+<p><strong>Foreign key(外键, 外码)</strong></p>
+</li>
+</ul>
+<p>​   假设存在两个关系<strong>r</strong> <strong>s</strong>: r(A, B, C), s(B, D), 我们可以说<strong>关系r中的属性B</strong>是一个<strong>外键referencing s</strong>, 并且<strong>r</strong>是一个<strong>参照关系(referencing relation)</strong> , <strong>s</strong>是一个<strong>被参照关系(referenced relation)</strong></p>
+<blockquote>
+<p>参照关系中外码的值必须在被参照关系中<strong>实际存在</strong>或者为<strong>null</strong></p>
+</blockquote>
+<ol>
+<li><strong>Query Languages 查询语言</strong></li>
+</ol>
+<p>​   用户从DB中请求数据所用的语言</p>
+<p>​   "Pure" languages: <strong>Relational Algebra关系代数</strong>(SQL的基础); 元组关系演算; 域关系演算</p>
+<h3 id="3-relational-algebra">3. Relational Algebra 关系代数</h3>
+<p>是一种过程型语言</p>
+<p>六种基本操作:</p>
+<ul>
+<li>Select 选择</li>
+<li>Project 投影</li>
+<li>Union 并</li>
+<li>Set difference 差(集合差)</li>
+<li>Cartesian product 笛卡尔积</li>
+<li>Rename 重命名</li>
+</ul>
+<blockquote>
+<p>这些operators 用一个或者两个作为输入, 并且给出一个新的关系作为结果</p>
+</blockquote>
+<p>其它操作:</p>
+<ul>
+<li>Set intersection 交</li>
+<li>Natural join 自然连接</li>
+<li>Division 除</li>
+<li>Assignment 赋值</li>
+</ul>
+<hr />
+<h4 id="31-select-operation">3.1. Select Operation 选择操作</h4>
+<p><img alt="image-20260323195206800" src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260323195206800.png" /></p>
+<blockquote>
+<p>执行选择时, 选择条件必须是针对同一元组中的相应属性值代入进行比较</p>
+</blockquote>
+<p>表达式: $\sigma _p(r)$</p>
+<p>p 称作 <strong>选择谓词(selection predicate)</strong></p>
+<p>定义为$\sigma _p(r) = {t | t\in r and p(t)}$</p>
+<p>其中p是一个命题逻辑公式, 由<strong>项(terms)</strong>通过逻辑运算符连接而成: $\land$(与), $\lor$(或), $\neg$(非)</p>
+<ul>
+<li>
+<p>每个项(term)是以下之一: &lt;属性&gt; op &lt;属性(或常数)&gt;;</p>
+</li>
+<li>
+<p>其中op是以下之一: $= \neq &gt; \geq &lt; \leq$</p>
+</li>
+</ul>
+<hr />
+<h4 id="32-project-operation">3.2. Project Operation 投影操作</h4>
+<p><img alt="image-20260323201322018" src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260323201322018.png" /></p>
+<p><strong>表达式</strong>: $\Pi _{A1, A2, ..., Ak}(r)$, 其中$A1,...Ak$都是属性名字, 并且r是一个关系名</p>
+<p>结果被定义为k-columns的关系, 通过从原本的关系中去除未被列出来的columns</p>
+<p><strong>重复</strong>的两个rows会被从结果中去除</p>
+<hr />
+<h4 id="33-union-operation">3.3. Union Operation 并操作</h4>
+<p><img alt="image-20260323202002506" src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260323202002506.png" /></p>
+<p>**表达式: **$r \cup s$</p>
+<p>被定义作: $r \cup s = {t|t\in r or t\in s}$</p>
+<p>并操作<strong>有效</strong>, 必须满足以下条件:</p>
+<ul>
+<li>r和s必须具有相同的元数(等目, 同元, same number of attributes)</li>
+<li>属性的域必须兼容(例如, r的第二列处理的数据类型, 应该和s的第二列相同)</li>
+</ul>
+<hr />
+<h4 id="34-set-difference-operation">3.4. Set Difference Operation 差操作</h4>
+<p><img alt="image-20260323222539117" src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260323222539117.png" /></p>
+<p><strong>表达式</strong>: $r-s$</p>
+<p><strong>定义</strong>: $r-s = {t|t\in r and t \notin s}$</p>
+<p>差操作有效, 必须满足:</p>
+<ul>
+<li>r 和 s 必须同元</li>
+<li>r 和 s 的属性域必须兼容</li>
+</ul>
+<hr />
+<h4 id="35-cartesian-product-operation">3.5. Cartesian-Product Operation 广义笛卡尔积</h4>
+<p><img alt="image-20260323222824369" src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260323222824369.png" /></p>
+<p><strong>表达式</strong>: $r \times s$</p>
+<p><strong>定义</strong>: $r \times s = {{tq}|t\in r and q \in s}$</p>
+<p>假设r(R)和s(S)是不相交的($R \cap S = \varnothing$)</p>
+<p>如果r(R)和s(S)是不相交的, 那么必须对属性进行<strong>重命名</strong></p>
+<p><img alt="image-20260323223314081" src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260323223314081.png" /></p>
+<hr />
+<h4 id="36-composition-of-operations">3.6. Composition of Operations 操作的复合</h4>
+<p>可以通过多种操作去构建表达式</p>
+<p><img alt="image-20260323223528762" src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260323223528762.png" /></p>
+<hr />
+<h4 id="37-rename-operation">3.7. Rename Operation 重命名操作</h4>
+<ul>
+<li>允许我们为关系代数表达式的结果命名, 从而可以去引用它(过程性)</li>
+<li>允许我们去引用一个关系, 通过不止一种名字</li>
+</ul>
+<p>例如: </p>
+<ul>
+<li>
+<p>$\rho _X(E)$, 返回表达式 E 通过名字X</p>
+</li>
+<li>
+<p>若关系代数表达式 E 有n个元数, 那么$\rho _{x(A1,A2,...,An)}(E)$, 则是对关系E和它的属性都进行重命名</p>
+</li>
+</ul>
+<hr />
+<h4 id="38-additional-operations">3.8. Additional Operations</h4>
+<blockquote>
+<p>我们定义了一些额外的操作, 虽然这些操作不会赋予关系代数额外的能力, 但是可以简化一些常见的查询操作</p>
+</blockquote>
+<p><strong>8.1. Set-Intersection Operation 交操作</strong></p>
+<p><img alt="image-20260324091418260" src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260324091418260.png" /></p>
+<p>​   <strong>表达式</strong>: $r\cap s$</p>
+<p>​   <strong>定义</strong>: $r\cap s = {t|t\in r and t\in s}$</p>
+<p>​   若交操作有效, 需要满足: r, s同元; 且r和s的属性可兼容;</p>
+<blockquote>
+<p>note: $r\cap s = r - (r - s)$</p>
+</blockquote>
+<p><strong>8.2 Natural-Join Operation 自然连接操作</strong></p>
+<p><strong>表达式</strong>: <img alt="image-20260324091832227" src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260324091832227.png" /></p>
+<p><img alt="image-20260324091933567" src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260324091933567.png" /></p>
+<p>若 r 和 s 分别是 关系模式R 和 S 上的关系, 那么 r 和 s的自然连接则是关系模式<strong>$R\cup S$</strong>上的关系, 且通过以下步骤构造:</p>
+<ol>
+<li>
+<p>考虑每对元组$t_r$来自r , $t_s$来自s</p>
+</li>
+<li>
+<p>若$t_r$和$t_s$在$R\cap S$中的每个属性上拥有相同的值, 则向结果中添加一个元组t,   其中:</p>
+</li>
+<li>t 在 r的属性上的值和$t_r$相同</li>
+<li>t 在 s的属性上的值与$t_s$相同</li>
+</ol>
+<p><img alt="image-20260324093019177" src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260324093019177.png" /></p>
+<blockquote>
+<ol>
+<li>r, s必须含有共同属性</li>
+<li>连接两个关系中同名属性值相等的元组</li>
+<li>结果属性是二者属性集的交集, 但消去同名属性</li>
+</ol>
+<p>Theta 连接(条件连接): <img alt="image-20260324093235030" src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260324093235030.png" /></p>
+<p>$\theta$是在关系模式中, 对于属性的谓词</p>
+</blockquote>
+<p><strong>8.3 Division Operation 除操作</strong></p>
+<p><strong>表达式</strong>: $r \div s$</p>
+<p><img alt="image-20260324093423974" src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260324093423974.png" /></p>
+<p>假设 r 和 s 分别是在关系模式 R 和 S 上的两个关系, 其中:</p>
+<ul>
+<li>$R = (A_1, ..., A_m, B_1, ..., B_n)$</li>
+<li>$S = (B_1, ..., B_n)$</li>
+</ul>
+<p>则$r \div s$的结果是定义在关系模式 $R - S = (A_1, ..., A_m)$ 上的关系,
+$$
+R \div S  = {t | t \in \Pi_{R-S}(r) \land \forall u\in s (tu \in r) }
+$$</p>
+<blockquote>
+<p>商来自于$\Pi _{R-S}(r)$, 并且其元组t与s所有元组的拼接被r覆盖</p>
+</blockquote>
+<p><img alt="image-20260324100950731" src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260324100950731.png" /></p>
+<p><strong>性质</strong>: 假设 $q = r \div s$, 那么<strong>q</strong>就是满足$q\times s \subseteq r$的<strong>最大关系</strong></p>
+<p>该预算适用于所有带有<strong>"for all"</strong>字样的语句</p>
+<p>用基本代数运算定义除法操作: 设$r(R)和s(S)$是两个关系, 且$S\subseteq R$</p>
+<p>则:
+$$
+r \div s = \Pi <em>{R-S}(r) - \Pi</em>{R-S}((\Pi_{R-S}(r)\times s) - \Pi_{R-S, S}(r))
+$$</p>
+<ul>
+<li>
+<p>其中$\Pi_{R-S, S}(r)$只是对r的简单重排序</p>
+</li>
+<li>
+<p>$\Pi_{R-S}((\Pi_{R-S}(r)\times s) - \Pi_{R-S, S}(r))$得到了所有定义在$\Pi_{R-S}$中的元组t, 满足$u \in s, tu\notin r$</p>
+</li>
+</ul>
+<p><strong>8.4 Assignment Operation 赋值操作</strong></p>
+<p>赋值操作提供了一个简便的方式来表达复杂的查询</p>
+<ul>
+<li>将查询写成一个由以下组成的顺序程序：</li>
+<li>一系列赋值语句</li>
+<li>后跟一个表达式, 其结果作为查询输出显示</li>
+<li>赋值必须总是赋给一个临时关系变量</li>
+</ul>
+<p>示例: 将$r \div s$写为: 
+$$
+temp1 \leftarrow \Pi_{R-S}(r)   \
+temp2 \leftarrow \Pi_{(temp1 \times s) - \Pi_{R-S,S}(r)}    \
+result = temp1 - temp2
+$$</p>
+<blockquote>
+<p>右边表达式的结果被赋值给临时变量</p>
+</blockquote>
+<hr />
+<h4 id="39-summary">3.9. Summary</h4>
+<ul>
+<li>
+<p>Union, set difference, Set intersection 为双目, 等元运算符</p>
+</li>
+<li>
+<p>Cartesian product, Natural join, Division为双目运算符</p>
+</li>
+<li>
+<p>Project, select 为单运算对象</p>
+</li>
+<li>
+<p>关系运算优先级:</p>
+</li>
+<li>
+<p>Project</p>
+</li>
+<li>Select</li>
+<li>Cartesian Product</li>
+<li>Join, Division</li>
+<li>Intersection</li>
+<li>Union, difference</li>
+</ul>
+<hr />
+<h3 id="4-extended-relational-algebra-operations">4. Extended Relational-Algebra-Operations</h3>
+<ul>
+<li>Generalized Projection 广义投影</li>
+<li>Aggregate Functions 聚合函数</li>
+<li>Outer join 外连接</li>
+</ul>
+<h4 id="41-generalized-projection">4.1 Generalized Projection 广义投影</h4>
+<p>扩展了投影操作, 允许在投影列表中使用<strong>算数函数</strong>
+$$
+\Pi_{F_1, F_2, ...,F_n}(E)
+$$</p>
+<ul>
+<li>E 是任意的关系代数表达式</li>
+<li>每个$F_1,...,F_n$都是包含常量和E的模式中的属性的算数表达式</li>
+</ul>
+<blockquote>
+<p>传统的<strong>投影</strong>只能选择已有属性, 而<strong>通用投影</strong>允许我们在投影中进行<strong>计算</strong>,并且新增<strong>派生属性</strong></p>
+</blockquote>
+<h4 id="42-aggregate-functions-and-operations">4.2 Aggregate Functions and Operations 聚合函数以及操作</h4>
+<p><strong>聚合函数</strong>接收一系列值, 并且返回一个单一值作为结果</p>
+<p><img alt="image-20260324112151814" src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260324112151814.png" /></p>
+<p><strong>聚合函数</strong>在关系代数中:
+$$
+<em>{G1, G2, ...,Gn}g</em>{F1(A1), F2(A2), ..., Fn(An)}(E)
+$$</p>
+<ul>
+<li>E 是任意的关系代数表达式</li>
+<li>$G1, G2, ..., Gn$是用于分组的一系列的属性（可以为空）</li>
+<li>每个$F_i$是一个聚合函数</li>
+<li>每个$A_i$是一个属性名字</li>
+</ul>
+<p><img alt="image-20260324112624051" src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260324112624051.png" /></p>
+<h4 id="43-outer-join">4.3 Outer Join 外连接</h4>
+<p><strong>外连接</strong>是一种为了避免损失一些信息的连接操作</p>
+<p>先计算连接, 然后从<strong>一个关系中添加未匹配的元组</strong>到结果中</p>
+<p>使用<code>null</code>值:</p>
+<ul>
+<li><code>null</code>表示这个值是<code>unknown</code>或者不存在的</li>
+<li>所有涉及<code>null</code>的比较默认为假</li>
+</ul>
+<p><img alt="image-20260324113435775" src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260324113435775.png" /></p>
+<p><img alt="image-20260324113511803" src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260324113511803.png" /></p>
+<h4 id="44-null-values">4.4 Null Values</h4>
+<p>对于元组中的一些属性, 其值可能为null value, 定义作<code>null</code></p>
+<p><code>null</code>表征一个<strong>unknown</strong>值 或 这个值不存在</p>
+<p>对于任何涉及<code>null</code>的算数表达式, 其结果都是<code>null</code></p>
+<p><strong>聚合函数</strong>简单的忽视 null values</p>
+<ul>
+<li>这是一个任意决定，也可以返回<code>null</code>作为结果</li>
+<li>我们遵循SQL在处理<code>null</code>时的语义</li>
+</ul>
+<p>对于<strong>重复值消除和分组操作</strong>, <code>null</code>被当作普通值处理, 两个<code>null</code>被视为相同</p>
+<ul>
+<li>替代方案: 假设每个<code>null</code>彼此都不同</li>
+</ul>
+<p>与<code>null</code>值的比较会返回一个特殊的真值<code>unknown</code></p>
+<ul>
+<li>如果用<code>false</code>代替<code>unknown</code>, 那么 $not(A &lt; 5)$就不等价于$A \geq 5$</li>
+</ul>
+<blockquote>
+<p>因为 A&lt;5变为false, 则not(false)就变为true</p>
+<p>但是 A&gt;=5 依旧为 false, 则二者不再等价</p>
+</blockquote>
+<p>使用三值逻辑, 其中真值包括: <code>true, false, unknown</code></p>
+<ul>
+<li>or 操作:</li>
+<li>unknown or true = true</li>
+<li>unknown or false = unknown</li>
+<li>unknown or unknown = unknown</li>
+<li>and 操作:</li>
+<li>true and unknown = unknown</li>
+<li>false and unknown = false</li>
+<li>unknown and unknown = unknown</li>
+<li>not 操作:</li>
+<li>not known = unknown</li>
+<li>在SQL中, "P is unknown"这个条件在谓词P的结果为<code>unknown</code>时, 其值为<code>true</code></li>
+<li>选择条件结果为unknown时, 则被当作false处理</li>
+</ul>
+<h4 id="45-modification-of-the-database">4.5 Modification of the Database</h4>
+<p>使用以下操作去修改数据库的内容:</p>
+<ul>
+<li>Deletion</li>
+<li>Insertion</li>
+<li>Updating</li>
+</ul>
+<p>这些操作使用<strong>赋值操作</strong>去表达</p>
+<hr />
+<p><strong>4.5.1 Deletion</strong></p>
+<p><strong>删除请求</strong>的表达方式类似于<strong>查询</strong>，只不过只是从数据库中删除这些元组；</p>
+<p>只能删除<strong>完整的元组</strong>，不能只删除某个属性上的值；</p>
+<p>在关系代数中，表示为：$r \leftarrow r - E$</p>
+<ul>
+<li>其中 r 是一个关系</li>
+<li>E 是一个关系代数查询表达式</li>
+</ul>
+<p><strong>4.5.2 Insertion</strong></p>
+<ul>
+<li>写一个查询, 其结果作为插入元组的集合去插入</li>
+<li>具体单独一个元组插入</li>
+</ul>
+<p>关系代数中: $r \leftarrow r \cup E$</p>
+<ul>
+<li>
+<p>其中 r 是一个关系, 而 E 是一个关系代数表达式</p>
+</li>
+<li>
+<p>对于单一元组的插入, 可以令 E 为包含单个元组的常量关系来使用</p>
+</li>
+</ul>
+<p><strong>4.5.3 Updating</strong></p>
+<p>一种机制去修改元组中的一个值， 而不是改变元组中的所有值</p>
+<p>使用<strong>广义投影</strong>去完成这个任务：
+$$
+r \leftarrow \Pi_{F1, F2,...,Fi,}(r)
+$$</p>
+<ul>
+<li>
+<p>每个$F_i$:</p>
+</li>
+<li>
+<p>是 关系r 的第i个属性, 如果第i个属性不被更新</p>
+</li>
+<li>或者, 如果这个属性将被更新, 则其是一个表达式, 涉及常数 和 r的属性, 这个式子给出了这个属性的新值</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

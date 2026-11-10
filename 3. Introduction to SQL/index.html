@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://qijiayi101.github.io/QiJiayi-s-notes/3.%20Introduction%20to%20SQL/">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>SQL 入门 - 数据库系统笔记</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../css/brands.min.css" rel="stylesheet">
+        <link href="../css/solid.min.css" rel="stylesheet">
+        <link href="../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">数据库系统笔记</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href=".." class="nav-link">首页</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../1.%20%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BB%8B%E7%BB%8D/" class="nav-link">数据库介绍</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../2.%20Relational%20Model/" class="nav-link">关系模型</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="./" class="nav-link active" aria-current="page">SQL 入门</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../4.%20Intermediate%20SQL/" class="nav-link">中级 SQL</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../6.%20Entity-Relationship%20Model/" class="nav-link">实体关系模型</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../7.%20Relational%20Database%20Design/" class="nav-link">关系数据库设计</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../12.%20%E7%89%A9%E7%90%86%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F%2613.%20%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/" class="nav-link">物理存储与数据存储结构</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../14.%20%E7%B4%A2%E5%BC%95/" class="nav-link">索引</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../15.%20%E6%9F%A5%E8%AF%A2%E8%BF%87%E7%A8%8B/" class="nav-link">查询过程</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../16.%20%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/" class="nav-link">查询优化</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../17.%20%E4%BA%8B%E5%8A%A1/" class="nav-link">事务</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../18.%20%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/" class="nav-link">并发控制</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../19.%20%E6%81%A2%E5%A4%8D%E7%B3%BB%E7%BB%9F/" class="nav-link">恢复系统</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../2.%20Relational%20Model/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../4.%20Intermediate%20SQL/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/QiJiayi101/QiJiayi-s-notes/edit/master/数据库系统%20DS/docs/3. Introduction to SQL.md" class="nav-link">Edit on QiJiayi101/QiJiayi-s-notes
+                                    </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#chapter-3-introduction-to-sql" class="nav-link">Chapter 3: Introduction to SQL</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="chapter-3-introduction-to-sql">Chapter 3: Introduction to SQL</h1>
+<p><img alt="image-20260324134044487" src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260324134044487.png" /></p>
+<h3 id="introduction-to-sql">Introduction to SQL</h3>
+<p><strong>SQL</strong>: Structured Query Language, 结构化查询语言</p>
+<p>SQL 包含几个部分:</p>
+<ul>
+<li><strong>DDL</strong> (Data-definition Language) <strong>数据定义</strong></li>
+<li>Create table, alter table, drop table</li>
+<li>create index, drop index</li>
+<li>create view, drop view</li>
+<li>create trigger, drop trigger</li>
+<li><strong>DML</strong> (Data-manipulation Language) <strong>数据操纵</strong></li>
+<li>select...from</li>
+<li>insert, delete, update</li>
+<li><strong>DCL</strong> (Data-control Language) <strong>数据控制</strong></li>
+<li>grant, revoke</li>
+</ul>
+<hr />
+<h3 id="1-data-definition-language-ddl">1. Data Definition Language (DDL)</h3>
+<p>DDL 的主要功能:</p>
+<ul>
+<li>定义每个关系的<strong>关系模式(schema)</strong></li>
+<li>指定每个属性的<strong>域值(domain)</strong></li>
+<li><strong>完整性约束</strong></li>
+<li>定义每个关系在磁盘上的<strong>物理存储结构</strong></li>
+<li>定义每个关系维护的<strong>索引(indices)</strong></li>
+<li>定义对关系的<strong>视图(view)</strong></li>
+</ul>
+<h4 id="11-domain-types-in-sql">1.1 Domain Types in SQL</h4>
+<ul>
+<li><code>char(n)</code> : 固定长度字符字符串, 用户指定长度为n</li>
+<li><code>varchar(n)</code>: 可变长度的字符字符串, 用户指定最大长度为n</li>
+<li><code>int</code>: 整数,(机器依赖的整数有限子集)</li>
+<li><code>smallint</code>: 小整数(整数域的一个机器依赖的子集)</li>
+<li><code>numeric(p,d)</code>: 定点数, 用户指定<strong>精度为p位数字</strong>, 其中小数点后有d位</li>
+<li><code>real, double precision</code>: 浮点数和双精度浮点数, 其精度取决于机器</li>
+<li><code>float(n)</code>: 浮点数, 用户指定至少n位有效数字的精度</li>
+<li>所有域类型都允许<code>null</code>值; 将某个属性<strong>声明为<code>not null</code></strong>可以禁止该属性取null值</li>
+<li><code>date</code>: 日期类型, 包含四位数的年份, 月份和日期</li>
+<li>例如: <code>date '2007-2-27'</code></li>
+<li><code>time</code>: 表示一天中的时间, 包括小时, 分钟和秒</li>
+<li>例如: <code>time '08:15:30'</code></li>
+<li><code>timestamp</code>: 日期 + 时间 的组合, 即完整的时间戳</li>
+<li>例如: <code>timestamp '2007-2-27 08:15:30.75'</code></li>
+</ul>
+<blockquote>
+<p>在 SQL Server 2000 中, 日期和时间的类型统称为"datetime"</p>
+</blockquote>
+<p>SQL 中有许多函数, 用于<strong>处理各种数据类型</strong> 以及 <strong>类型转化</strong></p>
+<hr />
+<h4 id="12-create-table-construct">1.2 Create Table Construct 创建表语句</h4>
+<p>SQL 中的关系 使用<code>CREATE TABLE</code>命令定义:</p>
+<pre><code class="language-sql">CREATE TABLE r(A1 D1, 
+               A2 D2, 
+               ..., 
+               An Dn, 
+               (integrity constraint1),
+               ...,
+               (integrity constraintk))
+</code></pre>
+<ul>
+<li>r 是关系名</li>
+<li>每个 Ai 是属性名</li>
+<li>Di 是属性 Ai 的域的数据类型</li>
+</ul>
+<h5 id="integrity-constraints-in-create-table">Integrity Constraints in Create Table 完整性约束</h5>
+<ul>
+<li>not null</li>
+<li>primary key (A1, ..., An)</li>
+<li>check(P), 其中 P 是一个谓词(条件表达式)</li>
+</ul>
+<blockquote>
+<p>从 SQL_92 开始, 对属性声明 <code>primary key</code>会<strong>自动确保 not null</strong></p>
+<p>在 SQL_89 中, 则需要<strong>显式写出 not null</strong></p>
+</blockquote>
+<p><img alt="image-20260324142049357" src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260324142049357.png" /></p>
+<blockquote>
+<p>使用两种方法指定 ID 为 primary key</p>
+</blockquote>
+<hr />
+<h4 id="13-drop-and-alter-table">1.3 Drop and Alter Table 删除 和 修改 表</h4>
+<p><strong>Drop Table</strong>:</p>
+<p><code>DROP TABLE</code> 会从数据库中删除关于被删除关系的所有信息</p>
+<ul>
+<li><code>DROP TABLE r;</code></li>
+</ul>
+<p><strong>Alter Table</strong>:</p>
+<ol>
+<li>
+<p>修改表用于向已经存在的关系中<strong>添加(add)</strong>:</p>
+</li>
+<li>
+<p><code>ALTER TABLE r    ADD A D;</code></p>
+</li>
+<li><code>ALTER TABLE r ADD (A1 D1,..., An Dn);</code></li>
+</ol>
+<p>​   其中 A 是属性名字, D是A的域</p>
+<ul>
+<li>
+<p>所有元组的新的属性的值都会被赋值为<code>null</code></p>
+</li>
+<li>
+<p>修改表也可以<strong>删除(drop)</strong>关系的一些属性:</p>
+</li>
+<li>
+<p><code>ALTER TABLE r DROP A</code></p>
+</li>
+</ul>
+<blockquote>
+<p>但是很多数据库不支持对属性的删除</p>
+</blockquote>
+<ol>
+<li>
+<p>修改表也可以<strong>修改(modify)</strong>关系的属性:</p>
+</li>
+<li>
+<p><code>ALTER TABLE instructor MODIFY (ID char(10), salary not null)</code></p>
+</li>
+</ol>
+<hr />
+<h4 id="14-create-index">1.4 Create Index 创建索引</h4>
+<p><code>CREATE INDEX &lt;i-name&gt; ON &lt;table-name&gt;(&lt;attribute-list);</code></p>
+<ul>
+<li>创建一个索引，指定索引名称、表名和要建立索引的属性列表</li>
+</ul>
+<blockquote>
+<p>例如:<code>create index ins_index on instructor(ID)</code></p>
+<p>​ <code>create index ins_ID_name_index on instructor(ID, name)</code></p>
+</blockquote>
+<p><code>CREATE UNIQUE INDEX &lt;i-name&gt; ON &lt;table-name&gt;(attribute-list);</code></p>
+<ul>
+<li>创建一个唯一索引，确保所选属性的值是唯一的(即指定 candidate key)</li>
+</ul>
+<blockquote>
+<p>例如:<code>create unique index uni_stu_index on student(ID)</code></p>
+</blockquote>
+<p><code>DROP INDEX &lt;i-name&gt;</code></p>
+<ul>
+<li>删除索引</li>
+</ul>
+<hr />
+<h3 id="2-basic-structure-of-select">2. Basic Structure of Select</h3>
+<p>一个典型的 SQL 查询为如下形式</p>
+<pre><code class="language-sql">SELECT A1, A2, ... An
+FROM r1, r2, ..., rm
+WHERE P
+</code></pre>
+<p>其对应的关系代数为: $\Pi _{A_1, A_2, ..., A_n}(\sigma _P(r_1 \times ... \times r_m))$</p>
+<p>这个 SQL 查询的结果是一个关系</p>
+<hr />
+<h4 id="21-the-select-clause-select">2.1 The select Clause (select子句)</h4>
+<p><code>select</code>子句对应着 关系代数中的 <strong>投影$\Pi$</strong></p>
+<p><strong>note</strong>: SQL 中不允许字符<code>-</code>出现在名字中;</p>
+<p>​   例如: 使用<code>dept_name</code>; 而不是<code>dept-name</code></p>
+<p><strong>note</strong>: SQL 名称<strong>不区分大小写</strong></p>
+<p>SQL <strong>允许</strong>关系中以及查询结果中<strong>存在重复项</strong>;</p>
+<ul>
+<li>
+<p>若要强制消除重复项, 可以在<code>SELECT</code>后添加关键字<code>distinct</code></p>
+</li>
+<li>
+<p>相反的关键字<code>all</code>允许保留重复项</p>
+</li>
+</ul>
+<blockquote>
+<p>默认情况下, 允许重复项, 即<strong>ALL是默认选项</strong></p>
+</blockquote>
+<p>SELECT 子句中, <code>*</code>代表<strong>所有属性</strong>;</p>
+<ul>
+<li><code>SELECT * FROM instructor;</code></li>
+</ul>
+<p>SELECT 子句可以包含算数表达式, 涉及运算符<code>+,-,*,/</code>, 并作用于常量 或者 元组的性质上(<strong>广义投影</strong>)</p>
+<p>​   例如:<code>SELECT ID, name, salary * 1.05 FROM instructor;</code></p>
+<hr />
+<h4 id="22-the-where-clause-where">2.2 The Where Clause (where子句)</h4>
+<p><strong><code>WHERE</code></strong>子句 用于指定结果必须<strong>满足的条件</strong>, 它对应于关系代数中的<strong>选择谓词 selection predicate $\sigma$</strong></p>
+<p><code>WHERE</code> 子句中, 比较结果可以用<strong>逻辑连接词</strong> <code>AND OR NOT</code> 进行组合, 同时还可以使用 <code>BETWEEN</code>比较运算符, 来指定一个范围;</p>
+<p>例如:</p>
+<pre><code class="language-sql">SELECT name FROM instructor
+WHERE salary BETWEEN 90000 AND 100000
+</code></pre>
+<hr />
+<h4 id="23-the-from-clause-from">2.3 The From Clause (from 子句)</h4>
+<p><code>from</code>子句 列出了查询中涉及到的关系;</p>
+<ul>
+<li>如果指定了不止一个关系, 则对应于关系代数中的 <strong>笛卡儿积 $\times$</strong></li>
+</ul>
+<p>例如:<img alt="image-20260325165100708" src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260325165100708.png" /></p>
+<p><img alt="image-20260325165433028" src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260325165433028.png" /></p>
+<p>​   对应的 SQL 查询语句:</p>
+<pre><code class="language-sql">SELECT name, course_id
+FROM instructor, teaches
+WHERE instructor.ID = teaches.ID and dept_name = 'Biology';
+</code></pre>
+<hr />
+<h4 id="24-the-rename-operation">2.4 The Rename Operation 重命名操作</h4>
+<h5 id="a-column-rename">a. Column rename 属性重命名</h5>
+<p><code>as</code> 是可选的</p>
+<p>在 SQL server 中, 允许使用格式: <code>new-name = column</code> 表达式</p>
+<p>例如:</p>
+<pre><code class="language-sql">SELECT name as instructor_name, course_id
+FROM instructor, teaches
+WHERE instructor.ID = teaches.ID and dept_name = 'Biology';
+</code></pre>
+<p>其中 <code>name as instructor_name</code> 在 SQL server 中等价于<code>name = instructor_name</code></p>
+<h5 id="b-relation-rename-tuple-variables">b. Relation rename 关系重命名 - Tuple Variables 元组变量</h5>
+<p><code>Tuple variables</code> 被定义在<code>from</code>子句中, 通过使用<code>as</code>子句</p>
+<p><strong>必须</strong>为临时表赋一个变量名</p>
+<blockquote>
+<p>为表起别名, 是为了引用更简洁, 清晰</p>
+</blockquote>
+<hr />
+<h4 id="25-string-operations">2.5 String Operations 字符串操作</h4>
+<p>SQL 包含一个用于字符字符串比较的<strong>字符串匹配操作符</strong>, 使用两个特殊字符(<strong>通配符</strong>)来描述:</p>
+<ul>
+<li><code>%</code>: 匹配任意子字符串</li>
+<li><code>_</code> 匹配任意单个字符</li>
+</ul>
+<p>可以实现模糊匹配, 放在<code>where</code>中, 且必须与<code>LIKE</code>连用</p>
+<p>例如:</p>
+<p>​   找到建筑名字包含<code>Watson</code>的部门名字:</p>
+<pre><code class="language-sql">SELECT dept_name
+FROM department
+WHERE building LIKE '%Watson%';
+</code></pre>
+<blockquote>
+<p>当需要搜索实际包含<code>%</code>或<code>_</code>字符的字符串时, 必须使用<code>ESCAPE</code>子句来转义这些特殊字符</p>
+</blockquote>
+<p>例如: <code>LIKE 'Main\%' escape '\'</code></p>
+<p>SQL 支持大量的字符串操作:</p>
+<ul>
+<li>concatenation (串联): 使用<code>||</code></li>
+<li>例如: <code>select '教师名=' || name from instructor WHERE ...</code></li>
+<li>
+<p>任何值与<code>NULL</code>串联后的值都是<code>NULL</code></p>
+</li>
+<li>
+<p>大小写转换:</p>
+</li>
+<li>
+<p>使用函数: <code>lower()</code>, <code>upper()</code></p>
+</li>
+<li>
+<p>查找字符串长度, 提取子字符串等; 使用相关函数 <code>length()</code>, <code>substring()</code></p>
+</li>
+</ul>
+<hr />
+<h4 id="26-ordering-the-display-of-tuples">2.6 Ordering the Display of Tuples 对元组显示结果进行排序</h4>
+<p><code>desc</code> 指明 <strong>降序</strong></p>
+<p><code>asc</code> 指明 <strong>升序</strong></p>
+<ul>
+<li>默认升序</li>
+</ul>
+<p>例如:</p>
+<pre><code class="language-sql">SELECT *
+FROM instructor
+ORDER BY salary desc, name asc;
+</code></pre>
+<hr />
+<h4 id="27-duplicates">2.7 Duplicates 重复元组</h4>
+<p>在传统<strong>关系理论</strong>中, 不允许存在重复元组, 但是在实际应用中, 我们需要<strong>允许重复</strong></p>
+<p>某些关系代数运算符存在 <strong>多重集版本</strong>: $\sigma _\theta$, $\Pi _A$, $\times$</p>
+<p>对于多重集$r_1, r_2$:</p>
+<ol>
+<li>$\sigma _\theta(r_1)$: 若有 元组$t_1$的拷贝 $c_1$份, 并且 $t_1$ 满足选择条件, 那么选择结果中就会有 $c_1$份 $t_1$的拷贝</li>
+<li>$\Pi_A(r_1)$: 对于关系中 $t_1$的每一份拷贝, 结果中就会有一个 $\Pi_A(t_1)$的拷贝</li>
+<li>$r_1 \times r_2$: 如果 $t_1, t_2$分别有$c_1, c_2$份拷贝, 那么结果中就有 $c_1\times c_2$份对$t_1t_2$的拷贝</li>
+</ol>
+<p>SQL 中的选择陈述也同样支持 多重集操作, 为了禁止重复集, 使用<code>distinct</code></p>
+<hr />
+<h3 id="3-set-operations">3. Set Operations 集合操作</h3>
+<p>在 SQL 中, 使用集合操作: <strong>union, intersect, except</strong></p>
+<ul>
+<li>分别对应关系代数中的: $\cup, \cap, -$</li>
+</ul>
+<p>每个操作都会<strong>自动消除多重集</strong></p>
+<p>如果要保留所有的多重集, 则需要使用<strong>union all, intersect all, except all</strong></p>
+<p>假设 一个元组 在关系 r s 中分别出现了 m n次, 则:</p>
+<ul>
+<li><code>r union all s</code>中 出现 m+n 次</li>
+<li><code>r intersect all s</code> 中 出现 min(m,n)次</li>
+<li><code>r except all s</code>中 出现 max(0, m-n)次</li>
+</ul>
+<hr />
+<h3 id="4-aggregate-functions">4. Aggregate functions 聚合函数</h3>
+<p>这些函数作用于 关系中某一列的多重集值, 并且返回一个单一值:</p>
+<ul>
+<li><code>avg(col)</code>: 平均值</li>
+<li><code>min(col)</code>: 最小值</li>
+<li><code>max(col)</code>: 最大值</li>
+<li><code>sum(col)</code>: 和</li>
+<li><code>count(col)</code>: 值的数量</li>
+</ul>
+<p><strong>note</strong>: 在 SQL 中使用<code>GROUP BY</code>时, 如果选择子句中, 出现在聚合函数之外的属性值, 必须出现在<code>GROUP BY</code>中, 否则会报错;</p>
+<ul>
+<li>为了避免歧义, 保证查询结果的正确性: 分组后每组会被折叠为一行, 其中聚合函数会输出唯一的值, 而如果有不在group by中的属性, 则系统无法得知选择哪个值作为唯一值</li>
+</ul>
+<p><strong>note</strong>: 在<code>HAVING</code>子句中出现的属性, 且不在聚合函数中, 那么其必须出现在<code>GROUP BY</code>子句中</p>
+<hr />
+<h3 id="summary">SUMMARY</h3>
+<p>选择子句的形式:</p>
+<pre><code class="language-sql">SELECT &lt;[DISTINCT]c1, c2,...&gt;
+FROM &lt;r1, r2,...&gt;
+WHERE &lt;cond1&gt;
+GROUP BY &lt;c1, c2, ...&gt;
+HAVING &lt;cond2&gt;
+ORDER BY &lt;c1[DESC][,c2[ASC],...]&gt;
+</code></pre>
+<p>执行顺序：<code>WHERE</code>, <code>GROUP BY</code>, <code>HAVING</code>, <code>SELECT</code></p>
+<p>HAVING 子句中的谓语是在分组形成之后应用的, 而WHERE 子句中的谓词是在分组形成之前应用的</p>
+<p>聚合函数不能直接在 <code>WHERE</code>子句中应用</p>
+<p><code>HAVING</code>是对分组后的组进行筛选，而不是对分组后每个组内的tuple筛选</p>
+<hr />
+<h3 id="5-null-values">5. Null Values</h3>
+<p>元组的一些属性值可能为<code>NULL</code></p>
+<p><code>NULL</code>表示一个<strong>未知值</strong> 或者 <strong>不存在的值</strong></p>
+<p>任何涉及到 <code>NULL</code> 的计算表达式的值 都是 <code>NULL</code></p>
+<p>任何关于 <code>NULL</code> 的比较都会返回 <code>unknown</code></p>
+<p><code>WHERE</code>子句的 谓词如果是<code>unknown</code>, 则会被当做<code>false</code></p>
+<p>谓词 <code>IS NULL</code>, <code>IS NOT NULL</code>可以用作检查属性值是否为<code>NULL</code></p>
+<ul>
+<li><code>attribute = null</code>这种写法是错误的</li>
+</ul>
+<p>若谓词 为 <code>P is unknown</code>, 如果<code>P</code>是unknown的, 则会被评估为<code>true</code>, </p>
+<p>聚合函数中忽略<code>null</code>值</p>
+<ul>
+<li>除了<code>count(*)</code></li>
+</ul>
+<hr />
+<h3 id="6-nested-subqueries">6. Nested Subqueries 嵌套子查询</h3>
+<p><strong>子查询</strong>是<code>SELECT FROM WHERE</code>表达式中嵌套另一个查询</p>
+<p>子查询一个常见用途是执行 集合成员的比较测试</p>
+<h4 id="61-set-comparison">6.1 Set Comparison</h4>
+<p><strong>Some 子句</strong>:</p>
+<p><code>C &lt;comp&gt; some r</code> 即 关系r中<strong>存在</strong>元组t, 使得<code>c &lt;comp&gt; t</code>, 其中<code>&lt;comp&gt;</code> 可以是$&lt;,\le, &gt;, =, \neq$</p>
+<p><img alt="image-20260329104014645" src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260329104014645.png" /></p>
+<p><strong>all 子句</strong></p>
+<p><code>C &lt;comp&gt; all r</code> 即关系r中<strong>所有</strong>元组t, 使得 <code>c &lt;comp&gt; t</code>, 其中<code>&lt;comp&gt;</code> 可以是$&lt;,\le, &gt;, =, \neq$</p>
+<p><img alt="image-20260329104348051" src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260329104348051.png" /></p>
+<h4 id="62-test-for-empty-relations">6.2 Test for Empty Relations 测试空关系</h4>
+<p><code>exists r</code> 等价于 r 不为空集</p>
+<p><code>not exists r</code> 等价于 r 为空集</p>
+<p><img alt="image-20260330110328746" src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260330110328746.png" /></p>
+<blockquote>
+<p>若 某一元组 t 能够使得子查询获得一个空集, 则被选择;</p>
+</blockquote>
+<h4 id="63-test-for-absence-of-duplicate-tuples">6.3 Test for Absence of Duplicate Tuples 测试是否存在重复元组</h4>
+<p><code>unique</code> 结构 用于测试子查询的结果中, 是否包含任何重复的元组</p>
+<p><code>not unique</code> 结构 用于表示子查询的结果中, 至少包含一个重复元组</p>
+<p><img alt="image-20260330110557890" src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260330110557890.png" /></p>
+<hr />
+<h3 id="7-views">7. Views 视图</h3>
+<p>提供一种机制, 从某些用户的视图中<strong>隐藏特定数据</strong></p>
+<p>视图并不在数据库中以独立的物理文件形式存储数据, 它存储的是一条<strong>预定义的SQL查询语句</strong></p>
+<p>要创建视图, 可以使用以下命令:</p>
+<pre><code class="language-sql">-- 视图的列名直接继承自`select`语句中选择的列名
+CREATE VIEW &lt;v_name&gt; AS
+    select c1, c2,... from...;
+-- 视图的列名显式定义
+CREATE VIEW &lt;v_name&gt;(c1, c2,...) AS
+    select e1, e2,... from...;
+</code></pre>
+<p>使用视图的两个目的:</p>
+<ul>
+<li>安全性</li>
+<li>易于使用</li>
+</ul>
+<p>删除视图: <code>DROP VIEW &lt;v_name&gt;</code></p>
+<hr />
+<h3 id="8-complex-queries">8. Complex Queries</h3>
+<h4 id="81-derived-relations">8.1 Derived Relations 导出关系</h4>
+<p><img alt="image-20260330111914309" src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260330111914309.png" /></p>
+<p><img alt="image-20260330111919919" src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260330111919919.png" /></p>
+<h4 id="82-with">8.2 With 子句</h4>
+<p><code>with</code>子句允许在<strong>查询内部局部定义一个视图</strong>, 而不是全局定义</p>
+<p><img alt="image-20260330125140069" src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260330125140069.png" /></p>
+<blockquote>
+<p>不管是否被引用, 导出表(嵌套表)必须给出别名</p>
+</blockquote>
+<hr />
+<h3 id="9-modification-of-the-database">9. Modification of the Database 数据库的修改</h3>
+<h4 id="91-deletion">9.1 Deletion</h4>
+<p><code>sql
+ DELETE FROM &lt;talbe/view&gt;
+ WHERE &lt;condition&gt;</code></p>
+<blockquote>
+<p>在同一SQL语句内, 除非外层查询的元组变量引入内层查询, 否则内层查询只进行一次</p>
+</blockquote>
+<h4 id="92-insertion">9.2 Insertion</h4>
+<pre><code class="language-sql">INSERT INTO &lt;table/view&gt;[(c1,c2,...)]
+    VALUES(e1,e2,...);
+
+INSERT INTO &lt;table/view&gt;[(c1,c2,...)]
+    select e1,e2,... from...;
+</code></pre>
+<blockquote>
+<p><code>insert into table1 select * from table1;</code> 是可行的, 因为会先执行<code>SELECT</code>查询, 并将结果集完全生成;</p>
+</blockquote>
+<p>若未指定插入值且该属性值允许为null, 则该属性值会被赋值为null;</p>
+<p>但是若未指定插入值但是该属性不允许为null:</p>
+<ul>
+<li>若有默认值, 则赋值为默认值</li>
+<li>若无默认值, 则报错</li>
+</ul>
+<h4 id="93-updates">9.3 Updates</h4>
+<pre><code class="language-sql">UPDATE &lt;table/view&gt;
+    SET &lt;c1=e1[,c2=e2,...]&gt;
+[WHERE&lt;condition];
+</code></pre>
+<p><img alt="image-20260330180511889" src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260330180511889.png" /></p>
+<p>&#x274c;  <code>&amp;#x274c;</code>如果先更新 salary&lt;= 100000的, 那么更新后, salary就可能大于 100000, 导致最终更新两次</p>
+<p><strong>Case 语句</strong>:</p>
+<p><img alt="image-20260330180705810" src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260330180705810.png" /></p>
+<h4 id="94-update-of-a-view">9.4 Update of a View 视图的更新</h4>
+<p>简单视图通常<strong>可更新</strong>, 而<strong>复杂视图</strong>(涉及多表连接, UNION, 聚合等)通常<strong>无法进行增删改操作</strong></p>
+<p>View 是虚表, 对其进行的所有操作都会被转化为对<strong>基表</strong>的操作</p>
+<p>查询操作时, View 与 基表 没有区别, 但是对View的更新操作有严格显示</p>
+<h4 id="95-transactions">9.5 Transactions 事务</h4>
+<p><strong>transaction</strong> 是一组作为单个逻辑单元, 执行查询和数据更新的语句;</p>
+<p>事务是隐式启动的, 并通过以下之一终止:</p>
+<ul>
+<li><code>commit work</code>: 使事务的所有更新, 在数据库中永久生效</li>
+<li><code>rollback work</code>: 撤销事务执行的所有更新</li>
+</ul>
+<p>两个步骤中, 若一个步骤成功, 而另一个步骤失败, 数据库将处于不一致状态, 因此, 要么都成功, 要么都失败;</p>
+<p><strong>原子性 Atomicity</strong>: 如果事务的任何步骤失败, 事务所做的所有工作都可以通过 rollback work(回滚工作) 撤销</p>
+<ul>
+<li>在系统故障的情况下, 为完成事务的回滚是自动完成的</li>
+</ul>
+<p><strong>Properties</strong>:</p>
+<ul>
+<li>Atomicity 原子性</li>
+<li>Isolation 隔离性: 并发事务互不干扰</li>
+<li>Consistency 一致性: 数据必须从一个合法状态变到另一个合法状态</li>
+<li>Durability 持久性: 提交后, 修改永远生效</li>
+</ul>
+<hr />
+<h3 id="10-joined-relations">10. Joined Relations 关系的连接</h3>
+<p><code>Join</code>操作, 接受两个关系, 并返回另一个关系作为结果</p>
+<p><strong>Join condition</strong>: 定义了两个关系中的哪两个元组匹配, 并且哪些属性会被呈现到连接的结果中</p>
+<p><strong>Join type</strong>: 定义了在每个关系中的, 没有和任意一个元组匹配的元组, 最后如何处理(基于join condition)</p>
+<p><img alt="image-20260330183355906" src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260330183355906.png" /></p>
+<p><img alt="image-20260330183433622" src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260330183433622.png" /></p>
+<p><img alt="image-20260330183456097" src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260330183456097.png" /></p>
+<p>以上所有连接都是<strong>自然连接</strong></p>
+<ul>
+<li>自动将同名列作为连接条件</li>
+<li>自动去重: 最终结果中, 作为连接条件的同名列只出现一次</li>
+</ul>
+<p><strong>非自然连接</strong>:</p>
+<ul>
+<li>明确指定连接条件</li>
+<li>结果集会保留所有列</li>
+<li><code>On</code>子句, 指定任意连接条件</li>
+<li><code>USING</code>: 结果中指定的列也会只出现一次</li>
+</ul>
+<p>主流商用数据库中外连接的表示:</p>
+<ul>
+<li>
+<p>SQL Server</p>
+</li>
+<li>
+<p><code>*=</code>: 左外连接, 等价于<code>LEFT JOIN</code></p>
+</li>
+<li>
+<p><code>=*</code>: 右外连接, 等价于<code>RIGHT JOIN</code></p>
+</li>
+<li>
+<p>ORACLE</p>
+</li>
+<li>左连接: <code>loan.loan_number = borrower.loan_number(+)</code></li>
+<li>右连接: <code>loan.loan_number(+) = borrower.loan_number</code></li>
+</ul>
+<blockquote>
+<p>相当于在 (+) 一侧附加一特殊空行, 与另一个表中的连接属性匹配</p>
+</blockquote></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

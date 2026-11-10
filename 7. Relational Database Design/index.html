@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://qijiayi101.github.io/QiJiayi-s-notes/7.%20Relational%20Database%20Design/">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>关系数据库设计 - 数据库系统笔记</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../css/brands.min.css" rel="stylesheet">
+        <link href="../css/solid.min.css" rel="stylesheet">
+        <link href="../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">数据库系统笔记</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href=".." class="nav-link">首页</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../1.%20%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BB%8B%E7%BB%8D/" class="nav-link">数据库介绍</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../2.%20Relational%20Model/" class="nav-link">关系模型</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../3.%20Introduction%20to%20SQL/" class="nav-link">SQL 入门</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../4.%20Intermediate%20SQL/" class="nav-link">中级 SQL</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../6.%20Entity-Relationship%20Model/" class="nav-link">实体关系模型</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="./" class="nav-link active" aria-current="page">关系数据库设计</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../12.%20%E7%89%A9%E7%90%86%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F%2613.%20%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/" class="nav-link">物理存储与数据存储结构</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../14.%20%E7%B4%A2%E5%BC%95/" class="nav-link">索引</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../15.%20%E6%9F%A5%E8%AF%A2%E8%BF%87%E7%A8%8B/" class="nav-link">查询过程</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../16.%20%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/" class="nav-link">查询优化</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../17.%20%E4%BA%8B%E5%8A%A1/" class="nav-link">事务</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../18.%20%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/" class="nav-link">并发控制</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../19.%20%E6%81%A2%E5%A4%8D%E7%B3%BB%E7%BB%9F/" class="nav-link">恢复系统</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../6.%20Entity-Relationship%20Model/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../12.%20%E7%89%A9%E7%90%86%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F%2613.%20%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/QiJiayi101/QiJiayi-s-notes/edit/master/数据库系统%20DS/docs/7. Relational Database Design.md" class="nav-link">Edit on QiJiayi101/QiJiayi-s-notes
+                                    </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#relational-database-design" class="nav-link">Relational Database Design</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="relational-database-design">Relational Database Design</h1>
+<p>![[attachments/image-20260420211126507.png]]</p>
+<h3 id="1-first-normal-form">1. First Normal Form 第一范式</h3>
+<p>如果域的元素被认为是不可分割的单位，则该域是 <strong>原子的</strong>。</p>
+<ul>
+<li>非原子域的例子：</li>
+<li>复合属性 - 姓名集合</li>
+<li>多值属性 - 一个人的电话号码</li>
+<li>复杂数据类型 - 面向对象</li>
+</ul>
+<p>如果关系模式 R 的所有属性的域都是 <strong>原子的</strong>，则称该关系模式 R 属于 <strong>第一范式 (1NF)</strong>。</p>
+<p>对于关系数据库，要求所有关系都必须满足 1NF。</p>
+<p>怎样处理非原子性值:</p>
+<ul>
+<li>对于复合属性: 使用多个属性</li>
+<li>对于多值属性: </li>
+<li>使用多个字段, 即在一个表中预留多个列</li>
+<li>使用独立的表: 创建一个新的关系表, 专门用来存储这个多值属性</li>
+<li>使用单个字段: 在一个字段中使用分隔符把多个值拼在一起</li>
+</ul>
+<p>坚持使用非原子数据的缺点:</p>
+<ul>
+<li>使存储变得复杂</li>
+<li>导致数据冗余</li>
+<li>查询变得复杂</li>
+</ul>
+<p><strong>原子性实际上是域中元素如何使用的一种属性</strong></p>
+<ul>
+<li>例如：字符串通常被认为是不可分割的</li>
+<li>假设分配给学生的学号是形式为 <em>CS0012</em> 或 <em>EE1127</em> 的字符串</li>
+<li>如果提取前两个字符来确定系别，那么学号的域就不是原子的。</li>
+<li>这样做是个坏主意： 会导致信息编码在 应用程序 中，而不是在数据库中。</li>
+</ul>
+<h3 id="2-pitfalls-in-relational-database-design">2. Pitfalls in Relational Database Design 关系数据库设计中的陷阱</h3>
+<p>糟糕的设计可能导致: 数据冗余, 插入 删除 修改异常</p>
+<h4 id="decomposition">Decomposition 分解</h4>
+<p>主要的精炼技术: <strong>分解</strong>
+$$
+R = R_1 \cup R_2
+$$
+<strong>无损连接分解</strong>: ![[attachments/image-20260420215353355.png]]</p>
+<p>目标 — 为以下内容设计一个理论</p>
+<ul>
+<li>
+<p>判断特定关系 R 是否处于“好”的形式。 -无冗余</p>
+</li>
+<li>
+<p>如果关系 R不处于“好”的形式，将其分解为一组关系 {R1,R2,...,Rn}使得</p>
+</li>
+<li>每个关系都处于好形式</li>
+<li>
+<p>该分解是无损连接分解</p>
+</li>
+<li>
+<p>我们的理论基于：</p>
+</li>
+<li>
+<p><strong>函数依赖 (functional dependencies)</strong></p>
+</li>
+<li><strong>多值依赖 (multivalued dependencies)</strong></li>
+</ul>
+<h3 id="3-functional-dependencies">3. Functional Dependencies 函数依赖</h3>
+<h4 id="31-definition">3.1. Definition</h4>
+<p><strong>函数依赖</strong>: 一种完整性约束, 表示特定属性值之间的关系, 可用于<strong>判断模式规范化</strong>并<strong>提出改进建议</strong></p>
+<p>借用了数学上的函数概念$x \rightarrow f(x)$</p>
+<p>函数依赖是<strong>键概念</strong>的推广</p>
+<ul>
+<li>对于关系模式 R, 若 K 是一个超键, 当且仅当 K --&gt; R, 即K确定时, R一定能够确定</li>
+<li>若K 是一个候选键, 当且仅当:</li>
+<li>K --&gt; R</li>
+<li>没有 K 的子集$\alpha$ , 使得 $\alpha$ --&gt; R</li>
+</ul>
+<p>函数依赖 可以表达出<strong>使用超键无法表达</strong>的完整性约束</p>
+<p>函数依赖的<strong>作用</strong>:</p>
+<ol>
+<li>在给定函数依赖集合 F 下, 测试关系是否是合法的</li>
+<li>
+<p>如果关系r是合法的, 称作<strong>r satisfies F</strong>![[attachments/image-20260421105725573.png]]</p>
+</li>
+<li>
+<p>通过函数依赖, 为关系集(schema)指明<strong>完整性约束</strong></p>
+</li>
+<li>
+<p>F 在 R 上成立(F holds on R), 如果R上的所有合法关系$r_s$都满足函数依赖集合F</p>
+</li>
+<li>
+<p>容易判别一个r是否满足给定的F; 但是不易判别F是否在R上成立, 不能仅由某个r推断出F; R上的函数依赖F, 通常由定义R的语义决定</p>
+</li>
+</ol>
+<p><strong>平凡依赖(trivial) 与 非平凡依赖(non-trivial)</strong>:</p>
+<ul>
+<li>如果一个函数依赖满足所有关系, 则它是<strong>平凡的(trival)</strong></li>
+<li>例如 $A\rightarrow A$</li>
+<li>一般的, 如果$\beta \subseteq \alpha$, 则$\alpha \rightarrow \beta$ 是平凡的; 否则, 它是不平凡的![[attachments/image-20260421111307584.png]]</li>
+</ul>
+<h4 id="32-closure-of-a-set-of-functional-dependencies">3.2. Closure of a Set of Functional Dependencies 函数依赖集的闭包</h4>
+<p>给定<strong>函数依赖集合 F</strong>, 存在其它一些由 <strong>F 逻辑蕴含</strong> 的函数依赖</p>
+<ul>
+<li>例如, 给定$A \rightarrow B and B\rightarrow C$, 则可以推断出$A \rightarrow C$</li>
+</ul>
+<p><strong>定义</strong>: 所有由<strong>F 逻辑蕴含</strong>的函数依赖集合, 称为<strong>F 的闭包</strong>, 记作$F^+$</p>
+<ul>
+<li>例如 </li>
+</ul>
+<p><code>F={A→B,B→C}</code></p>
+<p>那么 </p>
+<p><code>F+={A→B,B→C,A→C,A→A,AB→A,AB→B,AC→C,A→BC,...}</code></p>
+<p><strong>Armstron's Axioms(公理)</strong>:</p>
+<ul>
+<li>
+<p>这个公理提供了寻找$F^+$的参考规则</p>
+</li>
+<li>
+<p>公理内容:</p>
+</li>
+<li>
+<p>reflexivity 自反律: 若 $\beta \subseteq \alpha$, 则 $\alpha \rightarrow \beta$ ---- 平凡的</p>
+</li>
+<li>
+<p>augmentation 增补律: 若$\alpha \rightarrow \beta$, 则$\gamma\alpha\rightarrow\gamma\beta$, $\gamma\alpha\rightarrow\beta$</p>
+</li>
+<li>
+<p>transitivity 传递律: 若$\alpha \rightarrow \beta$, 并且 $\beta\rightarrow\gamma$, 那么$\alpha\rightarrow\gamma$</p>
+</li>
+<li>
+<p>这些公理是: sound(保真的), complete(完备的)</p>
+</li>
+<li>
+<p>补充定律: 为了简化计算可以使用这些附加规则</p>
+</li>
+<li>
+<p>If $\alpha \rightarrow \beta$ and $\alpha \rightarrow \gamma$ holds, then $\alpha \rightarrow \beta\gamma$ holds <strong>(union, 合并律)</strong></p>
+</li>
+<li>If $\alpha \rightarrow \beta\gamma$ holds, then $\alpha \rightarrow \beta$ and $\alpha \rightarrow \gamma$ holds <strong>(decomposition, 分解律)</strong>  </li>
+<li>
+<p>If $\alpha \rightarrow \beta$ and $\gamma\beta \rightarrow \delta$ holds, then $\alpha\gamma \rightarrow \delta$ holds <strong>(pseudotransitivity, 伪传递律)</strong></p>
+</li>
+<li>
+<p>对于 n 个属性, 可能的最大函数依赖数量是$2^n \times 2^n$</p>
+</li>
+</ul>
+<h4 id="33-closure-of-attribute-sets">3.3. Closure of Attribute Sets 属性集的闭包</h4>
+<p>![[attachments/image-20260421114943265.png]]</p>
+<p><strong>定义</strong>: 对于给定属性集$\alpha$, 在F下由$\alpha$所直接或间接函数决定的属性集合称为$\alpha^+$</p>
+<ul>
+<li>测试$\alpha \rightarrow \beta$在$F^+$中, $\Leftrightarrow$ $\beta\subseteq\alpha^+$</li>
+<li>测试$\alpha$是一个超键: $\alpha\rightarrow R$在$F^+$中 $\Leftrightarrow$ $R\subseteq \alpha^+$</li>
+</ul>
+<p><strong>属性闭包的使用</strong>:</p>
+<ul>
+<li>测试超键</li>
+<li>测试函数依赖</li>
+<li>计算函数依赖集闭包</li>
+</ul>
+<h4 id="34-canonical-cover">3.4. Canonical Cover 正则覆盖</h4>
+<p>DBMS 应该始终检查以确保不违反 F 中的任何函数依赖(FD); 但是若 F 太大, 检查成本很高, 因此我们需要简化函数依赖集</p>
+<p><strong>F 的规范覆盖</strong>(记作$F_c$) 是一个 <strong>与F等价的最小函数依赖集</strong></p>
+<ul>
+<li>没有冗余的FD, 且没有冗余的FD部分, 即不包含任何外来属性</li>
+</ul>
+<blockquote>
+<p><strong>外来属性 (Extraneous Attribute)：</strong> 指一个函数依赖 $X \to Y$ 中，如果移除 $X$ 中的某个属性 $A$（变成 $X - {A}$），或者移除 $Y$ 中的某个属性 $B$（变成 $Y - {B}$），且移除后所得到的函数依赖仍然可以从原始函数依赖集推导出来，那么 $A$ 或 $B$ 就是外来属性。规范覆盖要求左侧和右侧都没有这样的外来属性。</p>
+<p>形式化表示: $F' = (F-{\alpha\rightarrow \beta})\cup{(\alpha-A)\rightarrow\beta}$, 其中F'与F等价, 即说明A是α中的外来属性</p>
+</blockquote>
+<ul>
+<li>每个函数依赖的左侧是唯一的</li>
+</ul>
+<p>得到 $F_c$ $\Rightarrow$ 删除多余属性</p>
+<ul>
+<li>
+<p>对多余属性有三种情况:</p>
+</li>
+<li>
+<p>函数依赖集可能包含<strong>冗余依赖</strong>, 这些依赖可以从其它依赖中推断出来</p>
+</li>
+<li>
+<p>部分函数依赖的<strong>左侧</strong>可能是冗余的 $\Rightarrow$ 外来属性![[attachments/image-20260421135240377.png]]</p>
+</li>
+<li>
+<p>部分函数依赖的<strong>右侧</strong>可能是冗余的![[attachments/image-20260421135311111.png]]</p>
+</li>
+</ul>
+<h3 id="4-decomposition">4. Decomposition 分解</h3>
+<h4 id="41">4.1. 规范化的目标</h4>
+<p>判断一个特定的关系R是否是好的形式: 没有冗余, 插入 删除 更新 无异常</p>
+<p>将不是好形式的关系 R, 分解为一组关系{R1, R2, ..., Rn}, 使得:</p>
+<ul>
+<li>无损连接分解</li>
+<li>依赖保持</li>
+<li>每个关系Ri 是好的形式</li>
+</ul>
+<h4 id="42">4.2 分解应有的特性</h4>
+<ol>
+<li>原关系模式R中的所有属性, 必须在分解中出现, 即 $R = R_1 \cup R_2$</li>
+<li>无损分解</li>
+<li>无损分解当且仅当, $F^+$中至少满足以下依赖中的一个: ${R_1\cap R_2}\rightarrow R_1$ 或者 ${R_1\cap R_2}\rightarrow R_2$</li>
+<li>
+<p>这个条件意味着, 分解后的两个子模式, 必须共享一个足够强的属性集, 使得这个共享属性集能够唯一确定其中一个子模式的所有属性</p>
+</li>
+<li>
+<p>Dependency preservation 依赖保持</p>
+</li>
+<li>为了高效的检查更新(以确保不违反任何FD), 允许在子关系 Ri 中分别进行更新验证, <strong>无需它们的连接操作</strong></li>
+<li>F 对 Ri 的限制是: $F_i \subseteq F^+$, 其中$F_i$是$F^+$中只包含$R_i$中属性的依赖集合</li>
+<li>
+<p>$(F_1 \cup F_2 \cup ... \cup F_n)^+ = F^+$</p>
+</li>
+<li>
+<p>无冗余: 关系Ri最好处于BCNF 或 3NF</p>
+</li>
+</ol>
+<h3 id="5-boyee-codd-normal-form">5. Boyee-Codd Normal Form</h3>
+<blockquote>
+<p><strong>关系模式</strong>是基础，它定义了可以存储的数据结构。<strong>函数依赖集</strong>是对这种数据结构的约束。<strong>BCNF</strong> 则是衡量这种数据结构在满足约束的情况下，是否存在冗余和异常的一个“质量标准”。</p>
+</blockquote>
+<p><strong>定义</strong>: 一个处于BCNF中的关系模式 R, 对于函数依赖集F来说, 如果对于$F^+$中<strong>所有形如$\alpha \rightarrow \beta$的函数依赖</strong>, 以下条件至少有一个成立:</p>
+<ul>
+<li>$\alpha \rightarrow \beta$是平凡的</li>
+<li>$\alpha$ 是 R 的超键</li>
+</ul>
+<p>任何两个属性的关系范式都处于BCNF</p>
+<blockquote>
+<p>可以在F下判别R是否违反BCNF, 但必须在F+下判别R的分解式是否违反BCNF</p>
+</blockquote>
+<p>不能总是满足所有三个设计目标:</p>
+<ul>
+<li>无损链接</li>
+<li>BCNF</li>
+<li>依赖保持</li>
+</ul>
+<p><strong>BCNF 分解算法</strong>:</p>
+<pre><code>主循环: 遍历查找result集合中每一个关系模式Ri, 检查是否满足BCNF条件
+    - 若找到一个Ri:
+        1. 选择一个违规依赖 α -&gt; β
+        2. 将其分解为 Rnew1 = α ∪ β
+                    Rnew2 = (Ri - β) ∪ α
+</code></pre>
+<h3 id="6-third-normal-form-motivation">6. Third Normal Form: Motivation</h3>
+<p>存在一些情况:</p>
+<ul>
+<li>分解为BCNF不保持依赖</li>
+<li>但是高效地检查更新时的FD违规很重要</li>
+</ul>
+<p>$\Rightarrow$定义一个较弱的范式, 称为<strong>第三范式</strong></p>
+<ul>
+<li>允许一些冗余</li>
+<li>但函数依赖可以在单个关系上检查, 无需计算连接</li>
+<li><strong>总是存在</strong>一个无损链接, 依赖保持的3NF分解</li>
+</ul>
+<p><strong>定义</strong>: 处于第三范式的关系 R, 对于所有的F+中的 $\alpha \rightarrow \beta$, 至少满足下面的一个:</p>
+<ul>
+<li>$\alpha \rightarrow \beta$是平凡的</li>
+<li>$\alpha$是R的超键</li>
+<li>$\beta - \alpha$中的每个属性A都包含在R的某个候选键中 $\Rightarrow$ 为主属性</li>
+<li>这是 3NF 相对于BCNF 放松的关键条件, 是对BCNF的最小化放松, 以确保依赖保持 </li>
+</ul>
+<p>若一个关系处于BCNF, 那么它也处于3NF</p>
+<p>测试是否满足 3NF:</p>
+<ul>
+<li>只需要检查F中的FDs, 不需要检查F+中的所有FD</li>
+<li>对于每组依赖, 使用<strong>属性闭包</strong>检查α是否是超键</li>
+<li>若α不是一个超键, 验证β中的每个属性是否是R中候选键的部分属性</li>
+<li>这个检查是相当昂贵的, 因为涉及到寻找候选键</li>
+<li>已经被证实是一个NP-hard问题</li>
+</ul>
+<p><strong>3NF 分解算法</strong></p>
+<pre><code>result初始为空
+1. 计算F的规范覆盖Fc
+2. 为Fc中的每一个函数依赖, 检查是否有模式已经包含了α∪β
+    -- 检查是否需要为当前依赖新建一个关系模式, 若已经有了就不需要了, 避免冗余
+3. 若没有: 创建新的关系模式, Ri = α∪β
+4. 若目前已经创建的所有模式都不包含R中的任何一个候选键, 创建Ri = 任意一个候选键
+    -- 确保无损连接
+</code></pre>
+<h3 id="7-mutivalued-dependencies">7. Mutivalued Dependencies 多值依赖</h3>
+<blockquote>
+<p>对于 classes(course, teacher, book), 其处于BCNF, 但是由于 teacher 和 book 是多值属性, 所以可能会导致冗余 与 插入异常</p>
+<p>所以最好将其分解为 teaches(course, teacher) , book (course, book)</p>
+</blockquote>
+<p><strong>多值依赖 定义</strong>: 对于关系模式 R , $\alpha,\beta \subseteq R$, 若 存在多值依赖 $\alpha\rightarrow\rightarrow \beta$:</p>
+<ul>
+<li>对于 <code>α</code> 的<strong>任何一个特定值</strong>（比如 "数据库" 课程），它所关联的 <code>β</code> 值（比如 "Avi" 老师和 "Hank" 老师）</li>
+<li>和它所关联的 <code>Z</code> 值（比如 "DB Concepts" 和 "DB System (Ullman)" 两本书）是<strong>完全独立</strong>的。</li>
+<li><strong>这意味着什么？</strong> 这意味着 <code>α</code> 的每一个值所对应的 <code>β</code> 的每一个值，都必须和 <code>α</code> 的每一个值所对应的 <code>Z</code> 的每一个值<strong>组合出现</strong>。</li>
+</ul>
+<p><strong>表格表示</strong>:![[attachments/image-20260423194740723.png]]</p>
+<p>若$\beta\subseteq\alpha$ 或者 $\alpha\cup\beta = R$, 那么多值依赖是<strong>平凡的</strong></p>
+<p>若将关系 R 分为 Y Z W 三个部分, 若$Y\rightarrow\rightarrow Z$, 那么 $Y\rightarrow\rightarrow W$</p>
+<p>若$\alpha\rightarrow\beta$, 那么$\alpha\rightarrow\rightarrow \beta$</p>
+<p>依赖集D的关系闭包D+, 是由 D 逻辑蕴含的<strong>函数依赖</strong> 与 <strong>多值依赖</strong>的集合</p>
+<h4 id="71">7.1 第四范式</h4>
+<p>对于处于第四范式的关系模式 R ,若对于D+中的所有多值依赖$\alpha\rightarrow\rightarrow\beta$, 至少满足一点:</p>
+<ul>
+<li>这个依赖是平凡的</li>
+<li>α是R的超键</li>
+</ul>
+<p>若 关系处于 第四范式, 那么它处于BCNF</p>
+<h4 id="72">7.2 分解的要求</h4>
+<ul>
+<li>
+<p>假设关系 R 被分解成 R₁, R₂, ..., Rₙ，并且每个 Rᵢ 都需要符合 4NF</p>
+</li>
+<li>
+<p><strong>D 对 Rᵢ 的限制（Dᵢ）是由以下依赖组成的集合：</strong></p>
+</li>
+<li>D⁺ 中所有只包含 Rᵢ 属性的<strong>函数依赖</strong></li>
+<li>形式为 α →→ (β ∩ Rᵢ) 的所有<strong>多值依赖,</strong> 其中 α 是 Rᵢ 的子集，并且 α →→ β 在 D⁺ 中</li>
+</ul>
+<h4 id="73-4nf">7.3 4NF 分解算法</h4>
+<pre><code>主循环:
+    - 若找到一个不符合4NF的关系模式,且α∩β为空(为了确保无损连接), 执行分解步骤
+    - 将Ri分解为 (α, β) 与 (Ri - β)
+</code></pre>
+<h3 id="8-overall-database-design-process">8 Overall Database Design Process 数据库设计过程</h3>
+<p>我们假设关系模式 R 已给定:</p>
+<ul>
+<li>R 可能是通过将 E-R 图转换为一组表时生成的</li>
+<li>R 可能是一个包含所有相关属性的单一关系（称为通用关系）</li>
+<li>
+<p>规范化将 R 分解成更小的关系</p>
+</li>
+<li>
+<p>R 可能是某些临时（ad hoc）关系设计的结果，我们随后对其进行测试/转换为范式</p>
+</li>
+</ul>
+<h4 id="e-r">E-R图 和 规范化</h4>
+<ul>
+<li>
+<p>当 E-R 图经过精心设计，** **正确识别了所有实体时，从 E-R 图生成的表应该不需要进一步规范化</p>
+</li>
+<li>
+<p>然而，在实际（不完美）的设计中，实体中非键属性之间可能存在函数![[attachments/image-20260423205629599.png]]</p>
+</li>
+<li>
+<p>关系集（relationship set）中<strong>非键属性的函数依赖</strong>(非键属性决定了实体中另一个非键属性)是可能的，但很少见 --- 大多数关系是二元的</p>
+</li>
+</ul>
+<h4 id="_1">通用关系方法</h4>
+<p><strong>Dangling tuples 无归属元组</strong>: 在计算 join 时 "消失"的元组![[attachments/image-20260423210615757.png]]</p>
+<p>关系 <code>r₁ ⋈ r₂ ⋈ ... ⋈ rₙ</code> 被称为<strong>通用关系</strong>，因为它包含了由 <code>R₁ ∪ R₂ ∪ ... ∪ Rₙ</code> 定义的“宇宙”中的所有属性</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
