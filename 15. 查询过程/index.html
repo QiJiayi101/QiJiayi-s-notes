@@ -1439,18 +1439,18 @@
 <p><strong>磁盘访问</strong>代价包括:</p>
 <ul>
 <li>seek 操作次数</li>
-<li>读取的块数 $\times$ 平均块读取代价</li>
-<li>写入的块数 $\times$ 平均块写入代价</li>
+<li>读取的块数 <span class="arithmatex">\(\times\)</span> 平均块读取代价</li>
+<li>写入的块数 <span class="arithmatex">\(\times\)</span> 平均块写入代价</li>
 </ul>
 <blockquote>
 <p>写一个块通常比读一个块更贵, 因为写入后还需要读回验证写入是否成功</p>
 </blockquote>
 <p>为了简化, 通常只使用以下两个指标:</p>
 <ul>
-<li>$t_T$: 传输一个块的时间, 约为 $0.1ms$</li>
-<li>$t_S$: 一次 seek 的时间, 约为 $4ms$</li>
+<li><span class="arithmatex">\(t_T\)</span>: 传输一个块的时间, 约为 <span class="arithmatex">\(0.1ms\)</span></li>
+<li><span class="arithmatex">\(t_S\)</span>: 一次 seek 的时间, 约为 <span class="arithmatex">\(4ms\)</span></li>
 </ul>
-<p>若有 $b$ 次 block transfer 和 $S$ 次 seek, 则代价为:
+<p>若有 <span class="arithmatex">\(b\)</span> 次 block transfer 和 <span class="arithmatex">\(S\)</span> 次 seek, 则代价为:
 $$
 b * t_T + S * t_S
 $$</p>
@@ -1485,13 +1485,13 @@ $$</p>
 $$
 1\ seek + b_r\ t_T
 $$</p>
-<p>其中 $b_r$ 表示关系 $r$ 的文件块数</p>
+<p>其中 <span class="arithmatex">\(b_r\)</span> 表示关系 <span class="arithmatex">\(r\)</span> 的文件块数</p>
 <p>若选择条件在<strong>key attribute</strong>上:
 $$
 1\ seek + \frac{b_r}{2}\ t_T
 $$</p>
 <blockquote>
-<p>对于等值查询操作一般是$\frac{1}{2}$, 若是范围查询则仍需要扫描全部文件</p>
+<p>对于等值查询操作一般是<span class="arithmatex">\(\frac{1}{2}\)</span>, 若是范围查询则仍需要扫描全部文件</p>
 <p>线性搜索不依赖选择条件、文件中记录的顺序、是否存在索引, 因此总是可用</p>
 </blockquote>
 <p>注意:</p>
@@ -1514,7 +1514,7 @@ $$
 (H_i + 1) * (t_S + t_T)
 $$</p>
 <blockquote>
-<p>其中 $H_i$ 为索引树高, 其中$H_i \times (t_S + t_T)$表示访问索引树的代价, +1表示的是访问真正数据块的代价
+<p>其中 <span class="arithmatex">\(H_i\)</span> 为索引树高, 其中<span class="arithmatex">\(H_i \times (t_S + t_T)\)</span>表示访问索引树的代价, +1表示的是访问真正数据块的代价
 <img alt="Pasted image 20260622165655" src="../images/Pasted%20image%2020260622165655.png" /></p>
 </blockquote>
 <p><strong>A3 primary index on non-candidate key, equality</strong></p>
@@ -1527,7 +1527,7 @@ $$</p>
 $$
 H_i * (t_T + t_S) + t_S + t_T * b
 $$</p>
-<p>其中 $b$ 为包含取回记录的块数, 由于记录连续, 所以只需要 1 次seek</p>
+<p>其中 <span class="arithmatex">\(b\)</span> 为包含取回记录的块数, 由于记录连续, 所以只需要 1 次seek</p>
 <p><strong>A4 equality on search-key of secondary index</strong></p>
 <p>利用辅助索引做等值比较</p>
 <ol>
@@ -1549,7 +1549,7 @@ $$</p>
 $$
 (H_i + n) * (t_T + t_S)
 $$</p>
-<p>其中 $n$ 为匹配记录数</p>
+<p>其中 <span class="arithmatex">\(n\)</span> 为匹配记录数</p>
 <blockquote>
 <p>辅助索引在返回大量记录时可能非常贵, 甚至比 linear scan 更差
 <img alt="Pasted image 20260622165838" src="../images/Pasted%20image%2020260622165838.png" /></p>
@@ -1557,28 +1557,28 @@ $$</p>
 <h3 id="33">3.3 涉及比较的选择</h3>
 <p>比较符包括:</p>
 <ul>
-<li>$&gt;, \geq, &lt;, \leq, &lt;&gt;$</li>
+<li><span class="arithmatex">\(&gt;, \geq, &lt;, \leq, &lt;&gt;\)</span></li>
 </ul>
 <p>与等值比较不同, 比较选择通常会返回一个范围</p>
 <p><strong>A5 primary index, comparison</strong></p>
-<p>基于主索引的比较, 假设关系在属性 $A$ 上排序</p>
+<p>基于主索引的比较, 假设关系在属性 <span class="arithmatex">\(A\)</span> 上排序</p>
 <ul>
-<li>对于 $\sigma_{A \geq V}(r)$:</li>
-<li>使用索引找到第一个 $A \geq V$ 的 tuple</li>
+<li>对于 <span class="arithmatex">\(\sigma_{A \geq V}(r)\)</span>:</li>
+<li>使用索引找到第一个 <span class="arithmatex">\(A \geq V\)</span> 的 tuple</li>
 <li>然后顺序扫描关系</li>
-<li>对于 $\sigma_{A \leq V}(r)$:</li>
-<li>直接从文件开头顺序扫描到第一个 $A &gt; V$ 的 tuple</li>
+<li>对于 <span class="arithmatex">\(\sigma_{A \leq V}(r)\)</span>:</li>
+<li>直接从文件开头顺序扫描到第一个 <span class="arithmatex">\(A &gt; V\)</span> 的 tuple</li>
 <li>通常不使用索引</li>
 </ul>
 <p><strong>A6 secondary index, comparison</strong></p>
 <p>基于辅助索引的比较</p>
 <ul>
-<li>对于 $\sigma_{A \geq V}(r)$:</li>
-<li>用索引找到第一个 $A \geq V$ 的 index entry</li>
+<li>对于 <span class="arithmatex">\(\sigma_{A \geq V}(r)\)</span>:</li>
+<li>用索引找到第一个 <span class="arithmatex">\(A \geq V\)</span> 的 index entry</li>
 <li>顺序扫描 leaf nodes 到末尾</li>
 <li>根据指针取回记录</li>
-<li>对于 $\sigma_{A \leq V}(r)$:</li>
-<li>从 leaf pages 开始扫描, 直到遇到第一个 $A &gt; V$</li>
+<li>对于 <span class="arithmatex">\(\sigma_{A \leq V}(r)\)</span>:</li>
+<li>从 leaf pages 开始扫描, 直到遇到第一个 <span class="arithmatex">\(A &gt; V\)</span></li>
 <li>根据指针取回记录</li>
 </ul>
 <blockquote>
@@ -1591,7 +1591,7 @@ $$
 $$</p>
 <p><strong>A7 conjunctive selection using one index</strong></p>
 <ol>
-<li>从 $\theta_1, ..., \theta_n$ 中选择代价最低的条件先执行</li>
+<li>从 <span class="arithmatex">\(\theta_1, ..., \theta_n\)</span> 中选择代价最低的条件先执行</li>
 <li>将取回的元组放入内存</li>
 <li>在内存中测试其他条件</li>
 </ol>
@@ -1659,39 +1659,39 @@ $$</p>
 <h3 id="41-external-sort-merge">4.1 External Sort-Merge 外部排序归并</h3>
 <p>设:</p>
 <ul>
-<li>$M$: 内存可容纳的 block 数</li>
-<li>$b$: 关系总 block 数</li>
+<li><span class="arithmatex">\(M\)</span>: 内存可容纳的 block 数</li>
+<li><span class="arithmatex">\(b\)</span>: 关系总 block 数</li>
 <li>run: 排序过程中产生的中间子文件, 也称为<strong>归并段</strong></li>
 </ul>
 <p><strong>Step 1: 创建 sorted runs</strong></p>
 <p>重复执行直到关系读完:</p>
 <ol>
-<li>将关系的 $M$ 个 blocks 读入内存</li>
+<li>将关系的 <span class="arithmatex">\(M\)</span> 个 blocks 读入内存</li>
 <li>在内存中排序</li>
-<li>将排序结果写入 run $R_i$</li>
+<li>将排序结果写入 run <span class="arithmatex">\(R_i\)</span></li>
 </ol>
 <p>初始 run 数:
 $$
 N_0 = \lceil \frac{b}{M} \rceil
 $$</p>
 <p><strong>Step 2: Merge the runs</strong></p>
-<p>使用 $M - 1$ 个 buffer 作为输入 run 的缓冲区, 剩下 1 个 buffer 作为输出</p>
+<p>使用 <span class="arithmatex">\(M - 1\)</span> 个 buffer 作为输入 run 的缓冲区, 剩下 1 个 buffer 作为输出</p>
 <ul>
 <li>每次从各输入 buffer 中选择当前最小记录写入输出 buffer</li>
 <li>输入 buffer 空时, 读取对应 run 的下一块</li>
 <li>输出 buffer 满时, 写回磁盘</li>
 </ul>
-<p>若初始 run 数 $N_0 \geq M$, 需要多轮 merge pass</p>
+<p>若初始 run 数 <span class="arithmatex">\(N_0 \geq M\)</span>, 需要多轮 merge pass</p>
 <ul>
-<li>每一轮将连续的 $M - 1$ 个 runs 合并成一个新 run</li>
-<li>每一轮使 run 的数量减少约 $M - 1$ 倍</li>
+<li>每一轮将连续的 <span class="arithmatex">\(M - 1\)</span> 个 runs 合并成一个新 run</li>
+<li>每一轮使 run 的数量减少约 <span class="arithmatex">\(M - 1\)</span> 倍</li>
 </ul>
 <p>merge pass 数:
 $$
 \lceil \log_{M-1}(\frac{b}{M}) \rceil
 $$</p>
 <h3 id="42">4.2 外部排序代价</h3>
-<p>每一轮 run generation 和 merge pass 都需要读写全部数据, 代价约为 $2b$</p>
+<p>每一轮 run generation 和 merge pass 都需要读写全部数据, 代价约为 <span class="arithmatex">\(2b\)</span></p>
 <p>最终 pass 不计入最终写回结果的代价(可以一边归并一边被上层调用)</p>
 <p>block transfer 总代价:
 $$
@@ -1728,8 +1728,8 @@ $$</p>
             output tr · ts
 </code></pre>
 <ul>
-<li>$r$ 称为 outer relation</li>
-<li>$s$ 称为 inner relation</li>
+<li><span class="arithmatex">\(r\)</span> 称为 outer relation</li>
+<li><span class="arithmatex">\(s\)</span> 称为 inner relation</li>
 <li>不需要索引</li>
 <li>可用于任何 join condition</li>
 <li>代价高, 因为需要检查两个关系中的每一对 tuple</li>
@@ -1744,7 +1744,7 @@ $$
 n_r + b_r
 $$</p>
 <blockquote>
-<p>这里假设 $s$ 可以顺序读, 所以每次只需要 seek $s$ 的开头就可以</p>
+<p>这里假设 <span class="arithmatex">\(s\)</span> 可以顺序读, 所以每次只需要 seek <span class="arithmatex">\(s\)</span> 的开头就可以</p>
 </blockquote>
 <p><strong>最好情况</strong>, 较小关系能完全放入内存:</p>
 <p>block transfer:
@@ -1789,7 +1789,7 @@ $$
 b_r + b_s
 $$</p>
 <p><strong>改进</strong>:
-- 若内存大小为 $M$ 个 blocks, 可以用 $M - 2$ 个 blocks 作为 outer relation 的 blocking unit:</p>
+- 若内存大小为 <span class="arithmatex">\(M\)</span> 个 blocks, 可以用 <span class="arithmatex">\(M - 2\)</span> 个 blocks 作为 outer relation 的 blocking unit:</p>
 <p>block transfer:
 $$
 \lceil \frac{b_r}{M-2} \rceil * b_s + b_r
@@ -1825,8 +1825,8 @@ $$</p>
 </ul>
 <p><strong>基本思想:</strong></p>
 <ul>
-<li>对 outer relation $r$ 中的每个 tuple $t_r$</li>
-<li>使用 inner relation $s$ 上的索引查找满足 join 条件的 tuple</li>
+<li>对 outer relation <span class="arithmatex">\(r\)</span> 中的每个 tuple <span class="arithmatex">\(t_r\)</span></li>
+<li>使用 inner relation <span class="arithmatex">\(s\)</span> 上的索引查找满足 join 条件的 tuple</li>
 </ul>
 <p>最坏情况:
 $$
@@ -1834,8 +1834,8 @@ n_r * c + b_r
 $$</p>
 <blockquote>
 <p>其中:
-    -  $c$ : 对 $s$ 做一次索引查找并取回所有匹配 tuple 的代价
-    - $n_r$ : outer relation 的 tuple 数</p>
+    -  <span class="arithmatex">\(c\)</span> : 对 <span class="arithmatex">\(s\)</span> 做一次索引查找并取回所有匹配 tuple 的代价
+    - <span class="arithmatex">\(n_r\)</span> : outer relation 的 tuple 数</p>
 </blockquote>
 <p>若使用 B+ tree 索引:
 $$
@@ -1882,8 +1882,8 @@ $$</p>
 <p>思路:</p>
 <ol>
 <li>将已排序关系与 B+ tree leaf entries 做 merge join</li>
-<li>得到结果 $(t_r, P_s)$, 其中 $P_s$ 是未排序关系 tuple 的地址</li>
-<li>按地址 $P_s$ 排序</li>
+<li>得到结果 <span class="arithmatex">\((t_r, P_s)\)</span>, 其中 <span class="arithmatex">\(P_s\)</span> 是未排序关系 tuple 的地址</li>
+<li>按地址 <span class="arithmatex">\(P_s\)</span> 排序</li>
 <li>按物理地址顺序扫描未排序关系, 将地址替换为实际 tuple</li>
 </ol>
 <blockquote>
@@ -1899,8 +1899,8 @@ $$</p>
 - 此外还需要一个 input buffer</p>
 <p>设:</p>
 <ul>
-<li>$H_{r0}, H_{r1}, ..., H_{rn}$ 为关系 $r$ 的分区</li>
-<li>$H_{s0}, H_{s1}, ..., H_{sn}$ 为关系 $s$ 的分区</li>
+<li><span class="arithmatex">\(H_{r0}, H_{r1}, ..., H_{rn}\)</span> 为关系 <span class="arithmatex">\(r\)</span> 的分区</li>
+<li><span class="arithmatex">\(H_{s0}, H_{s1}, ..., H_{sn}\)</span> 为关系 <span class="arithmatex">\(s\)</span> 的分区</li>
 </ul>
 <p>若:
 $$
@@ -1911,26 +1911,26 @@ $$
 t_r \in H_{ri}
 $$</p>
 <p>分区的 <strong>BT cost</strong>：
-- block transfer：$2\times b_r$
-- seek: $2\frac{b_r}{b_b}$</p>
+- block transfer：<span class="arithmatex">\(2\times b_r\)</span>
+- seek: <span class="arithmatex">\(2\frac{b_r}{b_b}\)</span></p>
 <p>核心思想:
 <img alt="Pasted image 20260622201352" src="../images/Pasted%20image%2020260622201352.png" />
-- 使用 hash function $h$ 根据 join attribute 对两个关系分区
+- 使用 hash function <span class="arithmatex">\(h\)</span> 根据 join attribute 对两个关系分区
 - 若两个 tuple 的 join attribute 相同, 它们一定会被分到相同编号的 partition 中
 - 因此只需要在对应分区之间做 join</p>
 <p><img alt="Pasted image 20260622202324" src="../images/Pasted%20image%2020260622202324.png" /></p>
 <p><strong>Join BT cost</strong>:
-- block transfer: $b_r + b_s$
-- seek: $2\times b_h$</p>
+- block transfer: <span class="arithmatex">\(b_r + b_s\)</span>
+- seek: <span class="arithmatex">\(2\times b_h\)</span></p>
 <h3 id="56-hash-join-algorithm">5.6 Hash-Join Algorithm</h3>
 <ol>
-<li><strong>Partition 阶段:</strong> 使用 hash function $h$ 分别对 $r$ 和 $s$ 分区</li>
+<li><strong>Partition 阶段:</strong> 使用 hash function <span class="arithmatex">\(h\)</span> 分别对 <span class="arithmatex">\(r\)</span> 和 <span class="arithmatex">\(s\)</span> 分区</li>
 <li><strong>Probe 阶段:</strong> </li>
-<li>对每个分区编号 $i$:</li>
-<li>将 $H_{si}$ 读入内存</li>
-<li>在 $H_{si}$ 上基于 join attribute 建立内存 hash index</li>
-<li>逐个读取 $H_{ri}$ 中的 tuple</li>
-<li>使用内存 hash index 查找匹配的 $H_{si}$ tuple</li>
+<li>对每个分区编号 <span class="arithmatex">\(i\)</span>:</li>
+<li>将 <span class="arithmatex">\(H_{si}\)</span> 读入内存</li>
+<li>在 <span class="arithmatex">\(H_{si}\)</span> 上基于 join attribute 建立内存 hash index</li>
+<li>逐个读取 <span class="arithmatex">\(H_{ri}\)</span> 中的 tuple</li>
+<li>使用内存 hash index 查找匹配的 <span class="arithmatex">\(H_{si}\)</span> tuple</li>
 <li>输出连接结果</li>
 </ol>
 <blockquote>
@@ -1938,17 +1938,17 @@ $$</p>
 </blockquote>
 <p><strong>分区时的内存限制:</strong></p>
 <ul>
-<li>每次分区个数 $n_h \leq M - 1$</li>
-<li>每个 build partition 的大小必须 $\leq M - 2$, 因为 build input 要被读入内存</li>
+<li>每次分区个数 <span class="arithmatex">\(n_h \leq M - 1\)</span></li>
+<li>每个 build partition 的大小必须 <span class="arithmatex">\(\leq M - 2\)</span>, 因为 build input 要被读入内存</li>
 </ul>
 <blockquote>
-<p>若 build partition的大小 $&gt; M-2$逻辑上也可以实现, 不过因为 无法将$H_s$全部装入buffer中, 会使得运行效率大幅降低, 所以我们要求使用的 hash function 可以让每个 build partition 的大小 $\leq M-2$</p>
-<p>当 $n_h$ 过大, 会使得 $n_h \leq M-1$; 当 $n_h$ 过小, 可能使得$分区大小 \geq M-2$</p>
+<p>若 build partition的大小 <span class="arithmatex">\(&gt; M-2\)</span>逻辑上也可以实现, 不过因为 无法将<span class="arithmatex">\(H_s\)</span>全部装入buffer中, 会使得运行效率大幅降低, 所以我们要求使用的 hash function 可以让每个 build partition 的大小 <span class="arithmatex">\(\leq M-2\)</span></p>
+<p>当 <span class="arithmatex">\(n_h\)</span> 过大, 会使得 <span class="arithmatex">\(n_h \leq M-1\)</span>; 当 <span class="arithmatex">\(n_h\)</span> 过小, 可能使得<span class="arithmatex">\(分区大小 \geq M-2\)</span></p>
 </blockquote>
 <p>若 partition 太大, 需要 <strong>recursive partitioning 递归分区</strong></p>
 <ul>
 <li>使用不同 hash function 继续划分过大的 partition</li>
-<li>$r$ 和 $s$ 必须使用相同方式继续分区</li>
+<li><span class="arithmatex">\(r\)</span> 和 <span class="arithmatex">\(s\)</span> 必须使用相同方式继续分区</li>
 </ul>
 <h3 id="57-hash-join-overflow">* 5.7 Hash-Join Overflow</h3>
 <h3 id="58-hash-join">5.8 Hash-Join 代价</h3>
@@ -1959,15 +1959,15 @@ $$
 $$</p>
 <p>其中:</p>
 <ul>
-<li>分区阶段读写两个关系: $2(b_r + b_s)$</li>
-<li>join 阶段再读两个关系: $(b_r + b_s)$</li>
-<li>$4n_h$ 用于估计每个分区部分块不满带来的额外代价</li>
+<li>分区阶段读写两个关系: <span class="arithmatex">\(2(b_r + b_s)\)</span></li>
+<li>join 阶段再读两个关系: <span class="arithmatex">\((b_r + b_s)\)</span></li>
+<li><span class="arithmatex">\(4n_h\)</span> 用于估计每个分区部分块不满带来的额外代价</li>
 </ul>
 <p><strong>seek:</strong>
 $$
 2(\lceil \frac{b_r}{b_b} \rceil + \lceil \frac{b_s}{b_b} \rceil) + 2n_h
 $$</p>
-<p>若需要 recursive partitioning, 且对 $s$ 分区的 pass 数为:
+<p>若需要 recursive partitioning, 且对 <span class="arithmatex">\(s\)</span> 分区的 pass 数为:
 $$
 \lceil \log_{M-1}(b_s) - 1 \rceil
 $$</p>
@@ -2175,6 +2175,10 @@ $$</p>
     
     
       <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

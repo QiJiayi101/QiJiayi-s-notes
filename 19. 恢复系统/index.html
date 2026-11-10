@@ -1482,15 +1482,15 @@
 <p>常见 log record:</p>
 <ol>
 <li><code>&lt;Ti start&gt;</code></li>
-<li>事务 $T_i$ 开始</li>
+<li>事务 <span class="arithmatex">\(T_i\)</span> 开始</li>
 <li><code>&lt;Ti, X, V1, V2&gt;</code></li>
-<li>$T_i$ 对数据项 $X$ 执行 write</li>
-<li>$V_1$ 是 old value</li>
-<li>$V_2$ 是 new value</li>
+<li><span class="arithmatex">\(T_i\)</span> 对数据项 <span class="arithmatex">\(X\)</span> 执行 write</li>
+<li><span class="arithmatex">\(V_1\)</span> 是 old value</li>
+<li><span class="arithmatex">\(V_2\)</span> 是 new value</li>
 <li><code>&lt;Ti commit&gt;</code></li>
-<li>$T_i$ 成功完成</li>
+<li><span class="arithmatex">\(T_i\)</span> 成功完成</li>
 <li><code>&lt;Ti abort&gt;</code></li>
-<li>$T_i$ abort</li>
+<li><span class="arithmatex">\(T_i\)</span> abort</li>
 </ol>
 <p>事务只要 <code>&lt;Ti commit&gt;</code> 写入 log, 就认为已提交</p>
 <p>两种基于 log 的方法:</p>
@@ -1513,7 +1513,7 @@
 $$
 <T_i, X, V>
 $$
-其中 $V$ 是 X 的新值, 不再记录 old value</li>
+其中 <span class="arithmatex">\(V\)</span> 是 X 的新值, 不再记录 old value</li>
 <li>此时不修改数据库</li>
 <li>事务 partial commit 时写 <code>&lt;Ti commit&gt;</code></li>
 <li>读取 log, 根据 log 执行之前推迟的写操作</li>
@@ -1524,14 +1524,14 @@ $$
 </blockquote>
 <h3 id="61-recovery-for-deferred-modification">6.1 Recovery for Deferred Modification</h3>
 <p>故障恢复时:</p>
-<p>事务 $T_i$ 需要 redo 当且仅当 log 中同时存在:</p>
+<p>事务 <span class="arithmatex">\(T_i\)</span> 需要 redo 当且仅当 log 中同时存在:</p>
 <ul>
 <li><code>&lt;Ti start&gt;</code></li>
 <li><code>&lt;Ti commit&gt;</code></li>
 </ul>
 <p><strong>redo(Ti)</strong>:</p>
 <ul>
-<li>将 $T_i$ 更新过的所有数据项设为 log 中的新值</li>
+<li>将 <span class="arithmatex">\(T_i\)</span> 更新过的所有数据项设为 log 中的新值</li>
 </ul>
 <p>规则:</p>
 <ul>
@@ -1546,12 +1546,12 @@ $$
 <li>因此恢复时可能需要 undo</li>
 </ul>
 <p>log record 必须包含:</p>
-<p>$$
-<T_i, X, V_1, V_2>
-$$</p>
+<div class="arithmatex">\[
+&lt;T_i, X, V_1, V_2&gt;
+\]</div>
 <ul>
-<li>$V_1$: old value</li>
-<li>$V_2$: new value</li>
+<li><span class="arithmatex">\(V_1\)</span>: old value</li>
+<li><span class="arithmatex">\(V_2\)</span>: new value</li>
 </ul>
 <p>要求:</p>
 <blockquote>
@@ -1565,12 +1565,12 @@ $$</p>
 <p>恢复操作包括:</p>
 <p><strong>undo(Ti)</strong></p>
 <ul>
-<li>从 $T_i$ 的最后一条 log record 向前扫描</li>
+<li>从 <span class="arithmatex">\(T_i\)</span> 的最后一条 log record 向前扫描</li>
 <li>将更新过的数据恢复为 old value</li>
 </ul>
 <p><strong>redo(Ti)</strong></p>
 <ul>
-<li>从 $T_i$ 的第一条 log record 向后扫描</li>
+<li>从 <span class="arithmatex">\(T_i\)</span> 的第一条 log record 向后扫描</li>
 <li>将更新过的数据设为 new value</li>
 </ul>
 <p>两者都必须是 <strong>idempotent 幂等</strong>:</p>
@@ -1579,8 +1579,8 @@ $$</p>
 </blockquote>
 <p>故障恢复规则:</p>
 <ul>
-<li>若 log 中有 <code>&lt;Ti start&gt;</code> 但没有 <code>&lt;Ti commit&gt;</code>, 则 undo $T_i$</li>
-<li>若 log 中同时有 <code>&lt;Ti start&gt;</code> 和 <code>&lt;Ti commit&gt;</code>, 则 redo $T_i$</li>
+<li>若 log 中有 <code>&lt;Ti start&gt;</code> 但没有 <code>&lt;Ti commit&gt;</code>, 则 undo <span class="arithmatex">\(T_i\)</span></li>
+<li>若 log 中同时有 <code>&lt;Ti start&gt;</code> 和 <code>&lt;Ti commit&gt;</code>, 则 redo <span class="arithmatex">\(T_i\)</span></li>
 </ul>
 <p>若事务之前已经被 undo 并写了 <code>&lt;Ti abort&gt;</code>, 崩溃后恢复时仍会 redo 原历史</p>
 <p>这称为:</p>
@@ -1605,7 +1605,7 @@ $$</p>
 $$
 <checkpoint\ L>
 $$
-其中 $L$ 是一个<code>list</code> 是 checkpoint 时仍 active 的事务列表, 即已经<code>start</code>但是没有<code>commit</code></li>
+其中 <span class="arithmatex">\(L\)</span> 是一个<code>list</code> 是 checkpoint 时仍 active 的事务列表, 即已经<code>start</code>但是没有<code>commit</code></li>
 </ol>
 <blockquote>
 <p>checkpoint 期间会暂停所有更新</p>
@@ -1614,18 +1614,18 @@ $$
 <ol>
 <li>从 log 尾部向前找到最近的 <code>&lt;checkpoint L&gt;</code></li>
 <li>只考虑:</li>
-<li>$L$ 中的事务</li>
+<li><span class="arithmatex">\(L\)</span> 中的事务</li>
 <li>checkpoint 后开始的事务</li>
 <li>checkpoint 前已经 commit 或 abort 的事务可以忽略</li>
-<li>为 undo, 需要继续向前扫描到 $L$ 中每个事务的 <code>&lt;Ti start&gt;</code>
+<li>为 undo, 需要继续向前扫描到 <span class="arithmatex">\(L\)</span> 中每个事务的 <code>&lt;Ti start&gt;</code>
 <img alt="Pasted image 20260627183310" src="../images/Pasted%20image%2020260627183310.png" /></li>
 </ol>
 <h3 id="81-recovery-algorithm">8.1 Recovery Algorithm</h3>
 <p>事务正常 rollback:</p>
 <ol>
-<li>从 log 尾部向前扫描 $T_i$ 的 log records</li>
+<li>从 log 尾部向前扫描 <span class="arithmatex">\(T_i\)</span> 的 log records</li>
 <li>对 <code>&lt;Ti, Xj, V1, V2&gt;</code>:</li>
-<li>将 $X_j$ 恢复为 $V_1$</li>
+<li>将 <span class="arithmatex">\(X_j\)</span> 恢复为 <span class="arithmatex">\(V_1\)</span></li>
 <li>写 compensation log record 补偿日志记录(也要遵循WAL):
 $$
 <T_i, X_j, V_1>
@@ -1640,8 +1640,8 @@ $$</li>
 <li><code>undo-list = L</code></li>
 <li>从 checkpoint 向前扫描</li>
 <li>遇到普通 update log 或 redo-only log, 执行 redo</li>
-<li>遇到 <code>&lt;Ti start&gt;</code>, 将 $T_i$ 加入 undo-list</li>
-<li>遇到 <code>&lt;Ti commit&gt;</code> 或 <code>&lt;Ti abort&gt;</code>, 从 undo-list 删除 $T_i$</li>
+<li>遇到 <code>&lt;Ti start&gt;</code>, 将 <span class="arithmatex">\(T_i\)</span> 加入 undo-list</li>
+<li>遇到 <code>&lt;Ti commit&gt;</code> 或 <code>&lt;Ti abort&gt;</code>, 从 undo-list 删除 <span class="arithmatex">\(T_i\)</span></li>
 </ol>
 <p><strong>Undo phase</strong></p>
 <ol>
@@ -1683,13 +1683,13 @@ $$</li>
 <p>数据库维护内存 buffer 存放 data blocks</p>
 <p>当需要新 block 且 buffer 满时:</p>
 <ul>
-<li>选择一个 block $B_i$ 移出</li>
-<li>若 $B_i$ 被修改过, 必须输出到磁盘</li>
+<li>选择一个 block <span class="arithmatex">\(B_i\)</span> 移出</li>
+<li>若 <span class="arithmatex">\(B_i\)</span> 被修改过, 必须输出到磁盘</li>
 </ul>
-<p>若 $B_i$ 中包含未提交更新, 根据 WAL:</p>
+<p>若 <span class="arithmatex">\(B_i\)</span> 中包含未提交更新, 根据 WAL:</p>
 <ol>
-<li>先输出与 $B_i$ 相关的 undo log records</li>
-<li>再输出 $B_i$</li>
+<li>先输出与 <span class="arithmatex">\(B_i\)</span> 相关的 undo log records</li>
+<li>再输出 <span class="arithmatex">\(B_i\)</span></li>
 <li>读入新 block</li>
 </ol>
 <p>为了<strong>防止输出时 block 正在被更新</strong>:</p>
@@ -1731,9 +1731,9 @@ $$</li>
 <ol>
 <li>暂停所有事务更新</li>
 <li>写 <code>&lt;checkpoint L&gt;</code> 并 force log 到 stable storage</li>
-<li>记录 modified buffer blocks 列表 $M$</li>
+<li>记录 modified buffer blocks 列表 <span class="arithmatex">\(M\)</span></li>
 <li>允许事务继续执行</li>
-<li>将 $M$ 中的 modified blocks 输出到磁盘</li>
+<li>将 <span class="arithmatex">\(M\)</span> 中的 modified blocks 输出到磁盘</li>
 <li>输出 block 时不得被更新</li>
 <li>遵守 WAL</li>
 <li>在磁盘固定位置 <code>last_checkpoint</code> 存储 checkpoint record 指针</li>
@@ -1839,7 +1839,7 @@ $$
 <T_i, O_j, operation\text{-}end, U>
 $$</li>
 </ol>
-<p>其中 $U$ 包含 logical undo 所需信息
+<p>其中 <span class="arithmatex">\(U\)</span> 包含 logical undo 所需信息
 <img alt="Pasted image 20260627224652" src="../images/Pasted%20image%2020260627224652.png" />
 若 crash/rollback 发生在 operation 完成前:</p>
 <ul>
@@ -1849,7 +1849,7 @@ $$</li>
 <p>若 crash/rollback 发生在 operation 完成后:</p>
 <ul>
 <li>找到 operation-end</li>
-<li>使用 $U$ 做 logical undo</li>
+<li>使用 <span class="arithmatex">\(U\)</span> 做 logical undo</li>
 <li>忽略该操作内部 physical undo 信息</li>
 </ul>
 <p>redo 仍使用 physical redo 信息</p>
@@ -1860,18 +1860,18 @@ $$</li>
 <li>若遇到普通 update record:</li>
 <li>执行 physical undo</li>
 <li>写 redo-only log record</li>
-<li>若遇到:$$<T_i, O_j, operation\text{-}end, U>$$</li>
-<li>用 $U$ 执行 logical undo</li>
+<li>若遇到:$<span class="arithmatex">\(&lt;T_i, O_j, operation\text{-}end, U&gt;\)</span>$</li>
+<li>用 <span class="arithmatex">\(U\)</span> 执行 logical undo</li>
 <li>undo 过程中产生的更新也正常记 log</li>
-<li>操作回滚结束后写:$$<T_i, O_j, operation\text{-}abort>$$</li>
+<li>操作回滚结束后写:$<span class="arithmatex">\(&lt;T_i, O_j, operation\text{-}abort&gt;\)</span>$</li>
 <li>跳过该 operation-begin 之前的内部 log records</li>
 <li>
 <p>遇到 <code>&lt;Ti start&gt;</code> 后写 <code>&lt;Ti abort&gt;</code></p>
 <p>若遇到：<code>redo-only record</code>，忽略
-若遇到：$$<T_i,O_j,operation-abort>$$
-- 跳过所有前面的$T_i$的log记录，直到找到$$<T_i,O_j,operation-begin>$$
-若遇到：$$<T_i,start>$$停止 scan</p>
-<p>最后向日志中添加$$<T_i,abort>$$</p>
+若遇到：$<span class="arithmatex">\(&lt;T_i,O_j,operation-abort&gt;\)</span>$
+- 跳过所有前面的<span class="arithmatex">\(T_i\)</span>的log记录，直到找到$<span class="arithmatex">\(&lt;T_i,O_j,operation-begin&gt;\)</span>$
+若遇到：$<span class="arithmatex">\(&lt;T_i,start&gt;\)</span>$停止 scan</p>
+<p>最后向日志中添加$<span class="arithmatex">\(&lt;T_i,abort&gt;\)</span>$</p>
 </li>
 </ol>
 <p>跳过已撤销操作的 log 很重要:</p>
@@ -2172,6 +2172,10 @@ $$
     
     
       <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

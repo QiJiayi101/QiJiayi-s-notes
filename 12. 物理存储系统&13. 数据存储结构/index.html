@@ -1268,7 +1268,7 @@
 <h3 id="41">4.1 定长记录</h3>
 <p>advantages:</p>
 <ul>
-<li>对于 record i 的存储, 从byte $n*(i-1)$开始, 其中n是每个record的大小<img alt="image-20260428115517443" src="../images/image-20260428115517443.png" /></li>
+<li>对于 record i 的存储, 从byte <span class="arithmatex">\(n*(i-1)\)</span>开始, 其中n是每个record的大小<img alt="image-20260428115517443" src="../images/image-20260428115517443.png" /></li>
 <li>记录访问很快, 但是record 可能会跨越 block</li>
 <li>修改: 不允许 record 跨越 block</li>
 </ul>
@@ -1543,6 +1543,10 @@
     
     
       <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

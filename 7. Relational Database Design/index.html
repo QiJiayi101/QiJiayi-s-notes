@@ -1262,13 +1262,13 @@ $$
 <h2 id="3-functional-dependencies">3. Functional Dependencies 函数依赖</h2>
 <h3 id="31-definition">3.1. Definition</h3>
 <p><strong>函数依赖</strong>: 一种完整性约束, 表示特定属性值之间的关系, 可用于<strong>判断模式规范化</strong>并<strong>提出改进建议</strong></p>
-<p>借用了数学上的函数概念$x \rightarrow f(x)$</p>
+<p>借用了数学上的函数概念<span class="arithmatex">\(x \rightarrow f(x)\)</span></p>
 <p>函数依赖是<strong>键概念</strong>的推广</p>
 <ul>
 <li>对于关系模式 R, 若 K 是一个超键, 当且仅当 K --&gt; R, 即K确定时, R一定能够确定</li>
 <li>若K 是一个候选键, 当且仅当:</li>
 <li>K --&gt; R</li>
-<li>没有 K 的子集$\alpha$ , 使得 $\alpha$ --&gt; R</li>
+<li>没有 K 的子集<span class="arithmatex">\(\alpha\)</span> , 使得 <span class="arithmatex">\(\alpha\)</span> --&gt; R</li>
 </ul>
 <p>函数依赖 可以表达出<strong>使用超键无法表达</strong>的完整性约束</p>
 <p>函数依赖的<strong>作用</strong>:</p>
@@ -1281,7 +1281,7 @@ $$
 <p>通过函数依赖, 为关系集(schema)指明<strong>完整性约束</strong></p>
 </li>
 <li>
-<p>F 在 R 上成立(F holds on R), 如果R上的所有合法关系$r_s$都满足函数依赖集合F</p>
+<p>F 在 R 上成立(F holds on R), 如果R上的所有合法关系<span class="arithmatex">\(r_s\)</span>都满足函数依赖集合F</p>
 </li>
 <li>
 <p>容易判别一个r是否满足给定的F; 但是不易判别F是否在R上成立, 不能仅由某个r推断出F; R上的函数依赖F, 通常由定义R的语义决定</p>
@@ -1290,15 +1290,15 @@ $$
 <p><strong>平凡依赖(trivial) 与 非平凡依赖(non-trivial)</strong>:</p>
 <ul>
 <li>如果一个函数依赖满足所有关系, 则它是<strong>平凡的(trival)</strong></li>
-<li>例如 $A\rightarrow A$</li>
-<li>一般的, 如果$\beta \subseteq \alpha$, 则$\alpha \rightarrow \beta$ 是平凡的; 否则, 它是不平凡的<img alt="image-20260421111307584" src="../images/image-20260421111307584.png" /></li>
+<li>例如 <span class="arithmatex">\(A\rightarrow A\)</span></li>
+<li>一般的, 如果<span class="arithmatex">\(\beta \subseteq \alpha\)</span>, 则<span class="arithmatex">\(\alpha \rightarrow \beta\)</span> 是平凡的; 否则, 它是不平凡的<img alt="image-20260421111307584" src="../images/image-20260421111307584.png" /></li>
 </ul>
 <h3 id="32-closure-of-a-set-of-functional-dependencies">3.2. Closure of a Set of Functional Dependencies 函数依赖集的闭包</h3>
 <p>给定<strong>函数依赖集合 F</strong>, 存在其它一些由 <strong>F 逻辑蕴含</strong> 的函数依赖</p>
 <ul>
-<li>例如, 给定$A \rightarrow B and B\rightarrow C$, 则可以推断出$A \rightarrow C$</li>
+<li>例如, 给定<span class="arithmatex">\(A \rightarrow B and B\rightarrow C\)</span>, 则可以推断出<span class="arithmatex">\(A \rightarrow C\)</span></li>
 </ul>
-<p><strong>定义</strong>: 所有由<strong>F 逻辑蕴含</strong>的函数依赖集合, 称为<strong>F 的闭包</strong>, 记作$F^+$</p>
+<p><strong>定义</strong>: 所有由<strong>F 逻辑蕴含</strong>的函数依赖集合, 称为<strong>F 的闭包</strong>, 记作<span class="arithmatex">\(F^+\)</span></p>
 <ul>
 <li>例如 </li>
 </ul>
@@ -1308,19 +1308,19 @@ $$
 <p><strong>Armstron's Axioms(公理)</strong>:</p>
 <ul>
 <li>
-<p>这个公理提供了寻找$F^+$的参考规则</p>
+<p>这个公理提供了寻找<span class="arithmatex">\(F^+\)</span>的参考规则</p>
 </li>
 <li>
 <p>公理内容:</p>
 </li>
 <li>
-<p>reflexivity 自反律: 若 $\beta \subseteq \alpha$, 则 $\alpha \rightarrow \beta$ ---- 平凡的</p>
+<p>reflexivity 自反律: 若 <span class="arithmatex">\(\beta \subseteq \alpha\)</span>, 则 <span class="arithmatex">\(\alpha \rightarrow \beta\)</span> ---- 平凡的</p>
 </li>
 <li>
-<p>augmentation 增补律: 若$\alpha \rightarrow \beta$, 则$\gamma\alpha\rightarrow\gamma\beta$, $\gamma\alpha\rightarrow\beta$</p>
+<p>augmentation 增补律: 若<span class="arithmatex">\(\alpha \rightarrow \beta\)</span>, 则<span class="arithmatex">\(\gamma\alpha\rightarrow\gamma\beta\)</span>, <span class="arithmatex">\(\gamma\alpha\rightarrow\beta\)</span></p>
 </li>
 <li>
-<p>transitivity 传递律: 若$\alpha \rightarrow \beta$, 并且 $\beta\rightarrow\gamma$, 那么$\alpha\rightarrow\gamma$</p>
+<p>transitivity 传递律: 若<span class="arithmatex">\(\alpha \rightarrow \beta\)</span>, 并且 <span class="arithmatex">\(\beta\rightarrow\gamma\)</span>, 那么<span class="arithmatex">\(\alpha\rightarrow\gamma\)</span></p>
 </li>
 <li>
 <p>这些公理是: sound(保真的), complete(完备的)</p>
@@ -1329,22 +1329,22 @@ $$
 <p>补充定律: 为了简化计算可以使用这些附加规则</p>
 </li>
 <li>
-<p>If $\alpha \rightarrow \beta$ and $\alpha \rightarrow \gamma$ holds, then $\alpha \rightarrow \beta\gamma$ holds <strong>(union, 合并律)</strong></p>
+<p>If <span class="arithmatex">\(\alpha \rightarrow \beta\)</span> and <span class="arithmatex">\(\alpha \rightarrow \gamma\)</span> holds, then <span class="arithmatex">\(\alpha \rightarrow \beta\gamma\)</span> holds <strong>(union, 合并律)</strong></p>
 </li>
-<li>If $\alpha \rightarrow \beta\gamma$ holds, then $\alpha \rightarrow \beta$ and $\alpha \rightarrow \gamma$ holds <strong>(decomposition, 分解律)</strong>  </li>
+<li>If <span class="arithmatex">\(\alpha \rightarrow \beta\gamma\)</span> holds, then <span class="arithmatex">\(\alpha \rightarrow \beta\)</span> and <span class="arithmatex">\(\alpha \rightarrow \gamma\)</span> holds <strong>(decomposition, 分解律)</strong>  </li>
 <li>
-<p>If $\alpha \rightarrow \beta$ and $\gamma\beta \rightarrow \delta$ holds, then $\alpha\gamma \rightarrow \delta$ holds <strong>(pseudotransitivity, 伪传递律)</strong></p>
+<p>If <span class="arithmatex">\(\alpha \rightarrow \beta\)</span> and <span class="arithmatex">\(\gamma\beta \rightarrow \delta\)</span> holds, then <span class="arithmatex">\(\alpha\gamma \rightarrow \delta\)</span> holds <strong>(pseudotransitivity, 伪传递律)</strong></p>
 </li>
 <li>
-<p>对于 n 个属性, 可能的最大函数依赖数量是$2^n \times 2^n$</p>
+<p>对于 n 个属性, 可能的最大函数依赖数量是<span class="arithmatex">\(2^n \times 2^n\)</span></p>
 </li>
 </ul>
 <h3 id="33-closure-of-attribute-sets">3.3. Closure of Attribute Sets 属性集的闭包</h3>
 <p><img alt="image-20260421114943265" src="../images/image-20260421114943265.png" /></p>
-<p><strong>定义</strong>: 对于给定属性集$\alpha$, 在F下由$\alpha$所直接或间接函数决定的属性集合称为$\alpha^+$</p>
+<p><strong>定义</strong>: 对于给定属性集<span class="arithmatex">\(\alpha\)</span>, 在F下由<span class="arithmatex">\(\alpha\)</span>所直接或间接函数决定的属性集合称为<span class="arithmatex">\(\alpha^+\)</span></p>
 <ul>
-<li>测试$\alpha \rightarrow \beta$在$F^+$中, $\Leftrightarrow$ $\beta\subseteq\alpha^+$</li>
-<li>测试$\alpha$是一个超键: $\alpha\rightarrow R$在$F^+$中 $\Leftrightarrow$ $R\subseteq \alpha^+$</li>
+<li>测试<span class="arithmatex">\(\alpha \rightarrow \beta\)</span>在<span class="arithmatex">\(F^+\)</span>中, <span class="arithmatex">\(\Leftrightarrow\)</span> <span class="arithmatex">\(\beta\subseteq\alpha^+\)</span></li>
+<li>测试<span class="arithmatex">\(\alpha\)</span>是一个超键: <span class="arithmatex">\(\alpha\rightarrow R\)</span>在<span class="arithmatex">\(F^+\)</span>中 <span class="arithmatex">\(\Leftrightarrow\)</span> <span class="arithmatex">\(R\subseteq \alpha^+\)</span></li>
 </ul>
 <p><strong>属性闭包的使用</strong>:</p>
 <ul>
@@ -1354,18 +1354,18 @@ $$
 </ul>
 <h3 id="34-canonical-cover">3.4. Canonical Cover 正则覆盖</h3>
 <p>DBMS 应该始终检查以确保不违反 F 中的任何函数依赖(FD); 但是若 F 太大, 检查成本很高, 因此我们需要简化函数依赖集</p>
-<p><strong>F 的规范覆盖</strong>(记作$F_c$) 是一个 <strong>与F等价的最小函数依赖集</strong></p>
+<p><strong>F 的规范覆盖</strong>(记作<span class="arithmatex">\(F_c\)</span>) 是一个 <strong>与F等价的最小函数依赖集</strong></p>
 <ul>
 <li>没有冗余的FD, 且没有冗余的FD部分, 即不包含任何外来属性</li>
 </ul>
 <blockquote>
-<p><strong>外来属性 (Extraneous Attribute)：</strong> 指一个函数依赖 $X \to Y$ 中，如果移除 $X$ 中的某个属性 $A$（变成 $X - {A}$），或者移除 $Y$ 中的某个属性 $B$（变成 $Y - {B}$），且移除后所得到的函数依赖仍然可以从原始函数依赖集推导出来，那么 $A$ 或 $B$ 就是外来属性。规范覆盖要求左侧和右侧都没有这样的外来属性。</p>
-<p>形式化表示: $F' = (F-{\alpha\rightarrow \beta})\cup{(\alpha-A)\rightarrow\beta}$, 其中F'与F等价, 即说明A是α中的外来属性</p>
+<p><strong>外来属性 (Extraneous Attribute)：</strong> 指一个函数依赖 <span class="arithmatex">\(X \to Y\)</span> 中，如果移除 <span class="arithmatex">\(X\)</span> 中的某个属性 <span class="arithmatex">\(A\)</span>（变成 <span class="arithmatex">\(X - \{A\}\)</span>），或者移除 <span class="arithmatex">\(Y\)</span> 中的某个属性 <span class="arithmatex">\(B\)</span>（变成 <span class="arithmatex">\(Y - \{B\}\)</span>），且移除后所得到的函数依赖仍然可以从原始函数依赖集推导出来，那么 <span class="arithmatex">\(A\)</span> 或 <span class="arithmatex">\(B\)</span> 就是外来属性。规范覆盖要求左侧和右侧都没有这样的外来属性。</p>
+<p>形式化表示: <span class="arithmatex">\(F' = (F-\{\alpha\rightarrow \beta\})\cup\{(\alpha-A)\rightarrow\beta\}\)</span>, 其中F'与F等价, 即说明A是α中的外来属性</p>
 </blockquote>
 <ul>
 <li>每个函数依赖的左侧是唯一的</li>
 </ul>
-<p>得到 $F_c$ $\Rightarrow$ 删除多余属性</p>
+<p>得到 <span class="arithmatex">\(F_c\)</span> <span class="arithmatex">\(\Rightarrow\)</span> 删除多余属性</p>
 <ul>
 <li>
 <p>对多余属性有三种情况:</p>
@@ -1374,7 +1374,7 @@ $$
 <p>函数依赖集可能包含<strong>冗余依赖</strong>, 这些依赖可以从其它依赖中推断出来</p>
 </li>
 <li>
-<p>部分函数依赖的<strong>左侧</strong>可能是冗余的 $\Rightarrow$ 外来属性<img alt="image-20260421135240377" src="../images/image-20260421135240377.png" /></p>
+<p>部分函数依赖的<strong>左侧</strong>可能是冗余的 <span class="arithmatex">\(\Rightarrow\)</span> 外来属性<img alt="image-20260421135240377" src="../images/image-20260421135240377.png" /></p>
 </li>
 <li>
 <p>部分函数依赖的<strong>右侧</strong>可能是冗余的<img alt="image-20260421135311111" src="../images/image-20260421135311111.png" /></p>
@@ -1391,9 +1391,9 @@ $$
 </ul>
 <h3 id="42">4.2 分解应有的特性</h3>
 <ol>
-<li>原关系模式R中的所有属性, 必须在分解中出现, 即 $R = R_1 \cup R_2$</li>
+<li>原关系模式R中的所有属性, 必须在分解中出现, 即 <span class="arithmatex">\(R = R_1 \cup R_2\)</span></li>
 <li>无损分解</li>
-<li>无损分解当且仅当, $F^+$中至少满足以下依赖中的一个: ${R_1\cap R_2}\rightarrow R_1$ 或者 ${R_1\cap R_2}\rightarrow R_2$</li>
+<li>无损分解当且仅当, <span class="arithmatex">\(F^+\)</span>中至少满足以下依赖中的一个: <span class="arithmatex">\(\{R_1\cap R_2\}\rightarrow R_1\)</span> 或者 <span class="arithmatex">\(\{R_1\cap R_2\}\rightarrow R_2\)</span></li>
 <li>
 <p>这个条件意味着, 分解后的两个子模式, 必须共享一个足够强的属性集, 使得这个共享属性集能够唯一确定其中一个子模式的所有属性</p>
 </li>
@@ -1401,9 +1401,9 @@ $$
 <p>Dependency preservation 依赖保持</p>
 </li>
 <li>为了高效的检查更新(以确保不违反任何FD), 允许在子关系 Ri 中分别进行更新验证, <strong>无需它们的连接操作</strong></li>
-<li>F 对 Ri 的限制是: $F_i \subseteq F^+$, 其中$F_i$是$F^+$中只包含$R_i$中属性的依赖集合</li>
+<li>F 对 Ri 的限制是: <span class="arithmatex">\(F_i \subseteq F^+\)</span>, 其中<span class="arithmatex">\(F_i\)</span>是<span class="arithmatex">\(F^+\)</span>中只包含<span class="arithmatex">\(R_i\)</span>中属性的依赖集合</li>
 <li>
-<p>$(F_1 \cup F_2 \cup ... \cup F_n)^+ = F^+$</p>
+<p><span class="arithmatex">\((F_1 \cup F_2 \cup ... \cup F_n)^+ = F^+\)</span></p>
 </li>
 <li>
 <p>无冗余: 关系Ri最好处于BCNF 或 3NF</p>
@@ -1413,10 +1413,10 @@ $$
 <blockquote>
 <p><strong>关系模式</strong>是基础，它定义了可以存储的数据结构。<strong>函数依赖集</strong>是对这种数据结构的约束。<strong>BCNF</strong> 则是衡量这种数据结构在满足约束的情况下，是否存在冗余和异常的一个“质量标准”。</p>
 </blockquote>
-<p><strong>定义</strong>: 一个处于BCNF中的关系模式 R, 对于函数依赖集F来说, 如果对于$F^+$中<strong>所有形如$\alpha \rightarrow \beta$的函数依赖</strong>, 以下条件至少有一个成立:</p>
+<p><strong>定义</strong>: 一个处于BCNF中的关系模式 R, 对于函数依赖集F来说, 如果对于<span class="arithmatex">\(F^+\)</span>中<strong>所有形如<span class="arithmatex">\(\alpha \rightarrow \beta\)</span>的函数依赖</strong>, 以下条件至少有一个成立:</p>
 <ul>
-<li>$\alpha \rightarrow \beta$是平凡的</li>
-<li>$\alpha$ 是 R 的超键</li>
+<li><span class="arithmatex">\(\alpha \rightarrow \beta\)</span>是平凡的</li>
+<li><span class="arithmatex">\(\alpha\)</span> 是 R 的超键</li>
 </ul>
 <p>任何两个属性的关系范式都处于BCNF</p>
 <blockquote>
@@ -1441,17 +1441,17 @@ $$
 <li>分解为BCNF不保持依赖</li>
 <li>但是高效地检查更新时的FD违规很重要</li>
 </ul>
-<p>$\Rightarrow$定义一个较弱的范式, 称为<strong>第三范式</strong></p>
+<p><span class="arithmatex">\(\Rightarrow\)</span>定义一个较弱的范式, 称为<strong>第三范式</strong></p>
 <ul>
 <li>允许一些冗余</li>
 <li>但函数依赖可以在单个关系上检查, 无需计算连接</li>
 <li><strong>总是存在</strong>一个无损链接, 依赖保持的3NF分解</li>
 </ul>
-<p><strong>定义</strong>: 处于第三范式的关系 R, 对于所有的F+中的 $\alpha \rightarrow \beta$, 至少满足下面的一个:</p>
+<p><strong>定义</strong>: 处于第三范式的关系 R, 对于所有的F+中的 <span class="arithmatex">\(\alpha \rightarrow \beta\)</span>, 至少满足下面的一个:</p>
 <ul>
-<li>$\alpha \rightarrow \beta$是平凡的</li>
-<li>$\alpha$是R的超键</li>
-<li>$\beta - \alpha$中的每个属性A都包含在R的某个候选键中 $\Rightarrow$ 为主属性</li>
+<li><span class="arithmatex">\(\alpha \rightarrow \beta\)</span>是平凡的</li>
+<li><span class="arithmatex">\(\alpha\)</span>是R的超键</li>
+<li><span class="arithmatex">\(\beta - \alpha\)</span>中的每个属性A都包含在R的某个候选键中 <span class="arithmatex">\(\Rightarrow\)</span> 为主属性</li>
 <li>这是 3NF 相对于BCNF 放松的关键条件, 是对BCNF的最小化放松, 以确保依赖保持 </li>
 </ul>
 <p>若一个关系处于BCNF, 那么它也处于3NF</p>
@@ -1477,19 +1477,19 @@ $$
 <p>对于 classes(course, teacher, book), 其处于BCNF, 但是由于 teacher 和 book 是多值属性, 所以可能会导致冗余 与 插入异常</p>
 <p>所以最好将其分解为 teaches(course, teacher) , book (course, book)</p>
 </blockquote>
-<p><strong>多值依赖 定义</strong>: 对于关系模式 R , $\alpha,\beta \subseteq R$, 若 存在多值依赖 $\alpha\rightarrow\rightarrow \beta$:</p>
+<p><strong>多值依赖 定义</strong>: 对于关系模式 R , <span class="arithmatex">\(\alpha,\beta \subseteq R\)</span>, 若 存在多值依赖 <span class="arithmatex">\(\alpha\rightarrow\rightarrow \beta\)</span>:</p>
 <ul>
 <li>对于 <code>α</code> 的<strong>任何一个特定值</strong>（比如 "数据库" 课程），它所关联的 <code>β</code> 值（比如 "Avi" 老师和 "Hank" 老师）</li>
 <li>和它所关联的 <code>Z</code> 值（比如 "DB Concepts" 和 "DB System (Ullman)" 两本书）是<strong>完全独立</strong>的。</li>
 <li><strong>这意味着什么？</strong> 这意味着 <code>α</code> 的每一个值所对应的 <code>β</code> 的每一个值，都必须和 <code>α</code> 的每一个值所对应的 <code>Z</code> 的每一个值<strong>组合出现</strong>。</li>
 </ul>
 <p><strong>表格表示</strong>:<img alt="image-20260423194740723" src="../images/image-20260423194740723.png" /></p>
-<p>若$\beta\subseteq\alpha$ 或者 $\alpha\cup\beta = R$, 那么多值依赖是<strong>平凡的</strong></p>
-<p>若将关系 R 分为 Y Z W 三个部分, 若$Y\rightarrow\rightarrow Z$, 那么 $Y\rightarrow\rightarrow W$</p>
-<p>若$\alpha\rightarrow\beta$, 那么$\alpha\rightarrow\rightarrow \beta$</p>
+<p>若<span class="arithmatex">\(\beta\subseteq\alpha\)</span> 或者 <span class="arithmatex">\(\alpha\cup\beta = R\)</span>, 那么多值依赖是<strong>平凡的</strong></p>
+<p>若将关系 R 分为 Y Z W 三个部分, 若<span class="arithmatex">\(Y\rightarrow\rightarrow Z\)</span>, 那么 <span class="arithmatex">\(Y\rightarrow\rightarrow W\)</span></p>
+<p>若<span class="arithmatex">\(\alpha\rightarrow\beta\)</span>, 那么<span class="arithmatex">\(\alpha\rightarrow\rightarrow \beta\)</span></p>
 <p>依赖集D的关系闭包D+, 是由 D 逻辑蕴含的<strong>函数依赖</strong> 与 <strong>多值依赖</strong>的集合</p>
 <h3 id="71">7.1 第四范式</h3>
-<p>对于处于第四范式的关系模式 R ,若对于D+中的所有多值依赖$\alpha\rightarrow\rightarrow\beta$, 至少满足一点:</p>
+<p>对于处于第四范式的关系模式 R ,若对于D+中的所有多值依赖<span class="arithmatex">\(\alpha\rightarrow\rightarrow\beta\)</span>, 至少满足一点:</p>
 <ul>
 <li>这个依赖是平凡的</li>
 <li>α是R的超键</li>
@@ -1597,6 +1597,10 @@ $$
     
     
       <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

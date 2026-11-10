@@ -1721,11 +1721,11 @@
 FROM r1, r2, ..., rm
 WHERE P
 </code></pre>
-<p>其对应的关系代数为: $\Pi _{A_1, A_2, ..., A_n}(\sigma _P(r_1 \times ... \times r_m))$</p>
+<p>其对应的关系代数为: <span class="arithmatex">\(\Pi _{A_1, A_2, ..., A_n}(\sigma _P(r_1 \times ... \times r_m))\)</span></p>
 <p>这个 SQL 查询的结果是一个关系</p>
 <hr />
 <h3 id="21-the-select-clause-select">2.1 The select Clause (select子句)</h3>
-<p><code>select</code>子句对应着 关系代数中的 <strong>投影$\Pi$</strong></p>
+<p><code>select</code>子句对应着 关系代数中的 <strong>投影<span class="arithmatex">\(\Pi\)</span></strong></p>
 <p><strong>note</strong>: SQL 中不允许字符<code>-</code>出现在名字中;</p>
 <p>​   例如: 使用<code>dept_name</code>; 而不是<code>dept-name</code></p>
 <p><strong>note</strong>: SQL 名称<strong>不区分大小写</strong></p>
@@ -1749,7 +1749,7 @@ WHERE P
 <p>​   例如:<code>SELECT ID, name, salary * 1.05 FROM instructor;</code></p>
 <hr />
 <h3 id="22-the-where-clause-where">2.2 The Where Clause (where子句)</h3>
-<p><strong><code>WHERE</code></strong>子句 用于指定结果必须<strong>满足的条件</strong>, 它对应于关系代数中的<strong>选择谓词 selection predicate $\sigma$</strong></p>
+<p><strong><code>WHERE</code></strong>子句 用于指定结果必须<strong>满足的条件</strong>, 它对应于关系代数中的<strong>选择谓词 selection predicate <span class="arithmatex">\(\sigma\)</span></strong></p>
 <p><code>WHERE</code> 子句中, 比较结果可以用<strong>逻辑连接词</strong> <code>AND OR NOT</code> 进行组合, 同时还可以使用 <code>BETWEEN</code>比较运算符, 来指定一个范围;</p>
 <p>例如:</p>
 <pre><code class="language-sql">SELECT name FROM instructor
@@ -1759,7 +1759,7 @@ WHERE salary BETWEEN 90000 AND 100000
 <h3 id="23-the-from-clause-from">2.3 The From Clause (from 子句)</h3>
 <p><code>from</code>子句 列出了查询中涉及到的关系;</p>
 <ul>
-<li>如果指定了不止一个关系, 则对应于关系代数中的 <strong>笛卡儿积 $\times$</strong></li>
+<li>如果指定了不止一个关系, 则对应于关系代数中的 <strong>笛卡儿积 <span class="arithmatex">\(\times\)</span></strong></li>
 </ul>
 <p>例如:<img alt="image-20260325165100708" src="../images/image-20260325165100708.png" /></p>
 <p><img alt="image-20260325165433028" src="../images/image-20260325165433028.png" /></p>
@@ -1835,19 +1835,19 @@ ORDER BY salary desc, name asc;
 <hr />
 <h3 id="27-duplicates">2.7 Duplicates 重复元组</h3>
 <p>在传统<strong>关系理论</strong>中, 不允许存在重复元组, 但是在实际应用中, 我们需要<strong>允许重复</strong></p>
-<p>某些关系代数运算符存在 <strong>多重集版本</strong>: $\sigma _\theta$, $\Pi _A$, $\times$</p>
-<p>对于多重集$r_1, r_2$:</p>
+<p>某些关系代数运算符存在 <strong>多重集版本</strong>: <span class="arithmatex">\(\sigma _\theta\)</span>, <span class="arithmatex">\(\Pi _A\)</span>, <span class="arithmatex">\(\times\)</span></p>
+<p>对于多重集<span class="arithmatex">\(r_1, r_2\)</span>:</p>
 <ol>
-<li>$\sigma _\theta(r_1)$: 若有 元组$t_1$的拷贝 $c_1$份, 并且 $t_1$ 满足选择条件, 那么选择结果中就会有 $c_1$份 $t_1$的拷贝</li>
-<li>$\Pi_A(r_1)$: 对于关系中 $t_1$的每一份拷贝, 结果中就会有一个 $\Pi_A(t_1)$的拷贝</li>
-<li>$r_1 \times r_2$: 如果 $t_1, t_2$分别有$c_1, c_2$份拷贝, 那么结果中就有 $c_1\times c_2$份对$t_1t_2$的拷贝</li>
+<li><span class="arithmatex">\(\sigma _\theta(r_1)\)</span>: 若有 元组<span class="arithmatex">\(t_1\)</span>的拷贝 <span class="arithmatex">\(c_1\)</span>份, 并且 <span class="arithmatex">\(t_1\)</span> 满足选择条件, 那么选择结果中就会有 <span class="arithmatex">\(c_1\)</span>份 <span class="arithmatex">\(t_1\)</span>的拷贝</li>
+<li><span class="arithmatex">\(\Pi_A(r_1)\)</span>: 对于关系中 <span class="arithmatex">\(t_1\)</span>的每一份拷贝, 结果中就会有一个 <span class="arithmatex">\(\Pi_A(t_1)\)</span>的拷贝</li>
+<li><span class="arithmatex">\(r_1 \times r_2\)</span>: 如果 <span class="arithmatex">\(t_1, t_2\)</span>分别有<span class="arithmatex">\(c_1, c_2\)</span>份拷贝, 那么结果中就有 <span class="arithmatex">\(c_1\times c_2\)</span>份对<span class="arithmatex">\(t_1t_2\)</span>的拷贝</li>
 </ol>
 <p>SQL 中的选择陈述也同样支持 多重集操作, 为了禁止重复集, 使用<code>distinct</code></p>
 <hr />
 <h2 id="3-set-operations">3. Set Operations 集合操作</h2>
 <p>在 SQL 中, 使用集合操作: <strong>union, intersect, except</strong></p>
 <ul>
-<li>分别对应关系代数中的: $\cup, \cap, -$</li>
+<li>分别对应关系代数中的: <span class="arithmatex">\(\cup, \cap, -\)</span></li>
 </ul>
 <p>每个操作都会<strong>自动消除多重集</strong></p>
 <p>如果要保留所有的多重集, 则需要使用<strong>union all, intersect all, except all</strong></p>
@@ -1908,10 +1908,10 @@ ORDER BY &lt;c1[DESC][,c2[ASC],...]&gt;
 <p>子查询一个常见用途是执行 集合成员的比较测试</p>
 <h3 id="61-set-comparison">6.1 Set Comparison</h3>
 <p><strong>Some 子句</strong>:</p>
-<p><code>C &lt;comp&gt; some r</code> 即 关系r中<strong>存在</strong>元组t, 使得<code>c &lt;comp&gt; t</code>, 其中<code>&lt;comp&gt;</code> 可以是$&lt;,\le, &gt;, =, \neq$</p>
+<p><code>C &lt;comp&gt; some r</code> 即 关系r中<strong>存在</strong>元组t, 使得<code>c &lt;comp&gt; t</code>, 其中<code>&lt;comp&gt;</code> 可以是<span class="arithmatex">\(&lt;,\le, &gt;, =, \neq\)</span></p>
 <p><img alt="image-20260329104014645" src="../images/image-20260329104014645.png" /></p>
 <p><strong>all 子句</strong></p>
-<p><code>C &lt;comp&gt; all r</code> 即关系r中<strong>所有</strong>元组t, 使得 <code>c &lt;comp&gt; t</code>, 其中<code>&lt;comp&gt;</code> 可以是$&lt;,\le, &gt;, =, \neq$</p>
+<p><code>C &lt;comp&gt; all r</code> 即关系r中<strong>所有</strong>元组t, 使得 <code>c &lt;comp&gt; t</code>, 其中<code>&lt;comp&gt;</code> 可以是<span class="arithmatex">\(&lt;,\le, &gt;, =, \neq\)</span></p>
 <p><img alt="image-20260329104348051" src="../images/image-20260329104348051.png" /></p>
 <h3 id="62-test-for-empty-relations">6.2 Test for Empty Relations 测试空关系</h3>
 <p><code>exists r</code> 等价于 r 不为空集</p>
@@ -2109,6 +2109,10 @@ INSERT INTO &lt;table/view&gt;[(c1,c2,...)]
     
     
       <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

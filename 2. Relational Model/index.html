@@ -1134,9 +1134,9 @@
 </ul>
 <p><strong>关系(relations)</strong>: 一个无序集合, 里面包含了表示实体的属性的联系, 是用<strong>行(rows)</strong> 与 <strong>列(columns)</strong> 表示的一张 <strong>表(table)</strong></p>
 <h2 id="2-basic-structure">2. Basic Structure</h2>
-<p>考虑集合$D_1, D_2, ..., D_n(D_i = a_{ij}|j=1...k)$, 一个关系<strong>r</strong>是$D_1 \times D_2 \times ... \times D_n$的子集(其中$\times$表示的是笛卡尔积)</p>
+<p>考虑集合<span class="arithmatex">\(D_1, D_2, ..., D_n(D_i = a_{ij}|j=1...k)\)</span>, 一个关系<strong>r</strong>是<span class="arithmatex">\(D_1 \times D_2 \times ... \times D_n\)</span>的子集(其中<span class="arithmatex">\(\times\)</span>表示的是笛卡尔积)</p>
 <ul>
-<li>因此一个关系是<strong>n-tuples(元组)</strong>$(a_{1j}, a_{2j},...a_{nj})$的集合</li>
+<li>因此一个关系是<strong>n-tuples(元组)</strong><span class="arithmatex">\((a_{1j}, a_{2j},...a_{nj})\)</span>的集合</li>
 </ul>
 <p><strong>1. 属性类型(Attribute Types)</strong>:</p>
 <ul>
@@ -1166,8 +1166,8 @@
 <p><strong>Relation schema</strong>: </p>
 </li>
 </ul>
-<p>$A_1, A_2, ..., A_n$是属性</p>
-<p>通常表示: $R = (A_1, A_2, ..., A_n)$是一个relation schema</p>
+<p><span class="arithmatex">\(A_1, A_2, ..., A_n\)</span>是属性</p>
+<p>通常表示: <span class="arithmatex">\(R = (A_1, A_2, ..., A_n)\)</span>是一个relation schema</p>
 <p><strong>r(R)</strong> 是在<strong>relation schema R</strong>上的一组关系</p>
 <ol>
 <li><strong>Relation Instance</strong></li>
@@ -1182,12 +1182,12 @@
 <ol>
 <li><strong>Keys(码, 键)</strong></li>
 </ol>
-<p>​   $K\subseteq R$</p>
+<p>​   <span class="arithmatex">\(K\subseteq R\)</span></p>
 <blockquote>
 <p>下述的所有键都可能包含多个属性, 且主键也不一定只包含一个属性</p>
 </blockquote>
 <ul>
-<li><strong>superkey(超码)</strong>: 若通过K的一个value, 就可以在每一个可能的$r(R)$中, 唯一确定一个tuple </li>
+<li><strong>superkey(超码)</strong>: 若通过K的一个value, 就可以在每一个可能的<span class="arithmatex">\(r(R)\)</span>中, 唯一确定一个tuple </li>
 <li>eg. {instructor-ID}</li>
 <li><strong>candidate key(候选码)</strong>: 若K是<strong>minimal superkey</strong>, 即没有其子集是一个superkey了</li>
 <li><strong>primary key(主码)</strong>: 如果K是一个<strong>candidate key</strong>并且被用户明确定义了;</li>
@@ -1234,29 +1234,29 @@
 <blockquote>
 <p>执行选择时, 选择条件必须是针对同一元组中的相应属性值代入进行比较</p>
 </blockquote>
-<p>表达式: $\sigma _p(r)$</p>
+<p>表达式: <span class="arithmatex">\(\sigma _p(r)\)</span></p>
 <p>p 称作 <strong>选择谓词(selection predicate)</strong></p>
-<p>定义为$\sigma _p(r) = {t | t\in r and p(t)}$</p>
-<p>其中p是一个命题逻辑公式, 由<strong>项(terms)</strong>通过逻辑运算符连接而成: $\land$(与), $\lor$(或), $\neg$(非)</p>
+<p>定义为<span class="arithmatex">\(\sigma _p(r) = \{t | t\in r and p(t)\}\)</span></p>
+<p>其中p是一个命题逻辑公式, 由<strong>项(terms)</strong>通过逻辑运算符连接而成: <span class="arithmatex">\(\land\)</span>(与), <span class="arithmatex">\(\lor\)</span>(或), <span class="arithmatex">\(\neg\)</span>(非)</p>
 <ul>
 <li>
 <p>每个项(term)是以下之一: &lt;属性&gt; op &lt;属性(或常数)&gt;;</p>
 </li>
 <li>
-<p>其中op是以下之一: $= \neq &gt; \geq &lt; \leq$</p>
+<p>其中op是以下之一: <span class="arithmatex">\(= \neq &gt; \geq &lt; \leq\)</span></p>
 </li>
 </ul>
 <hr />
 <h3 id="32-project-operation">3.2. Project Operation 投影操作</h3>
 <p><img alt="image-20260323201322018" src="../images/image-20260323201322018.png" /></p>
-<p><strong>表达式</strong>: $\Pi _{A1, A2, ..., Ak}(r)$, 其中$A1,...Ak$都是属性名字, 并且r是一个关系名</p>
+<p><strong>表达式</strong>: <span class="arithmatex">\(\Pi _{A1, A2, ..., Ak}(r)\)</span>, 其中<span class="arithmatex">\(A1,...Ak\)</span>都是属性名字, 并且r是一个关系名</p>
 <p>结果被定义为k-columns的关系, 通过从原本的关系中去除未被列出来的columns</p>
 <p><strong>重复</strong>的两个rows会被从结果中去除</p>
 <hr />
 <h3 id="33-union-operation">3.3. Union Operation 并操作</h3>
 <p><img alt="image-20260323202002506" src="../images/image-20260323202002506.png" /></p>
-<p>**表达式: **$r \cup s$</p>
-<p>被定义作: $r \cup s = {t|t\in r or t\in s}$</p>
+<p>**表达式: **<span class="arithmatex">\(r \cup s\)</span></p>
+<p>被定义作: <span class="arithmatex">\(r \cup s = \{t|t\in r or t\in s\}\)</span></p>
 <p>并操作<strong>有效</strong>, 必须满足以下条件:</p>
 <ul>
 <li>r和s必须具有相同的元数(等目, 同元, same number of attributes)</li>
@@ -1265,8 +1265,8 @@
 <hr />
 <h3 id="34-set-difference-operation">3.4. Set Difference Operation 差操作</h3>
 <p><img alt="image-20260323222539117" src="../images/image-20260323222539117.png" /></p>
-<p><strong>表达式</strong>: $r-s$</p>
-<p><strong>定义</strong>: $r-s = {t|t\in r and t \notin s}$</p>
+<p><strong>表达式</strong>: <span class="arithmatex">\(r-s\)</span></p>
+<p><strong>定义</strong>: <span class="arithmatex">\(r-s = {t|t\in r and t \notin s}\)</span></p>
 <p>差操作有效, 必须满足:</p>
 <ul>
 <li>r 和 s 必须同元</li>
@@ -1275,9 +1275,9 @@
 <hr />
 <h3 id="35-cartesian-product-operation">3.5. Cartesian-Product Operation 广义笛卡尔积</h3>
 <p><img alt="image-20260323222824369" src="../images/image-20260323222824369.png" /></p>
-<p><strong>表达式</strong>: $r \times s$</p>
-<p><strong>定义</strong>: $r \times s = {{tq}|t\in r and q \in s}$</p>
-<p>假设r(R)和s(S)是不相交的($R \cap S = \varnothing$)</p>
+<p><strong>表达式</strong>: <span class="arithmatex">\(r \times s\)</span></p>
+<p><strong>定义</strong>: <span class="arithmatex">\(r \times s = \{\{tq\}|t\in r and q \in s\}\)</span></p>
+<p>假设r(R)和s(S)是不相交的(<span class="arithmatex">\(R \cap S = \varnothing\)</span>)</p>
 <p>如果r(R)和s(S)是不相交的, 那么必须对属性进行<strong>重命名</strong></p>
 <p><img alt="image-20260323223314081" src="../images/image-20260323223314081.png" /></p>
 <hr />
@@ -1293,10 +1293,10 @@
 <p>例如: </p>
 <ul>
 <li>
-<p>$\rho _X(E)$, 返回表达式 E 通过名字X</p>
+<p><span class="arithmatex">\(\rho _X(E)\)</span>, 返回表达式 E 通过名字X</p>
 </li>
 <li>
-<p>若关系代数表达式 E 有n个元数, 那么$\rho _{x(A1,A2,...,An)}(E)$, 则是对关系E和它的属性都进行重命名</p>
+<p>若关系代数表达式 E 有n个元数, 那么<span class="arithmatex">\(\rho _{x(A1,A2,...,An)}(E)\)</span>, 则是对关系E和它的属性都进行重命名</p>
 </li>
 </ul>
 <hr />
@@ -1306,25 +1306,25 @@
 </blockquote>
 <p><strong>8.1. Set-Intersection Operation 交操作</strong></p>
 <p><img alt="image-20260324091418260" src="../images/image-20260324091418260.png" /></p>
-<p>​   <strong>表达式</strong>: $r\cap s$</p>
-<p>​   <strong>定义</strong>: $r\cap s = {t|t\in r and t\in s}$</p>
+<p>​   <strong>表达式</strong>: <span class="arithmatex">\(r\cap s\)</span></p>
+<p>​   <strong>定义</strong>: <span class="arithmatex">\(r\cap s = \{t|t\in r and t\in s\}\)</span></p>
 <p>​   若交操作有效, 需要满足: r, s同元; 且r和s的属性可兼容;</p>
 <blockquote>
-<p>note: $r\cap s = r - (r - s)$</p>
+<p>note: <span class="arithmatex">\(r\cap s = r - (r - s)\)</span></p>
 </blockquote>
 <p><strong>8.2 Natural-Join Operation 自然连接操作</strong></p>
 <p><strong>表达式</strong>: <img alt="image-20260324091832227" src="../images/image-20260324091832227.png" /></p>
 <p><img alt="image-20260324091933567" src="../images/image-20260324091933567.png" /></p>
-<p>若 r 和 s 分别是 关系模式R 和 S 上的关系, 那么 r 和 s的自然连接则是关系模式<strong>$R\cup S$</strong>上的关系, 且通过以下步骤构造:</p>
+<p>若 r 和 s 分别是 关系模式R 和 S 上的关系, 那么 r 和 s的自然连接则是关系模式<strong><span class="arithmatex">\(R\cup S\)</span></strong>上的关系, 且通过以下步骤构造:</p>
 <ol>
 <li>
-<p>考虑每对元组$t_r$来自r , $t_s$来自s</p>
+<p>考虑每对元组<span class="arithmatex">\(t_r\)</span>来自r , <span class="arithmatex">\(t_s\)</span>来自s</p>
 </li>
 <li>
-<p>若$t_r$和$t_s$在$R\cap S$中的每个属性上拥有相同的值, 则向结果中添加一个元组t,   其中:</p>
+<p>若<span class="arithmatex">\(t_r\)</span>和<span class="arithmatex">\(t_s\)</span>在<span class="arithmatex">\(R\cap S\)</span>中的每个属性上拥有相同的值, 则向结果中添加一个元组t,   其中:</p>
 </li>
-<li>t 在 r的属性上的值和$t_r$相同</li>
-<li>t 在 s的属性上的值与$t_s$相同</li>
+<li>t 在 r的属性上的值和<span class="arithmatex">\(t_r\)</span>相同</li>
+<li>t 在 s的属性上的值与<span class="arithmatex">\(t_s\)</span>相同</li>
 </ol>
 <p><img alt="image-20260324093019177" src="../images/image-20260324093019177.png" /></p>
 <blockquote>
@@ -1334,37 +1334,37 @@
 <li>结果属性是二者属性集的交集, 但消去同名属性</li>
 </ol>
 <p>Theta 连接(条件连接): <img alt="image-20260324093235030" src="../images/image-20260324093235030.png" /></p>
-<p>$\theta$是在关系模式中, 对于属性的谓词</p>
+<p><span class="arithmatex">\(\theta\)</span>是在关系模式中, 对于属性的谓词</p>
 </blockquote>
 <p><strong>8.3 Division Operation 除操作</strong></p>
-<p><strong>表达式</strong>: $r \div s$</p>
+<p><strong>表达式</strong>: <span class="arithmatex">\(r \div s\)</span></p>
 <p><img alt="image-20260324093423974" src="../images/image-20260324093423974.png" /></p>
 <p>假设 r 和 s 分别是在关系模式 R 和 S 上的两个关系, 其中:</p>
 <ul>
-<li>$R = (A_1, ..., A_m, B_1, ..., B_n)$</li>
-<li>$S = (B_1, ..., B_n)$</li>
+<li><span class="arithmatex">\(R = (A_1, ..., A_m, B_1, ..., B_n)\)</span></li>
+<li><span class="arithmatex">\(S = (B_1, ..., B_n)\)</span></li>
 </ul>
-<p>则$r \div s$的结果是定义在关系模式 $R - S = (A_1, ..., A_m)$ 上的关系,
+<p>则<span class="arithmatex">\(r \div s\)</span>的结果是定义在关系模式 <span class="arithmatex">\(R - S = (A_1, ..., A_m)\)</span> 上的关系,
 $$
 R \div S  = {t | t \in \Pi_{R-S}(r) \land \forall u\in s (tu \in r) }
 $$</p>
 <blockquote>
-<p>商来自于$\Pi _{R-S}(r)$, 并且其元组t与s所有元组的拼接被r覆盖</p>
+<p>商来自于<span class="arithmatex">\(\Pi _{R-S}(r)\)</span>, 并且其元组t与s所有元组的拼接被r覆盖</p>
 </blockquote>
 <p><img alt="image-20260324100950731" src="../images/image-20260324100950731.png" /></p>
-<p><strong>性质</strong>: 假设 $q = r \div s$, 那么<strong>q</strong>就是满足$q\times s \subseteq r$的<strong>最大关系</strong></p>
+<p><strong>性质</strong>: 假设 <span class="arithmatex">\(q = r \div s\)</span>, 那么<strong>q</strong>就是满足<span class="arithmatex">\(q\times s \subseteq r\)</span>的<strong>最大关系</strong></p>
 <p>该预算适用于所有带有<strong>"for all"</strong>字样的语句</p>
-<p>用基本代数运算定义除法操作: 设$r(R)和s(S)$是两个关系, 且$S\subseteq R$</p>
+<p>用基本代数运算定义除法操作: 设<span class="arithmatex">\(r(R)和s(S)\)</span>是两个关系, 且<span class="arithmatex">\(S\subseteq R\)</span></p>
 <p>则:
 $$
 r \div s = \Pi <em>{R-S}(r) - \Pi</em>{R-S}((\Pi_{R-S}(r)\times s) - \Pi_{R-S, S}(r))
 $$</p>
 <ul>
 <li>
-<p>其中$\Pi_{R-S, S}(r)$只是对r的简单重排序</p>
+<p>其中<span class="arithmatex">\(\Pi_{R-S, S}(r)\)</span>只是对r的简单重排序</p>
 </li>
 <li>
-<p>$\Pi_{R-S}((\Pi_{R-S}(r)\times s) - \Pi_{R-S, S}(r))$得到了所有定义在$\Pi_{R-S}$中的元组t, 满足$u \in s, tu\notin r$</p>
+<p><span class="arithmatex">\(\Pi_{R-S}((\Pi_{R-S}(r)\times s) - \Pi_{R-S, S}(r))\)</span>得到了所有定义在<span class="arithmatex">\(\Pi_{R-S}\)</span>中的元组t, 满足<span class="arithmatex">\(u \in s, tu\notin r\)</span></p>
 </li>
 </ul>
 <p><strong>8.4 Assignment Operation 赋值操作</strong></p>
@@ -1375,7 +1375,7 @@ $$</p>
 <li>后跟一个表达式, 其结果作为查询输出显示</li>
 <li>赋值必须总是赋给一个临时关系变量</li>
 </ul>
-<p>示例: 将$r \div s$写为: 
+<p>示例: 将<span class="arithmatex">\(r \div s\)</span>写为: 
 $$
 temp1 \leftarrow \Pi_{R-S}(r)   \
 temp2 \leftarrow \Pi_{(temp1 \times s) - \Pi_{R-S,S}(r)}    \
@@ -1422,7 +1422,7 @@ $$
 $$</p>
 <ul>
 <li>E 是任意的关系代数表达式</li>
-<li>每个$F_1,...,F_n$都是包含常量和E的模式中的属性的算数表达式</li>
+<li>每个<span class="arithmatex">\(F_1,...,F_n\)</span>都是包含常量和E的模式中的属性的算数表达式</li>
 </ul>
 <blockquote>
 <p>传统的<strong>投影</strong>只能选择已有属性, 而<strong>通用投影</strong>允许我们在投影中进行<strong>计算</strong>,并且新增<strong>派生属性</strong></p>
@@ -1436,9 +1436,9 @@ $$
 $$</p>
 <ul>
 <li>E 是任意的关系代数表达式</li>
-<li>$G1, G2, ..., Gn$是用于分组的一系列的属性（可以为空）</li>
-<li>每个$F_i$是一个聚合函数</li>
-<li>每个$A_i$是一个属性名字</li>
+<li><span class="arithmatex">\(G1, G2, ..., Gn\)</span>是用于分组的一系列的属性（可以为空）</li>
+<li>每个<span class="arithmatex">\(F_i\)</span>是一个聚合函数</li>
+<li>每个<span class="arithmatex">\(A_i\)</span>是一个属性名字</li>
 </ul>
 <p><img alt="image-20260324112624051" src="../images/image-20260324112624051.png" /></p>
 <h3 id="43-outer-join">4.3 Outer Join 外连接</h3>
@@ -1466,7 +1466,7 @@ $$</p>
 </ul>
 <p>与<code>null</code>值的比较会返回一个特殊的真值<code>unknown</code></p>
 <ul>
-<li>如果用<code>false</code>代替<code>unknown</code>, 那么 $not(A &lt; 5)$就不等价于$A \geq 5$</li>
+<li>如果用<code>false</code>代替<code>unknown</code>, 那么 <span class="arithmatex">\(not(A &lt; 5)\)</span>就不等价于<span class="arithmatex">\(A \geq 5\)</span></li>
 </ul>
 <blockquote>
 <p>因为 A&lt;5变为false, 则not(false)就变为true</p>
@@ -1499,7 +1499,7 @@ $$</p>
 <p><strong>4.5.1 Deletion</strong></p>
 <p><strong>删除请求</strong>的表达方式类似于<strong>查询</strong>，只不过只是从数据库中删除这些元组；</p>
 <p>只能删除<strong>完整的元组</strong>，不能只删除某个属性上的值；</p>
-<p>在关系代数中，表示为：$r \leftarrow r - E$</p>
+<p>在关系代数中，表示为：<span class="arithmatex">\(r \leftarrow r - E\)</span></p>
 <ul>
 <li>其中 r 是一个关系</li>
 <li>E 是一个关系代数查询表达式</li>
@@ -1509,7 +1509,7 @@ $$</p>
 <li>写一个查询, 其结果作为插入元组的集合去插入</li>
 <li>具体单独一个元组插入</li>
 </ul>
-<p>关系代数中: $r \leftarrow r \cup E$</p>
+<p>关系代数中: <span class="arithmatex">\(r \leftarrow r \cup E\)</span></p>
 <ul>
 <li>
 <p>其中 r 是一个关系, 而 E 是一个关系代数表达式</p>
@@ -1526,7 +1526,7 @@ r \leftarrow \Pi_{F1, F2,...,Fi,}(r)
 $$</p>
 <ul>
 <li>
-<p>每个$F_i$:</p>
+<p>每个<span class="arithmatex">\(F_i\)</span>:</p>
 </li>
 <li>
 <p>是 关系r 的第i个属性, 如果第i个属性不被更新</p>
@@ -1592,6 +1592,10 @@ $$</p>
     
     
       <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

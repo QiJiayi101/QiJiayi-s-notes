@@ -1518,7 +1518,7 @@
 <p><strong>B+树查询代价</strong>:</p>
 <ul>
 <li>一次查询会从根到某个叶节点走一条路径。</li>
-<li>若文件中有 <code>M</code> 个搜索键值, 路径长度不超过$\ceil{log_{\lceil n/2 \rceil}M}$</li>
+<li>若文件中有 <code>M</code> 个搜索键值, 路径长度不超过<span class="arithmatex">\(\ceil{log_{\lceil n/2 \rceil}M}\)</span></li>
 <li>一个节点通常等于一个磁盘块, 大小约 4KB</li>
 <li><code>n</code> 通常约为 100</li>
 </ul>
@@ -1802,6 +1802,10 @@ on account(account-number);
     
     
       <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

@@ -1469,7 +1469,7 @@
 <p>反证法:</p>
 </li>
 <li>
-<p>若 precedence graph 中有边 $T_i \rightarrow T_j$, 则 $T_i$ 的 lock point 必须早于 $T_j$</p>
+<p>若 precedence graph 中有边 <span class="arithmatex">\(T_i \rightarrow T_j\)</span>, 则 <span class="arithmatex">\(T_i\)</span> 的 lock point 必须早于 <span class="arithmatex">\(T_j\)</span></p>
 </li>
 <li>若图中存在环:
 $$
@@ -1483,7 +1483,7 @@ $$
 </ol>
 <p>因此 precedence graph 无环</p>
 <ol>
-<li>对于符合2PL的调度, 假设$T_i$ 是第一个到达 lock point 的, 则可以将其所有的读写操作前移到调度的开头, 且没有通过任何冲突的操作, 这样递归下来便可以产生一个串行调度</li>
+<li>对于符合2PL的调度, 假设<span class="arithmatex">\(T_i\)</span> 是第一个到达 lock point 的, 则可以将其所有的读写操作前移到调度的开头, 且没有通过任何冲突的操作, 这样递归下来便可以产生一个串行调度</li>
 </ol>
 <h3 id="21-2pl">2.1 2PL 的问题</h3>
 <p>2PL 可以保证 conflict serializability, 但:</p>
@@ -1587,8 +1587,8 @@ lock table 通常是内存中的 hash table, 以数据项名为 key</p>
 <p>graph-based protocol 是 2PL 的替代方案</p>
 <p>基本思想:</p>
 <ul>
-<li>在所有数据项集合 $D={d_1,d_2,...,d_h}$ 上定义偏序 $\rightarrow$</li>
-<li>若 $d_i \rightarrow d_j$, 则任何同时访问 $d_i$ 和 $d_j$ 的事务必须先访问 $d_i$</li>
+<li>在所有数据项集合 <span class="arithmatex">\(D=\{d_1,d_2,...,d_h\}\)</span> 上定义偏序 <span class="arithmatex">\(\rightarrow\)</span></li>
+<li>若 <span class="arithmatex">\(d_i \rightarrow d_j\)</span>, 则任何同时访问 <span class="arithmatex">\(d_i\)</span> 和 <span class="arithmatex">\(d_j\)</span> 的事务必须先访问 <span class="arithmatex">\(d_i\)</span></li>
 <li>数据项可看作一个 <strong>directed acyclic graph</strong>, 也称为 database graph</li>
 </ul>
 <h3 id="41-tree-protocol">4.1 Tree Protocol 树形协议</h3>
@@ -1680,14 +1680,14 @@ $$
 SIX = S + IX
 $$</p>
 <h3 id="73-multiple-granularity-locking-scheme">7.3 Multiple Granularity Locking Scheme</h3>
-<p>事务 $T_i$ 加锁节点 $Q$ 时必须遵守:
+<p>事务 <span class="arithmatex">\(T_i\)</span> 加锁节点 <span class="arithmatex">\(Q\)</span> 时必须遵守:
 <img alt="Pasted image 20260627102736" src="../images/Pasted%20image%2020260627102736.png" />
 1. 锁相容矩阵必须满足
 2. 必须先锁 root, root 可用任意模式
-3. 若要对 $Q$ 加 S 或 IS, 其 parent 必须已被 $T_i$ 以 IX 或 IS 锁住
-4. 若要对 $Q$ 加 X, SIX 或 IX, 其 parent 必须已被 $T_i$ 以 IX 或 SIX 锁住
+3. 若要对 <span class="arithmatex">\(Q\)</span> 加 S 或 IS, 其 parent 必须已被 <span class="arithmatex">\(T_i\)</span> 以 IX 或 IS 锁住
+4. 若要对 <span class="arithmatex">\(Q\)</span> 加 X, SIX 或 IX, 其 parent 必须已被 <span class="arithmatex">\(T_i\)</span> 以 IX 或 SIX 锁住
 5. 事务释放过任何锁后, 不能再获得新锁
-6. 事务只能在 $Q$ 的 children 都没有被自己锁住时释放 $Q$</p>
+6. 事务只能在 <span class="arithmatex">\(Q\)</span> 的 children 都没有被自己锁住时释放 <span class="arithmatex">\(Q\)</span></p>
 <p>即:</p>
 <ul>
 <li>加锁自顶向下</li>
@@ -1760,19 +1760,19 @@ $$</p>
 </ul>
 <h3 id="92-deadlock-detection">9.2 Deadlock Detection</h3>
 <p>使用 <strong>wait-for graph 等待图</strong></p>
-<p>图 $G=(V,E)$:</p>
+<p>图 <span class="arithmatex">\(G=(V,E)\)</span>:</p>
 <ul>
-<li>$V$: 系统中所有事务</li>
-<li>$E$: 等待关系</li>
+<li><span class="arithmatex">\(V\)</span>: 系统中所有事务</li>
+<li><span class="arithmatex">\(E\)</span>: 等待关系</li>
 </ul>
-<p>若 $T_i$ 等待 $T_j$ 释放某数据项, 则有边:
+<p>若 <span class="arithmatex">\(T_i\)</span> 等待 <span class="arithmatex">\(T_j\)</span> 释放某数据项, 则有边:
 $$
 T_i \rightarrow T_j
 $$</p>
 <p>规则:</p>
 <ul>
-<li>当 $T_i$ 请求的数据项被 $T_j$ 持有时, 插入边</li>
-<li>当 $T_j$ 不再持有 $T_i$ 需要的数据项时, 删除边</li>
+<li>当 <span class="arithmatex">\(T_i\)</span> 请求的数据项被 <span class="arithmatex">\(T_j\)</span> 持有时, 插入边</li>
+<li>当 <span class="arithmatex">\(T_j\)</span> 不再持有 <span class="arithmatex">\(T_i\)</span> 需要的数据项时, 删除边</li>
 </ul>
 <p><strong>判断:</strong></p>
 <blockquote>
@@ -1814,8 +1814,8 @@ $$</p>
 </blockquote>
 <p>例如:</p>
 <ul>
-<li>事务 $T_1$ 扫描关系中满足某谓词的 tuple</li>
-<li>事务 $T_2$ 插入一个满足该谓词的新 tuple</li>
+<li>事务 <span class="arithmatex">\(T_1\)</span> 扫描关系中满足某谓词的 tuple</li>
+<li>事务 <span class="arithmatex">\(T_2\)</span> 插入一个满足该谓词的新 tuple</li>
 <li>二者可能没有访问任何相同 tuple</li>
 <li>但逻辑上发生冲突</li>
 </ul>
@@ -1949,6 +1949,10 @@ $$</p>
     
     
       <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

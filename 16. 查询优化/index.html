@@ -1314,15 +1314,15 @@ $$
 =
 E_1 \bowtie_{\theta_1 \land \theta_3} (E_2 \bowtie_{\theta_2} E_3)
 $$
-- 当 $\theta_2$ 中 涉及到的属性只来自于 $E_2 and E_3$
+- 当 <span class="arithmatex">\(\theta_2\)</span> 中 涉及到的属性只来自于 <span class="arithmatex">\(E_2 and E_3\)</span>
 <img alt="Pasted image 20260625182744" src="../images/Pasted%20image%2020260625182744.png" />
 <strong>7. selection 对 theta join 的分配律</strong></p>
-<p>先连后选 $\Rightarrow$ 先选后连</p>
-<p>若 $\theta_0$ 只涉及 $E_1$ 的属性:
+<p>先连后选 <span class="arithmatex">\(\Rightarrow\)</span> 先选后连</p>
+<p>若 <span class="arithmatex">\(\theta_0\)</span> 只涉及 <span class="arithmatex">\(E_1\)</span> 的属性:
 $$
 \sigma_{\theta_0}(E_1 \bowtie_{\theta} E_2) \equiv (\sigma_{\theta_0}(E_1)) \bowtie_{\theta} E_2
 $$</p>
-<p>若 $\theta_1$ 只涉及 $E_1$, $\theta_2$ 只涉及 $E_2$:
+<p>若 <span class="arithmatex">\(\theta_1\)</span> 只涉及 <span class="arithmatex">\(E_1\)</span>, <span class="arithmatex">\(\theta_2\)</span> 只涉及 <span class="arithmatex">\(E_2\)</span>:
 $$
 \sigma_{\theta_1 \land \theta_2}(E_1 \bowtie_{\theta} E_2)
 \equiv
@@ -1333,11 +1333,11 @@ $$</p>
 </blockquote>
 <p><strong>8. projection 对 theta join 的分配</strong></p>
 <p>若 join condition 只涉及最终需要保留的属性, 可以将 projection 下推到 join 前</p>
-<p>先连后投 $\Rightarrow$ 先投后连</p>
-<p>情况一: 若 theta join 的条件 $\theta$ 只涉及 $L_1 \cup L_2$ 中的属性, 且:</p>
+<p>先连后投 <span class="arithmatex">\(\Rightarrow\)</span> 先投后连</p>
+<p>情况一: 若 theta join 的条件 <span class="arithmatex">\(\theta\)</span> 只涉及 <span class="arithmatex">\(L_1 \cup L_2\)</span> 中的属性, 且:</p>
 <ul>
-<li>$L_1 \subseteq E_1$</li>
-<li>$L_2 \subseteq E_2$</li>
+<li><span class="arithmatex">\(L_1 \subseteq E_1\)</span></li>
+<li><span class="arithmatex">\(L_2 \subseteq E_2\)</span></li>
 </ul>
 <p>则:
 $$
@@ -1352,10 +1352,10 @@ E_1 \bowtie_{\theta} E_2
 $$</p>
 <p>设:</p>
 <ul>
-<li>$L_1$: 最终需要从 $E_1$ 保留的属性集合</li>
-<li>$L_2$: 最终需要从 $E_2$ 保留的属性集合</li>
-<li>$L_3$: $E_1$ 中参与 join condition $\theta$、但不在 $L_1 \cup L_2$ 中的属性</li>
-<li>$L_4$: $E_2$ 中参与 join condition $\theta$、但不在 $L_1 \cup L_2$ 中的属性</li>
+<li><span class="arithmatex">\(L_1\)</span>: 最终需要从 <span class="arithmatex">\(E_1\)</span> 保留的属性集合</li>
+<li><span class="arithmatex">\(L_2\)</span>: 最终需要从 <span class="arithmatex">\(E_2\)</span> 保留的属性集合</li>
+<li><span class="arithmatex">\(L_3\)</span>: <span class="arithmatex">\(E_1\)</span> 中参与 join condition <span class="arithmatex">\(\theta\)</span>、但不在 <span class="arithmatex">\(L_1 \cup L_2\)</span> 中的属性</li>
+<li><span class="arithmatex">\(L_4\)</span>: <span class="arithmatex">\(E_2\)</span> 中参与 join condition <span class="arithmatex">\(\theta\)</span>、但不在 <span class="arithmatex">\(L_1 \cup L_2\)</span> 中的属性</li>
 </ul>
 <p>则:
 $$
@@ -1432,8 +1432,8 @@ $$
 $$</p>
 <p>但如果:</p>
 <ul>
-<li>$r_1 \bowtie r_2$ 的结果很小</li>
-<li>$r_2 \bowtie r_3$ 的结果很大</li>
+<li><span class="arithmatex">\(r_1 \bowtie r_2\)</span> 的结果很小</li>
+<li><span class="arithmatex">\(r_2 \bowtie r_3\)</span> 的结果很大</li>
 </ul>
 <p>则应优先计算:
 $$
@@ -1469,12 +1469,12 @@ $$</p>
 <h3 id="31-catalog-information-about-relation">3.1 Catalog Information about Relation</h3>
 <p>常用统计量:</p>
 <ul>
-<li>$n_r$: 关系 $r$ 中 tuple 数</li>
-<li>$b_r$: 存储关系 $r$ 的 block 数</li>
-<li>$f_r$: blocking factor, 一个 block 中可容纳的 $r$ 的 tuple 数</li>
-<li>$l_r$: 关系 $r$ 中一个 tuple 的字节数</li>
-<li>$V(A,r)$: 关系 $r$ 中属性 $A$ 的 distinct values 数</li>
-<li>$SC(A,r)$: selection cardinality, 属性 $A$ 上等值选择平均满足的记录数</li>
+<li><span class="arithmatex">\(n_r\)</span>: 关系 <span class="arithmatex">\(r\)</span> 中 tuple 数</li>
+<li><span class="arithmatex">\(b_r\)</span>: 存储关系 <span class="arithmatex">\(r\)</span> 的 block 数</li>
+<li><span class="arithmatex">\(f_r\)</span>: blocking factor, 一个 block 中可容纳的 <span class="arithmatex">\(r\)</span> 的 tuple 数</li>
+<li><span class="arithmatex">\(l_r\)</span>: 关系 <span class="arithmatex">\(r\)</span> 中一个 tuple 的字节数</li>
+<li><span class="arithmatex">\(V(A,r)\)</span>: 关系 <span class="arithmatex">\(r\)</span> 中属性 <span class="arithmatex">\(A\)</span> 的 distinct values 数</li>
+<li><span class="arithmatex">\(SC(A,r)\)</span>: selection cardinality, 属性 <span class="arithmatex">\(A\)</span> 上等值选择平均满足的记录数</li>
 </ul>
 <p>若值均匀分布:
 $$
@@ -1483,8 +1483,8 @@ $$</p>
 <h3 id="32-catalog-information-about-indices">3.2 Catalog Information about Indices</h3>
 <p>对索引也需要维护统计量:</p>
 <ul>
-<li>$F_i$: 对于B+树等树状结构索引，第i个索引内部节点的平均分支数</li>
-<li>$H_i$: index 高度</li>
+<li><span class="arithmatex">\(F_i\)</span>: 对于B+树等树状结构索引，第i个索引内部节点的平均分支数</li>
+<li><span class="arithmatex">\(H_i\)</span>: index 高度</li>
 </ul>
 <p>对于 B+ tree:
 $$
@@ -1507,7 +1507,7 @@ $$</p>
 $$
 \lceil \frac{SC(A,r)}{f_r} \rceil
 $$</p>
-<p>若 $A$ 是 key:
+<p>若 <span class="arithmatex">\(A\)</span> 是 key:
 $$
 SC(A,r)=1
 $$</p>
@@ -1515,10 +1515,10 @@ $$</p>
 $$
 \sigma_{A \leq v}(r)
 $$</p>
-<p>若 catalog 中有 $min(A,r)$ 和 $max(A,r)$, 并假设值均匀分布:</p>
+<p>若 catalog 中有 <span class="arithmatex">\(min(A,r)\)</span> 和 <span class="arithmatex">\(max(A,r)\)</span>, 并假设值均匀分布:</p>
 <ul>
-<li>若 $v &lt; min(A,r)$, 结果大小为 0</li>
-<li>若 $v \geq max(A,r)$, 结果大小为 $n_r$</li>
+<li>若 <span class="arithmatex">\(v &lt; min(A,r)\)</span>, 结果大小为 0</li>
+<li>若 <span class="arithmatex">\(v \geq max(A,r)\)</span>, 结果大小为 <span class="arithmatex">\(n_r\)</span></li>
 <li>否则按区间比例估计:
 $$
 n_r \times \frac{v - min(A,r)}{max(A,r)-min(A,r)}
@@ -1530,7 +1530,7 @@ $$
 $$</p>
 <h3 id="34-complex-selections">3.4 Complex Selections</h3>
 <p><strong>selectivity 中选率</strong>:</p>
-<p>若条件 $\theta_i$ 满足的 tuple 数为 $S_i$, 则:
+<p>若条件 <span class="arithmatex">\(\theta_i\)</span> 满足的 tuple 数为 <span class="arithmatex">\(S_i\)</span>, 则:
 $$
 selectivity(\theta_i)=\frac{S_i}{n_r}
 $$</p>
@@ -1575,16 +1575,16 @@ $$</p>
 $$
 l_r + l_s
 $$</p>
-<p>若 $R\cap S = \emptyset$, 则 $r \bowtie s = r \times s$</p>
-<p>若 $R \cup S$ 是 r 的一个 key, 则 s 中的每个tuple最多与 r 中一个tuple连接
-- 因此, 若连接属性是 r 的candidate key, 则连接结果得到的行数 $\leq$ s的行数</p>
+<p>若 <span class="arithmatex">\(R\cap S = \emptyset\)</span>, 则 <span class="arithmatex">\(r \bowtie s = r \times s\)</span></p>
+<p>若 <span class="arithmatex">\(R \cup S\)</span> 是 r 的一个 key, 则 s 中的每个tuple最多与 r 中一个tuple连接
+- 因此, 若连接属性是 r 的candidate key, 则连接结果得到的行数 <span class="arithmatex">\(\leq\)</span> s的行数</p>
 <p><strong>外码连接</strong></p>
-<p>若 $R \cap S$ 是 $r$ 中引用 $s$ 的 foreign key, 则 结果行数等于参照关系行数
+<p>若 <span class="arithmatex">\(R \cap S\)</span> 是 <span class="arithmatex">\(r\)</span> 中引用 <span class="arithmatex">\(s\)</span> 的 foreign key, 则 结果行数等于参照关系行数
 $$
 size(r \bowtie s)=n_r
 $$</p>
 <p><strong>普通单属性连接</strong></p>
-<p>若 $R \cap S = {A}$, 且 $A$ 不是任何一方的 key, 在均匀分布假设下:
+<p>若 <span class="arithmatex">\(R \cap S = \{A\}\)</span>, 且 <span class="arithmatex">\(A\)</span> 不是任何一方的 key, 在均匀分布假设下:
 $$
 \begin{gathered}
 size(r \bowtie s) \approx \frac{n_r * n_s}{V(A,s)} \
@@ -1595,7 +1595,7 @@ $$</p>
 $$
 size(r \bowtie s) \approx \frac{n_r * n_s}{V(A,r)}
 $$</p>
-<p>若 $V(A,r) \neq V(A,s)$, 取二者中较小的估计通常更准确</p>
+<p>若 <span class="arithmatex">\(V(A,r) \neq V(A,s)\)</span>, 取二者中较小的估计通常更准确</p>
 <h3 id="36-size-estimation-for-other-operations">3.6 Size Estimation for Other Operations</h3>
 <p><strong>projection:</strong>
 $$
@@ -1610,14 +1610,14 @@ size(_A g_F(r)) \approx V(A,r)
 $$</p>
 <p>对于同一关系上的<strong>集合操作</strong>, 可改写为 selection 后估计:</p>
 <ul>
-<li>$\sigma_{\theta_1}(r) \cap \sigma_{\theta_2}(r)$ 可改写为 $\sigma_{\theta_1 \land \theta_2}(r)$</li>
-<li>$\sigma_{\theta_1}(r) \cup \sigma_{\theta_2}(r)$ 可改写为 $\sigma_{\theta_1 \lor \theta_2}(r)$</li>
+<li><span class="arithmatex">\(\sigma_{\theta_1}(r) \cap \sigma_{\theta_2}(r)\)</span> 可改写为 <span class="arithmatex">\(\sigma_{\theta_1 \land \theta_2}(r)\)</span></li>
+<li><span class="arithmatex">\(\sigma_{\theta_1}(r) \cup \sigma_{\theta_2}(r)\)</span> 可改写为 <span class="arithmatex">\(\sigma_{\theta_1 \lor \theta_2}(r)\)</span></li>
 </ul>
 <p>不同关系上的集合操作:</p>
 <ul>
-<li>$size(r \cup s) \leq size(r) + size(s)$</li>
-<li>$size(r \cap s) \leq min(size(r), size(s))$</li>
-<li>$size(r - s) \leq size(r)$</li>
+<li><span class="arithmatex">\(size(r \cup s) \leq size(r) + size(s)\)</span></li>
+<li><span class="arithmatex">\(size(r \cap s) \leq min(size(r), size(s))\)</span></li>
+<li><span class="arithmatex">\(size(r - s) \leq size(r)\)</span></li>
 </ul>
 <p><strong>outer join</strong></p>
 <ul>
@@ -1651,17 +1651,17 @@ $$</p>
 <li>所有这些估计都可能相当不准确，但它们提供了结果大小的上界。</li>
 </ul>
 <h3 id="37-estimation-of-number-of-distinct-values">3.7 Estimation of Number of Distinct Values</h3>
-<p>对于 selection $\sigma_\theta(r)$:</p>
+<p>对于 selection <span class="arithmatex">\(\sigma_\theta(r)\)</span>:</p>
 <ul>
-<li>若 $\theta$ 强制 $A$ 为某个指定值:
+<li>若 <span class="arithmatex">\(\theta\)</span> 强制 <span class="arithmatex">\(A\)</span> 为某个指定值:
 $$
 V(A,\sigma_\theta(r))=1
 $$</li>
-<li>若 $\theta$ 限制 $A$ 为若干指定值之一:
+<li>若 <span class="arithmatex">\(\theta\)</span> 限制 <span class="arithmatex">\(A\)</span> 为若干指定值之一:
 $$
 V(A,\sigma_\theta(r))=指定值个数
 $$</li>
-<li>若 $\theta$ 为 $A\ op\ v$:
+<li>若 <span class="arithmatex">\(\theta\)</span> 为 <span class="arithmatex">\(A\ op\ v\)</span>:
 $$
 \begin{gathered}
 V(A,\sigma_\theta(r)) \approx V(A,r) * selectivity(\theta) \
@@ -1685,7 +1685,7 @@ V(A,r\bowtie s)= min{V(A1,r)<em>V(A2-A1,s), V(A1-A2,r)</em>V(A2,s), n_{r\bowtie 
 $$</li>
 </ul>
 <blockquote>
-<p>因为 A = A1 $\cup$ A2, 二者可能重叠</p>
+<p>因为 A = A1 <span class="arithmatex">\(\cup\)</span> A2, 二者可能重叠</p>
 </blockquote>
 <p>对于 projection:
 $$
@@ -1732,24 +1732,24 @@ $$<blockquote>
 <li>heuristic(启发式) optimization</li>
 </ul>
 <h3 id="41-cost-based-optimization">4.1 Cost-Based Optimization</h3>
-<p>对 $r_1 \bowtie r_2 \bowtie ... \bowtie r_n$ 寻找最佳 join order</p>
+<p>对 <span class="arithmatex">\(r_1 \bowtie r_2 \bowtie ... \bowtie r_n\)</span> 寻找最佳 join order</p>
 <p>join order 数量增长非常快:</p>
 <ul>
-<li>$n=3$ 时有 12 种</li>
-<li>$n=7$ 时有 665280 种</li>
-<li>$n=10$ 时超过 176 billion</li>
+<li><span class="arithmatex">\(n=3\)</span> 时有 12 种</li>
+<li><span class="arithmatex">\(n=7\)</span> 时有 665280 种</li>
+<li><span class="arithmatex">\(n=10\)</span> 时超过 176 billion</li>
 </ul>
 <p>因此不能枚举所有 join order</p>
 <p><strong>dynamic programming 思想</strong>:</p>
 <ul>
-<li>对每个关系子集 $S$, 只计算一次最优 plan</li>
+<li>对每个关系子集 <span class="arithmatex">\(S\)</span>, 只计算一次最优 plan</li>
 <li>将结果存起来, 后续复用</li>
 </ul>
-<p>寻找 $S$ 的最佳 plan:</p>
+<p>寻找 <span class="arithmatex">\(S\)</span> 的最佳 plan:</p>
 <ol>
-<li>枚举 $S$ 的非空真子集 $S_1$</li>
-<li>令另一部分为 $S-S_1$</li>
-<li>递归求 $S_1$ 和 $S-S_1$ 的最佳 plan</li>
+<li>枚举 <span class="arithmatex">\(S\)</span> 的非空真子集 <span class="arithmatex">\(S_1\)</span></li>
+<li>令另一部分为 <span class="arithmatex">\(S-S_1\)</span></li>
+<li>递归求 <span class="arithmatex">\(S_1\)</span> 和 <span class="arithmatex">\(S-S_1\)</span> 的最佳 plan</li>
 <li>选择二者 join 的最佳算法</li>
 <li>取总代价最小者</li>
 </ol>
@@ -1772,8 +1772,8 @@ $$<blockquote>
 </code></pre>
 <p>复杂度:</p>
 <ul>
-<li>时间复杂度: $O(3^n)$</li>
-<li>空间复杂度: $O(2^n)$</li>
+<li>时间复杂度: <span class="arithmatex">\(O(3^n)\)</span></li>
+<li>空间复杂度: <span class="arithmatex">\(O(2^n)\)</span></li>
 </ul>
 <blockquote>
 <p>cost-based optimization 很贵, 但对大数据集查询值得做; 实际查询中的 join 关系数通常小于 10</p>
@@ -1783,8 +1783,8 @@ $$<blockquote>
 <p>某个中间结果的排序顺序如果对后续操作有用, 则称为 interesting order</p>
 <p>例如:</p>
 <ul>
-<li>$r_1 \bowtie r_2 \bowtie r_3$ 的输出若按与 $r_4$ 或 $r_5$ 公共属性排序, 后续 join 可能更便宜</li>
-<li>但若只按 $r_1$ 与 $r_2$ 的公共属性排序, 后续可能没用</li>
+<li><span class="arithmatex">\(r_1 \bowtie r_2 \bowtie r_3\)</span> 的输出若按与 <span class="arithmatex">\(r_4\)</span> 或 <span class="arithmatex">\(r_5\)</span> 公共属性排序, 后续 join 可能更便宜</li>
+<li>但若只按 <span class="arithmatex">\(r_1\)</span> 与 <span class="arithmatex">\(r_2\)</span> 的公共属性排序, 后续可能没用</li>
 </ul>
 <p>因此优化时不只要保存每个关系子集的 cheapest plan, 还要保存:</p>
 <ul>
@@ -1864,9 +1864,9 @@ $$</p>
 <p>有时反而应该将 materialized view 展开为原定义</p>
 <p>例如:</p>
 <ul>
-<li>materialized view $v=r \bowtie s$ 没有索引</li>
-<li>用户查询 $\sigma_{A=10}(v)$</li>
-<li>若 $r$ 在 $A$ 上有索引, $s$ 在公共属性上有索引</li>
+<li>materialized view <span class="arithmatex">\(v=r \bowtie s\)</span> 没有索引</li>
+<li>用户查询 <span class="arithmatex">\(\sigma_{A=10}(v)\)</span></li>
+<li>若 <span class="arithmatex">\(r\)</span> 在 <span class="arithmatex">\(A\)</span> 上有索引, <span class="arithmatex">\(s\)</span> 在公共属性上有索引</li>
 </ul>
 <p>更好计划可能是:
 $$
@@ -1951,6 +1951,10 @@ $$</p>
     
     
       <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>
