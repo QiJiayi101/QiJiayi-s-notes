@@ -1119,7 +1119,7 @@
 
 
 <h1 id="chapter-2-relational-model">Chapter 2: Relational Model</h1>
-<p><em>（图片文件缺失：image-20260323183938832.png）</em></p>
+<p><img alt="image-20260323183938832" src="../images/image-20260323183938832.png" /></p>
 <hr />
 <h2 id="1-structure-of-relational-ds">1. Structure of Relational DS</h2>
 <p><strong>关系型数据库(relational ds)</strong>: 一组由单个或基于多个关系模型的<strong>关系</strong>构成的容器</p>
@@ -1155,7 +1155,7 @@
 <li>一个关系关注两个概念: <strong>relation schema(关系模式)</strong>和 <strong>relation instance(关系实例)</strong></li>
 <li>
 <p>relation schema描述了关系的结构</p>
-<pre><code>&gt; 例如:*（图片文件缺失：image-20260323191440680.png）*
+<pre><code>&gt; 例如:![image-20260323191440680](images/image-20260323191440680.png)
 </code></pre>
 <ul>
 <li>relation instance: 对应于某一时刻关系中数据的snapshot(快照)</li>
@@ -1230,7 +1230,7 @@
 </ul>
 <hr />
 <h3 id="31-select-operation">3.1. Select Operation 选择操作</h3>
-<p><em>（图片文件缺失：image-20260323195206800.png）</em></p>
+<p><img alt="image-20260323195206800" src="../images/image-20260323195206800.png" /></p>
 <blockquote>
 <p>执行选择时, 选择条件必须是针对同一元组中的相应属性值代入进行比较</p>
 </blockquote>
@@ -1248,13 +1248,13 @@
 </ul>
 <hr />
 <h3 id="32-project-operation">3.2. Project Operation 投影操作</h3>
-<p><em>（图片文件缺失：image-20260323201322018.png）</em></p>
+<p><img alt="image-20260323201322018" src="../images/image-20260323201322018.png" /></p>
 <p><strong>表达式</strong>: $\Pi _{A1, A2, ..., Ak}(r)$, 其中$A1,...Ak$都是属性名字, 并且r是一个关系名</p>
 <p>结果被定义为k-columns的关系, 通过从原本的关系中去除未被列出来的columns</p>
 <p><strong>重复</strong>的两个rows会被从结果中去除</p>
 <hr />
 <h3 id="33-union-operation">3.3. Union Operation 并操作</h3>
-<p><em>（图片文件缺失：image-20260323202002506.png）</em></p>
+<p><img alt="image-20260323202002506" src="../images/image-20260323202002506.png" /></p>
 <p>**表达式: **$r \cup s$</p>
 <p>被定义作: $r \cup s = {t|t\in r or t\in s}$</p>
 <p>并操作<strong>有效</strong>, 必须满足以下条件:</p>
@@ -1264,7 +1264,7 @@
 </ul>
 <hr />
 <h3 id="34-set-difference-operation">3.4. Set Difference Operation 差操作</h3>
-<p><em>（图片文件缺失：image-20260323222539117.png）</em></p>
+<p><img alt="image-20260323222539117" src="../images/image-20260323222539117.png" /></p>
 <p><strong>表达式</strong>: $r-s$</p>
 <p><strong>定义</strong>: $r-s = {t|t\in r and t \notin s}$</p>
 <p>差操作有效, 必须满足:</p>
@@ -1274,16 +1274,16 @@
 </ul>
 <hr />
 <h3 id="35-cartesian-product-operation">3.5. Cartesian-Product Operation 广义笛卡尔积</h3>
-<p><em>（图片文件缺失：image-20260323222824369.png）</em></p>
+<p><img alt="image-20260323222824369" src="../images/image-20260323222824369.png" /></p>
 <p><strong>表达式</strong>: $r \times s$</p>
 <p><strong>定义</strong>: $r \times s = {{tq}|t\in r and q \in s}$</p>
 <p>假设r(R)和s(S)是不相交的($R \cap S = \varnothing$)</p>
 <p>如果r(R)和s(S)是不相交的, 那么必须对属性进行<strong>重命名</strong></p>
-<p><em>（图片文件缺失：image-20260323223314081.png）</em></p>
+<p><img alt="image-20260323223314081" src="../images/image-20260323223314081.png" /></p>
 <hr />
 <h3 id="36-composition-of-operations">3.6. Composition of Operations 操作的复合</h3>
 <p>可以通过多种操作去构建表达式</p>
-<p><em>（图片文件缺失：image-20260323223528762.png）</em></p>
+<p><img alt="image-20260323223528762" src="../images/image-20260323223528762.png" /></p>
 <hr />
 <h3 id="37-rename-operation">3.7. Rename Operation 重命名操作</h3>
 <ul>
@@ -1305,7 +1305,7 @@
 <p>我们定义了一些额外的操作, 虽然这些操作不会赋予关系代数额外的能力, 但是可以简化一些常见的查询操作</p>
 </blockquote>
 <p><strong>8.1. Set-Intersection Operation 交操作</strong></p>
-<p><em>（图片文件缺失：image-20260324091418260.png）</em></p>
+<p><img alt="image-20260324091418260" src="../images/image-20260324091418260.png" /></p>
 <p>​   <strong>表达式</strong>: $r\cap s$</p>
 <p>​   <strong>定义</strong>: $r\cap s = {t|t\in r and t\in s}$</p>
 <p>​   若交操作有效, 需要满足: r, s同元; 且r和s的属性可兼容;</p>
@@ -1313,8 +1313,8 @@
 <p>note: $r\cap s = r - (r - s)$</p>
 </blockquote>
 <p><strong>8.2 Natural-Join Operation 自然连接操作</strong></p>
-<p><strong>表达式</strong>: <em>（图片文件缺失：image-20260324091832227.png）</em></p>
-<p><em>（图片文件缺失：image-20260324091933567.png）</em></p>
+<p><strong>表达式</strong>: <img alt="image-20260324091832227" src="../images/image-20260324091832227.png" /></p>
+<p><img alt="image-20260324091933567" src="../images/image-20260324091933567.png" /></p>
 <p>若 r 和 s 分别是 关系模式R 和 S 上的关系, 那么 r 和 s的自然连接则是关系模式<strong>$R\cup S$</strong>上的关系, 且通过以下步骤构造:</p>
 <ol>
 <li>
@@ -1326,19 +1326,19 @@
 <li>t 在 r的属性上的值和$t_r$相同</li>
 <li>t 在 s的属性上的值与$t_s$相同</li>
 </ol>
-<p><em>（图片文件缺失：image-20260324093019177.png）</em></p>
+<p><img alt="image-20260324093019177" src="../images/image-20260324093019177.png" /></p>
 <blockquote>
 <ol>
 <li>r, s必须含有共同属性</li>
 <li>连接两个关系中同名属性值相等的元组</li>
 <li>结果属性是二者属性集的交集, 但消去同名属性</li>
 </ol>
-<p>Theta 连接(条件连接): <em>（图片文件缺失：image-20260324093235030.png）</em></p>
+<p>Theta 连接(条件连接): <img alt="image-20260324093235030" src="../images/image-20260324093235030.png" /></p>
 <p>$\theta$是在关系模式中, 对于属性的谓词</p>
 </blockquote>
 <p><strong>8.3 Division Operation 除操作</strong></p>
 <p><strong>表达式</strong>: $r \div s$</p>
-<p><em>（图片文件缺失：image-20260324093423974.png）</em></p>
+<p><img alt="image-20260324093423974" src="../images/image-20260324093423974.png" /></p>
 <p>假设 r 和 s 分别是在关系模式 R 和 S 上的两个关系, 其中:</p>
 <ul>
 <li>$R = (A_1, ..., A_m, B_1, ..., B_n)$</li>
@@ -1351,7 +1351,7 @@ $$</p>
 <blockquote>
 <p>商来自于$\Pi _{R-S}(r)$, 并且其元组t与s所有元组的拼接被r覆盖</p>
 </blockquote>
-<p><em>（图片文件缺失：image-20260324100950731.png）</em></p>
+<p><img alt="image-20260324100950731" src="../images/image-20260324100950731.png" /></p>
 <p><strong>性质</strong>: 假设 $q = r \div s$, 那么<strong>q</strong>就是满足$q\times s \subseteq r$的<strong>最大关系</strong></p>
 <p>该预算适用于所有带有<strong>"for all"</strong>字样的语句</p>
 <p>用基本代数运算定义除法操作: 设$r(R)和s(S)$是两个关系, 且$S\subseteq R$</p>
@@ -1429,7 +1429,7 @@ $$</p>
 </blockquote>
 <h3 id="42-aggregate-functions-and-operations">4.2 Aggregate Functions and Operations 聚合函数以及操作</h3>
 <p><strong>聚合函数</strong>接收一系列值, 并且返回一个单一值作为结果</p>
-<p><em>（图片文件缺失：image-20260324112151814.png）</em></p>
+<p><img alt="image-20260324112151814" src="../images/image-20260324112151814.png" /></p>
 <p><strong>聚合函数</strong>在关系代数中:
 $$
 <em>{G1, G2, ...,Gn}g</em>{F1(A1), F2(A2), ..., Fn(An)}(E)
@@ -1440,7 +1440,7 @@ $$</p>
 <li>每个$F_i$是一个聚合函数</li>
 <li>每个$A_i$是一个属性名字</li>
 </ul>
-<p><em>（图片文件缺失：image-20260324112624051.png）</em></p>
+<p><img alt="image-20260324112624051" src="../images/image-20260324112624051.png" /></p>
 <h3 id="43-outer-join">4.3 Outer Join 外连接</h3>
 <p><strong>外连接</strong>是一种为了避免损失一些信息的连接操作</p>
 <p>先计算连接, 然后从<strong>一个关系中添加未匹配的元组</strong>到结果中</p>
@@ -1449,8 +1449,8 @@ $$</p>
 <li><code>null</code>表示这个值是<code>unknown</code>或者不存在的</li>
 <li>所有涉及<code>null</code>的比较默认为假</li>
 </ul>
-<p><em>（图片文件缺失：image-20260324113435775.png）</em></p>
-<p><em>（图片文件缺失：image-20260324113511803.png）</em></p>
+<p><img alt="image-20260324113435775" src="../images/image-20260324113435775.png" /></p>
+<p><img alt="image-20260324113511803" src="../images/image-20260324113511803.png" /></p>
 <h3 id="44-null-values">4.4 Null Values</h3>
 <p>对于元组中的一些属性, 其值可能为null value, 定义作<code>null</code></p>
 <p><code>null</code>表征一个<strong>unknown</strong>值 或 这个值不存在</p>

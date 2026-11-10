@@ -1575,7 +1575,7 @@
 
 
 <h1 id="chapter-3-introduction-to-sql">Chapter 3: Introduction to SQL</h1>
-<p><em>（图片文件缺失：image-20260324134044487.png）</em></p>
+<p><img alt="image-20260324134044487" src="../images/image-20260324134044487.png" /></p>
 <h2 id="introduction-to-sql">Introduction to SQL</h2>
 <p><strong>SQL</strong>: Structured Query Language, 结构化查询语言</p>
 <p>SQL 包含几个部分:</p>
@@ -1649,7 +1649,7 @@
 <p>从 SQL_92 开始, 对属性声明 <code>primary key</code>会<strong>自动确保 not null</strong></p>
 <p>在 SQL_89 中, 则需要<strong>显式写出 not null</strong></p>
 </blockquote>
-<p><em>（图片文件缺失：image-20260324142049357.png）</em></p>
+<p><img alt="image-20260324142049357" src="../images/image-20260324142049357.png" /></p>
 <blockquote>
 <p>使用两种方法指定 ID 为 primary key</p>
 </blockquote>
@@ -1761,8 +1761,8 @@ WHERE salary BETWEEN 90000 AND 100000
 <ul>
 <li>如果指定了不止一个关系, 则对应于关系代数中的 <strong>笛卡儿积 $\times$</strong></li>
 </ul>
-<p>例如:<em>（图片文件缺失：image-20260325165100708.png）</em></p>
-<p><em>（图片文件缺失：image-20260325165433028.png）</em></p>
+<p>例如:<img alt="image-20260325165100708" src="../images/image-20260325165100708.png" /></p>
+<p><img alt="image-20260325165433028" src="../images/image-20260325165433028.png" /></p>
 <p>​   对应的 SQL 查询语句:</p>
 <pre><code class="language-sql">SELECT name, course_id
 FROM instructor, teaches
@@ -1909,21 +1909,21 @@ ORDER BY &lt;c1[DESC][,c2[ASC],...]&gt;
 <h3 id="61-set-comparison">6.1 Set Comparison</h3>
 <p><strong>Some 子句</strong>:</p>
 <p><code>C &lt;comp&gt; some r</code> 即 关系r中<strong>存在</strong>元组t, 使得<code>c &lt;comp&gt; t</code>, 其中<code>&lt;comp&gt;</code> 可以是$&lt;,\le, &gt;, =, \neq$</p>
-<p><em>（图片文件缺失：image-20260329104014645.png）</em></p>
+<p><img alt="image-20260329104014645" src="../images/image-20260329104014645.png" /></p>
 <p><strong>all 子句</strong></p>
 <p><code>C &lt;comp&gt; all r</code> 即关系r中<strong>所有</strong>元组t, 使得 <code>c &lt;comp&gt; t</code>, 其中<code>&lt;comp&gt;</code> 可以是$&lt;,\le, &gt;, =, \neq$</p>
-<p><em>（图片文件缺失：image-20260329104348051.png）</em></p>
+<p><img alt="image-20260329104348051" src="../images/image-20260329104348051.png" /></p>
 <h3 id="62-test-for-empty-relations">6.2 Test for Empty Relations 测试空关系</h3>
 <p><code>exists r</code> 等价于 r 不为空集</p>
 <p><code>not exists r</code> 等价于 r 为空集</p>
-<p><em>（图片文件缺失：image-20260330110328746.png）</em></p>
+<p><img alt="image-20260330110328746" src="../images/image-20260330110328746.png" /></p>
 <blockquote>
 <p>若 某一元组 t 能够使得子查询获得一个空集, 则被选择;</p>
 </blockquote>
 <h3 id="63-test-for-absence-of-duplicate-tuples">6.3 Test for Absence of Duplicate Tuples 测试是否存在重复元组</h3>
 <p><code>unique</code> 结构 用于测试子查询的结果中, 是否包含任何重复的元组</p>
 <p><code>not unique</code> 结构 用于表示子查询的结果中, 至少包含一个重复元组</p>
-<p><em>（图片文件缺失：image-20260330110557890.png）</em></p>
+<p><img alt="image-20260330110557890" src="../images/image-20260330110557890.png" /></p>
 <hr />
 <h2 id="7-views">7. Views 视图</h2>
 <p>提供一种机制, 从某些用户的视图中<strong>隐藏特定数据</strong></p>
@@ -1945,11 +1945,11 @@ CREATE VIEW &lt;v_name&gt;(c1, c2,...) AS
 <hr />
 <h2 id="8-complex-queries">8. Complex Queries</h2>
 <h3 id="81-derived-relations">8.1 Derived Relations 导出关系</h3>
-<p><em>（图片文件缺失：image-20260330111914309.png）</em></p>
-<p><em>（图片文件缺失：image-20260330111919919.png）</em></p>
+<p><img alt="image-20260330111914309" src="../images/image-20260330111914309.png" /></p>
+<p><img alt="image-20260330111919919" src="../images/image-20260330111919919.png" /></p>
 <h3 id="82-with">8.2 With 子句</h3>
 <p><code>with</code>子句允许在<strong>查询内部局部定义一个视图</strong>, 而不是全局定义</p>
-<p><em>（图片文件缺失：image-20260330125140069.png）</em></p>
+<p><img alt="image-20260330125140069" src="../images/image-20260330125140069.png" /></p>
 <blockquote>
 <p>不管是否被引用, 导出表(嵌套表)必须给出别名</p>
 </blockquote>
@@ -1983,10 +1983,10 @@ INSERT INTO &lt;table/view&gt;[(c1,c2,...)]
     SET &lt;c1=e1[,c2=e2,...]&gt;
 [WHERE&lt;condition];
 </code></pre>
-<p><em>（图片文件缺失：image-20260330180511889.png）</em></p>
+<p><img alt="image-20260330180511889" src="../images/image-20260330180511889.png" /></p>
 <p>&#x274c;  <code>&amp;#x274c;</code>如果先更新 salary&lt;= 100000的, 那么更新后, salary就可能大于 100000, 导致最终更新两次</p>
 <p><strong>Case 语句</strong>:</p>
-<p><em>（图片文件缺失：image-20260330180705810.png）</em></p>
+<p><img alt="image-20260330180705810" src="../images/image-20260330180705810.png" /></p>
 <h3 id="94-update-of-a-view">9.4 Update of a View 视图的更新</h3>
 <p>简单视图通常<strong>可更新</strong>, 而<strong>复杂视图</strong>(涉及多表连接, UNION, 聚合等)通常<strong>无法进行增删改操作</strong></p>
 <p>View 是虚表, 对其进行的所有操作都会被转化为对<strong>基表</strong>的操作</p>
@@ -2015,9 +2015,9 @@ INSERT INTO &lt;table/view&gt;[(c1,c2,...)]
 <p><code>Join</code>操作, 接受两个关系, 并返回另一个关系作为结果</p>
 <p><strong>Join condition</strong>: 定义了两个关系中的哪两个元组匹配, 并且哪些属性会被呈现到连接的结果中</p>
 <p><strong>Join type</strong>: 定义了在每个关系中的, 没有和任意一个元组匹配的元组, 最后如何处理(基于join condition)</p>
-<p><em>（图片文件缺失：image-20260330183355906.png）</em></p>
-<p><em>（图片文件缺失：image-20260330183433622.png）</em></p>
-<p><em>（图片文件缺失：image-20260330183456097.png）</em></p>
+<p><img alt="image-20260330183355906" src="../images/image-20260330183355906.png" /></p>
+<p><img alt="image-20260330183433622" src="../images/image-20260330183433622.png" /></p>
+<p><img alt="image-20260330183456097" src="../images/image-20260330183456097.png" /></p>
 <p>以上所有连接都是<strong>自然连接</strong></p>
 <ul>
 <li>自动将同名列作为连接条件</li>
