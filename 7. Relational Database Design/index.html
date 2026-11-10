@@ -1199,8 +1199,8 @@
 
 
 <h1 id="relational-database-design">Relational Database Design</h1>
-<p>![[attachments/image-20260420211126507.png]]</p>
-<h3 id="1-first-normal-form">1. First Normal Form 第一范式</h3>
+<p><img alt="image-20260420211126507" src="../images/image-20260420211126507.png" /></p>
+<h2 id="1-first-normal-form">1. First Normal Form 第一范式</h2>
 <p>如果域的元素被认为是不可分割的单位，则该域是 <strong>原子的</strong>。</p>
 <ul>
 <li>非原子域的例子：</li>
@@ -1231,14 +1231,14 @@
 <li>如果提取前两个字符来确定系别，那么学号的域就不是原子的。</li>
 <li>这样做是个坏主意： 会导致信息编码在 应用程序 中，而不是在数据库中。</li>
 </ul>
-<h3 id="2-pitfalls-in-relational-database-design">2. Pitfalls in Relational Database Design 关系数据库设计中的陷阱</h3>
+<h2 id="2-pitfalls-in-relational-database-design">2. Pitfalls in Relational Database Design 关系数据库设计中的陷阱</h2>
 <p>糟糕的设计可能导致: 数据冗余, 插入 删除 修改异常</p>
-<h4 id="decomposition">Decomposition 分解</h4>
+<h3 id="decomposition">Decomposition 分解</h3>
 <p>主要的精炼技术: <strong>分解</strong>
 $$
 R = R_1 \cup R_2
 $$
-<strong>无损连接分解</strong>: ![[attachments/image-20260420215353355.png]]</p>
+<strong>无损连接分解</strong>: <img alt="image-20260420215353355" src="../images/image-20260420215353355.png" /></p>
 <p>目标 — 为以下内容设计一个理论</p>
 <ul>
 <li>
@@ -1259,8 +1259,8 @@ $$
 </li>
 <li><strong>多值依赖 (multivalued dependencies)</strong></li>
 </ul>
-<h3 id="3-functional-dependencies">3. Functional Dependencies 函数依赖</h3>
-<h4 id="31-definition">3.1. Definition</h4>
+<h2 id="3-functional-dependencies">3. Functional Dependencies 函数依赖</h2>
+<h3 id="31-definition">3.1. Definition</h3>
 <p><strong>函数依赖</strong>: 一种完整性约束, 表示特定属性值之间的关系, 可用于<strong>判断模式规范化</strong>并<strong>提出改进建议</strong></p>
 <p>借用了数学上的函数概念$x \rightarrow f(x)$</p>
 <p>函数依赖是<strong>键概念</strong>的推广</p>
@@ -1275,7 +1275,7 @@ $$
 <ol>
 <li>在给定函数依赖集合 F 下, 测试关系是否是合法的</li>
 <li>
-<p>如果关系r是合法的, 称作<strong>r satisfies F</strong>![[attachments/image-20260421105725573.png]]</p>
+<p>如果关系r是合法的, 称作<strong>r satisfies F</strong><img alt="image-20260421105725573" src="../images/image-20260421105725573.png" /></p>
 </li>
 <li>
 <p>通过函数依赖, 为关系集(schema)指明<strong>完整性约束</strong></p>
@@ -1291,9 +1291,9 @@ $$
 <ul>
 <li>如果一个函数依赖满足所有关系, 则它是<strong>平凡的(trival)</strong></li>
 <li>例如 $A\rightarrow A$</li>
-<li>一般的, 如果$\beta \subseteq \alpha$, 则$\alpha \rightarrow \beta$ 是平凡的; 否则, 它是不平凡的![[attachments/image-20260421111307584.png]]</li>
+<li>一般的, 如果$\beta \subseteq \alpha$, 则$\alpha \rightarrow \beta$ 是平凡的; 否则, 它是不平凡的<img alt="image-20260421111307584" src="../images/image-20260421111307584.png" /></li>
 </ul>
-<h4 id="32-closure-of-a-set-of-functional-dependencies">3.2. Closure of a Set of Functional Dependencies 函数依赖集的闭包</h4>
+<h3 id="32-closure-of-a-set-of-functional-dependencies">3.2. Closure of a Set of Functional Dependencies 函数依赖集的闭包</h3>
 <p>给定<strong>函数依赖集合 F</strong>, 存在其它一些由 <strong>F 逻辑蕴含</strong> 的函数依赖</p>
 <ul>
 <li>例如, 给定$A \rightarrow B and B\rightarrow C$, 则可以推断出$A \rightarrow C$</li>
@@ -1339,8 +1339,8 @@ $$
 <p>对于 n 个属性, 可能的最大函数依赖数量是$2^n \times 2^n$</p>
 </li>
 </ul>
-<h4 id="33-closure-of-attribute-sets">3.3. Closure of Attribute Sets 属性集的闭包</h4>
-<p>![[attachments/image-20260421114943265.png]]</p>
+<h3 id="33-closure-of-attribute-sets">3.3. Closure of Attribute Sets 属性集的闭包</h3>
+<p><img alt="image-20260421114943265" src="../images/image-20260421114943265.png" /></p>
 <p><strong>定义</strong>: 对于给定属性集$\alpha$, 在F下由$\alpha$所直接或间接函数决定的属性集合称为$\alpha^+$</p>
 <ul>
 <li>测试$\alpha \rightarrow \beta$在$F^+$中, $\Leftrightarrow$ $\beta\subseteq\alpha^+$</li>
@@ -1352,7 +1352,7 @@ $$
 <li>测试函数依赖</li>
 <li>计算函数依赖集闭包</li>
 </ul>
-<h4 id="34-canonical-cover">3.4. Canonical Cover 正则覆盖</h4>
+<h3 id="34-canonical-cover">3.4. Canonical Cover 正则覆盖</h3>
 <p>DBMS 应该始终检查以确保不违反 F 中的任何函数依赖(FD); 但是若 F 太大, 检查成本很高, 因此我们需要简化函数依赖集</p>
 <p><strong>F 的规范覆盖</strong>(记作$F_c$) 是一个 <strong>与F等价的最小函数依赖集</strong></p>
 <ul>
@@ -1374,14 +1374,14 @@ $$
 <p>函数依赖集可能包含<strong>冗余依赖</strong>, 这些依赖可以从其它依赖中推断出来</p>
 </li>
 <li>
-<p>部分函数依赖的<strong>左侧</strong>可能是冗余的 $\Rightarrow$ 外来属性![[attachments/image-20260421135240377.png]]</p>
+<p>部分函数依赖的<strong>左侧</strong>可能是冗余的 $\Rightarrow$ 外来属性<img alt="image-20260421135240377" src="../images/image-20260421135240377.png" /></p>
 </li>
 <li>
-<p>部分函数依赖的<strong>右侧</strong>可能是冗余的![[attachments/image-20260421135311111.png]]</p>
+<p>部分函数依赖的<strong>右侧</strong>可能是冗余的<img alt="image-20260421135311111" src="../images/image-20260421135311111.png" /></p>
 </li>
 </ul>
-<h3 id="4-decomposition">4. Decomposition 分解</h3>
-<h4 id="41">4.1. 规范化的目标</h4>
+<h2 id="4-decomposition">4. Decomposition 分解</h2>
+<h3 id="41">4.1. 规范化的目标</h3>
 <p>判断一个特定的关系R是否是好的形式: 没有冗余, 插入 删除 更新 无异常</p>
 <p>将不是好形式的关系 R, 分解为一组关系{R1, R2, ..., Rn}, 使得:</p>
 <ul>
@@ -1389,7 +1389,7 @@ $$
 <li>依赖保持</li>
 <li>每个关系Ri 是好的形式</li>
 </ul>
-<h4 id="42">4.2 分解应有的特性</h4>
+<h3 id="42">4.2 分解应有的特性</h3>
 <ol>
 <li>原关系模式R中的所有属性, 必须在分解中出现, 即 $R = R_1 \cup R_2$</li>
 <li>无损分解</li>
@@ -1409,7 +1409,7 @@ $$
 <p>无冗余: 关系Ri最好处于BCNF 或 3NF</p>
 </li>
 </ol>
-<h3 id="5-boyee-codd-normal-form">5. Boyee-Codd Normal Form</h3>
+<h2 id="5-boyee-codd-normal-form">5. Boyee-Codd Normal Form</h2>
 <blockquote>
 <p><strong>关系模式</strong>是基础，它定义了可以存储的数据结构。<strong>函数依赖集</strong>是对这种数据结构的约束。<strong>BCNF</strong> 则是衡量这种数据结构在满足约束的情况下，是否存在冗余和异常的一个“质量标准”。</p>
 </blockquote>
@@ -1435,7 +1435,7 @@ $$
         2. 将其分解为 Rnew1 = α ∪ β
                     Rnew2 = (Ri - β) ∪ α
 </code></pre>
-<h3 id="6-third-normal-form-motivation">6. Third Normal Form: Motivation</h3>
+<h2 id="6-third-normal-form-motivation">6. Third Normal Form: Motivation</h2>
 <p>存在一些情况:</p>
 <ul>
 <li>分解为BCNF不保持依赖</li>
@@ -1472,7 +1472,7 @@ $$
 4. 若目前已经创建的所有模式都不包含R中的任何一个候选键, 创建Ri = 任意一个候选键
     -- 确保无损连接
 </code></pre>
-<h3 id="7-mutivalued-dependencies">7. Mutivalued Dependencies 多值依赖</h3>
+<h2 id="7-mutivalued-dependencies">7. Mutivalued Dependencies 多值依赖</h2>
 <blockquote>
 <p>对于 classes(course, teacher, book), 其处于BCNF, 但是由于 teacher 和 book 是多值属性, 所以可能会导致冗余 与 插入异常</p>
 <p>所以最好将其分解为 teaches(course, teacher) , book (course, book)</p>
@@ -1483,19 +1483,19 @@ $$
 <li>和它所关联的 <code>Z</code> 值（比如 "DB Concepts" 和 "DB System (Ullman)" 两本书）是<strong>完全独立</strong>的。</li>
 <li><strong>这意味着什么？</strong> 这意味着 <code>α</code> 的每一个值所对应的 <code>β</code> 的每一个值，都必须和 <code>α</code> 的每一个值所对应的 <code>Z</code> 的每一个值<strong>组合出现</strong>。</li>
 </ul>
-<p><strong>表格表示</strong>:![[attachments/image-20260423194740723.png]]</p>
+<p><strong>表格表示</strong>:<img alt="image-20260423194740723" src="../images/image-20260423194740723.png" /></p>
 <p>若$\beta\subseteq\alpha$ 或者 $\alpha\cup\beta = R$, 那么多值依赖是<strong>平凡的</strong></p>
 <p>若将关系 R 分为 Y Z W 三个部分, 若$Y\rightarrow\rightarrow Z$, 那么 $Y\rightarrow\rightarrow W$</p>
 <p>若$\alpha\rightarrow\beta$, 那么$\alpha\rightarrow\rightarrow \beta$</p>
 <p>依赖集D的关系闭包D+, 是由 D 逻辑蕴含的<strong>函数依赖</strong> 与 <strong>多值依赖</strong>的集合</p>
-<h4 id="71">7.1 第四范式</h4>
+<h3 id="71">7.1 第四范式</h3>
 <p>对于处于第四范式的关系模式 R ,若对于D+中的所有多值依赖$\alpha\rightarrow\rightarrow\beta$, 至少满足一点:</p>
 <ul>
 <li>这个依赖是平凡的</li>
 <li>α是R的超键</li>
 </ul>
 <p>若 关系处于 第四范式, 那么它处于BCNF</p>
-<h4 id="72">7.2 分解的要求</h4>
+<h3 id="72">7.2 分解的要求</h3>
 <ul>
 <li>
 <p>假设关系 R 被分解成 R₁, R₂, ..., Rₙ，并且每个 Rᵢ 都需要符合 4NF</p>
@@ -1506,12 +1506,12 @@ $$
 <li>D⁺ 中所有只包含 Rᵢ 属性的<strong>函数依赖</strong></li>
 <li>形式为 α →→ (β ∩ Rᵢ) 的所有<strong>多值依赖,</strong> 其中 α 是 Rᵢ 的子集，并且 α →→ β 在 D⁺ 中</li>
 </ul>
-<h4 id="73-4nf">7.3 4NF 分解算法</h4>
+<h3 id="73-4nf">7.3 4NF 分解算法</h3>
 <pre><code>主循环:
     - 若找到一个不符合4NF的关系模式,且α∩β为空(为了确保无损连接), 执行分解步骤
     - 将Ri分解为 (α, β) 与 (Ri - β)
 </code></pre>
-<h3 id="8-overall-database-design-process">8 Overall Database Design Process 数据库设计过程</h3>
+<h2 id="8-overall-database-design-process">8 Overall Database Design Process 数据库设计过程</h2>
 <p>我们假设关系模式 R 已给定:</p>
 <ul>
 <li>R 可能是通过将 E-R 图转换为一组表时生成的</li>
@@ -1523,20 +1523,20 @@ $$
 <p>R 可能是某些临时（ad hoc）关系设计的结果，我们随后对其进行测试/转换为范式</p>
 </li>
 </ul>
-<h4 id="e-r">E-R图 和 规范化</h4>
+<h3 id="e-r">E-R图 和 规范化</h3>
 <ul>
 <li>
 <p>当 E-R 图经过精心设计，** **正确识别了所有实体时，从 E-R 图生成的表应该不需要进一步规范化</p>
 </li>
 <li>
-<p>然而，在实际（不完美）的设计中，实体中非键属性之间可能存在函数![[attachments/image-20260423205629599.png]]</p>
+<p>然而，在实际（不完美）的设计中，实体中非键属性之间可能存在函数<img alt="image-20260423205629599" src="../images/image-20260423205629599.png" /></p>
 </li>
 <li>
 <p>关系集（relationship set）中<strong>非键属性的函数依赖</strong>(非键属性决定了实体中另一个非键属性)是可能的，但很少见 --- 大多数关系是二元的</p>
 </li>
 </ul>
-<h4 id="_1">通用关系方法</h4>
-<p><strong>Dangling tuples 无归属元组</strong>: 在计算 join 时 "消失"的元组![[attachments/image-20260423210615757.png]]</p>
+<h3 id="_1">通用关系方法</h3>
+<p><strong>Dangling tuples 无归属元组</strong>: 在计算 join 时 "消失"的元组<img alt="image-20260423210615757" src="../images/image-20260423210615757.png" /></p>
 <p>关系 <code>r₁ ⋈ r₂ ⋈ ... ⋈ rₙ</code> 被称为<strong>通用关系</strong>，因为它包含了由 <code>R₁ ∪ R₂ ∪ ... ∪ Rₙ</code> 定义的“宇宙”中的所有属性</p>
 
 

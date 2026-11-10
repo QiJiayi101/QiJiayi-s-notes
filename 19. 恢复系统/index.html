@@ -1431,7 +1431,7 @@
 
 
 <h1 id="chapter-19-recovery-system">Chapter 19: Recovery System</h1>
-<h3 id="1-failure-classification">1. Failure Classification 故障分类</h3>
+<h2 id="1-failure-classification">1. Failure Classification 故障分类</h2>
 <p>数据库恢复系统的目标:</p>
 <blockquote>
 <p>即使发生故障, 也要保证事务的 atomicity 和 durability, 并保持数据库一致性</p>
@@ -1464,7 +1464,7 @@
 <li>假设这种破坏可以被检测到</li>
 <li>磁盘使用 checksum 检测错误</li>
 </ul>
-<h4 id="11-recovery-algorithms">1.1 Recovery Algorithms</h4>
+<h3 id="11-recovery-algorithms">1.1 Recovery Algorithms</h3>
 <p>恢复算法包含两个部分:</p>
 <ol>
 <li>正常事务处理时采取的动作</li>
@@ -1474,7 +1474,7 @@
 <li>将数据库恢复到满足 atomicity, consistency, durability 的状态</li>
 </ol>
 <hr />
-<h3 id="5-log-based-recovery">5. Log-Based Recovery 基于日志的恢复</h3>
+<h2 id="5-log-based-recovery">5. Log-Based Recovery 基于日志的恢复</h2>
 <p><strong>log 日志</strong>:</p>
 <blockquote>
 <p>假设直接写入 stable storage 上, 记录数据库更新活动的 log records 序列</p>
@@ -1499,7 +1499,7 @@
 <li>immediate database modification 立即数据库修改</li>
 </ul>
 <hr />
-<h3 id="6-deferred-database-modification">6. Deferred Database Modification 延迟数据库修改</h3>
+<h2 id="6-deferred-database-modification">6. Deferred Database Modification 延迟数据库修改</h2>
 <p>核心思想:</p>
 <ul>
 <li>所有修改先记录到 log</li>
@@ -1520,9 +1520,9 @@ $$
 </ol>
 <blockquote>
 <p>因为 commit 前数据库未被修改, 所以不需要 old value
-![[Pasted image 20260627175947.png]]</p>
+<img alt="Pasted image 20260627175947" src="../images/Pasted%20image%2020260627175947.png" /></p>
 </blockquote>
-<h4 id="61-recovery-for-deferred-modification">6.1 Recovery for Deferred Modification</h4>
+<h3 id="61-recovery-for-deferred-modification">6.1 Recovery for Deferred Modification</h3>
 <p>故障恢复时:</p>
 <p>事务 $T_i$ 需要 redo 当且仅当 log 中同时存在:</p>
 <ul>
@@ -1539,7 +1539,7 @@ $$
 <li>已提交但未真正写入磁盘的事务必须 REDO</li>
 </ul>
 <hr />
-<h3 id="7-immediate-database-modification">7. Immediate Database Modification 立即数据库修改</h3>
+<h2 id="7-immediate-database-modification">7. Immediate Database Modification 立即数据库修改</h2>
 <p>核心思想:</p>
 <ul>
 <li>未提交事务的更新可以在事务 commit 前写入数据库</li>
@@ -1560,8 +1560,8 @@ $$</p>
 <p>这就是 <strong>WAL(Write Ahead Log)</strong> 的基础</p>
 <p>更新 block 可以在 commit 前或 commit 后输出</p>
 <p>block 输出顺序也可以不同于事务 write 顺序
-![[Pasted image 20260627181654.png]]</p>
-<h4 id="71-recovery-for-immediate-modification">7.1 Recovery for Immediate Modification</h4>
+<img alt="Pasted image 20260627181654" src="../images/Pasted%20image%2020260627181654.png" /></p>
+<h3 id="71-recovery-for-immediate-modification">7.1 Recovery for Immediate Modification</h3>
 <p>恢复操作包括:</p>
 <p><strong>undo(Ti)</strong></p>
 <ul>
@@ -1588,9 +1588,9 @@ $$</p>
 <p><strong>repeating history 重复历史</strong></p>
 </blockquote>
 <p>虽然看似浪费, 但可以简化恢复算法
-![[Pasted image 20260627182439.png]]</p>
+<img alt="Pasted image 20260627182439" src="../images/Pasted%20image%2020260627182439.png" /></p>
 <hr />
-<h3 id="8-checkpoints">8. Checkpoints 检查点</h3>
+<h2 id="8-checkpoints">8. Checkpoints 检查点</h2>
 <p>早期恢复过程的问题:</p>
 <ul>
 <li>搜索整个 log 很耗时</li>
@@ -1618,9 +1618,9 @@ $$
 <li>checkpoint 后开始的事务</li>
 <li>checkpoint 前已经 commit 或 abort 的事务可以忽略</li>
 <li>为 undo, 需要继续向前扫描到 $L$ 中每个事务的 <code>&lt;Ti start&gt;</code>
-![[Pasted image 20260627183310.png]]</li>
+<img alt="Pasted image 20260627183310" src="../images/Pasted%20image%2020260627183310.png" /></li>
 </ol>
-<h4 id="81-recovery-algorithm">8.1 Recovery Algorithm</h4>
+<h3 id="81-recovery-algorithm">8.1 Recovery Algorithm</h3>
 <p>事务正常 rollback:</p>
 <ol>
 <li>从 log 尾部向前扫描 $T_i$ 的 log records</li>
@@ -1655,8 +1655,8 @@ $$</li>
 <li>undo-list 为空时停止</li>
 </ol>
 <hr />
-<h3 id="9-buffer-management">9. Buffer Management</h3>
-<h4 id="91-log-record-buffering">9.1 Log Record Buffering</h4>
+<h2 id="9-buffer-management">9. Buffer Management</h2>
+<h3 id="91-log-record-buffering">9.1 Log Record Buffering</h3>
 <p>log record 通常比一个 block 小很多</p>
 <p>因此:</p>
 <ul>
@@ -1679,7 +1679,7 @@ $$</li>
 <blockquote>
 <p><strong>write-ahead logging rule 先写日志规则 / WAL</strong></p>
 </blockquote>
-<h4 id="92-database-buffering">9.2 Database Buffering</h4>
+<h3 id="92-database-buffering">9.2 Database Buffering</h3>
 <p>数据库维护内存 buffer 存放 data blocks</p>
 <p>当需要新 block 且 buffer 满时:</p>
 <ul>
@@ -1704,7 +1704,7 @@ $$</li>
 <li>用于保护内存数据结构或 block</li>
 <li>不需要遵守事务锁协议</li>
 </ul>
-<h4 id="93-dual-paging-problem">9.3 Dual Paging Problem</h4>
+<h3 id="93-dual-paging-problem">9.3 Dual Paging Problem</h3>
 <p>数据库 buffer 可实现为:</p>
 <ul>
 <li>DBMS 保留的真实主存区域<ul>
@@ -1724,7 +1724,7 @@ $$</li>
 <p><strong>dual paging problem</strong></p>
 </blockquote>
 <p>避免它通常需要 OS 支持</p>
-<h4 id="94-fuzzy-checkpointing">9.4 Fuzzy Checkpointing</h4>
+<h3 id="94-fuzzy-checkpointing">9.4 Fuzzy Checkpointing</h3>
 <p>普通 checkpoint 会长时间暂停更新</p>
 <p><strong>fuzzy checkpointing</strong> 允许 checkpoint 期间继续事务更新</p>
 <p>步骤:</p>
@@ -1745,7 +1745,7 @@ $$</li>
 <li>若 checkpoint 未完成时系统崩溃, 也可以安全处理</li>
 </ul>
 <hr />
-<h3 id="10-failure-with-loss-of-nonvolatile-storage">10. Failure with Loss of Nonvolatile Storage</h3>
+<h2 id="10-failure-with-loss-of-nonvolatile-storage">10. Failure with Loss of Nonvolatile Storage</h2>
 <p>前面假设 nonvolatile storage 不会丢失, 但实际可能发生磁盘故障</p>
 <p>应对方法:</p>
 <ul>
@@ -1777,7 +1777,7 @@ $$</li>
 </ul>
 <p>即允许 dump 期间仍有事务活动</p>
 <hr />
-<h3 id="11-recovery-with-early-lock-release">11. Recovery with Early Lock Release</h3>
+<h2 id="11-recovery-with-early-lock-release">11. Recovery with Early Lock Release</h2>
 <p>某些高并发技术会提前释放锁</p>
 <p>例如:</p>
 <ul>
@@ -1799,7 +1799,7 @@ $$</li>
 <li>undo 一个 B+ tree delete</li>
 <li>执行相应 insert</li>
 </ul>
-<h4 id="111-logical-undo-logging">11.1 Logical Undo Logging</h4>
+<h3 id="111-logical-undo-logging">11.1 Logical Undo Logging</h3>
 <p>logical undo logging:</p>
 <ul>
 <li>undo log record 中<strong>记录要执行的 undo operation</strong></li>
@@ -1812,7 +1812,7 @@ $$</li>
 <li>undo deposit:</li>
 <li>subtract deposited amount</li>
 </ul>
-<h4 id="112-physical-redo">11.2 Physical Redo</h4>
+<h3 id="112-physical-redo">11.2 Physical Redo</h3>
 <p>即使使用 logical undo, redo 信息仍通常物理记录:</p>
 <ul>
 <li>对每个 write 记录 new value</li>
@@ -1825,7 +1825,7 @@ $$</li>
 <blockquote>
 <p>physical redo 与 early lock release 不冲突</p>
 </blockquote>
-<h4 id="113-operation-logging">11.3 Operation Logging</h4>
+<h3 id="113-operation-logging">11.3 Operation Logging</h3>
 <p>operation logging 过程:</p>
 <ol>
 <li>操作开始:
@@ -1840,7 +1840,7 @@ $$
 $$</li>
 </ol>
 <p>其中 $U$ 包含 logical undo 所需信息
-![[Pasted image 20260627224652.png]]
+<img alt="Pasted image 20260627224652" src="../images/Pasted%20image%2020260627224652.png" />
 若 crash/rollback 发生在 operation 完成前:</p>
 <ul>
 <li>找不到 operation-end</li>
@@ -1853,7 +1853,7 @@ $$</li>
 <li>忽略该操作内部 physical undo 信息</li>
 </ul>
 <p>redo 仍使用 physical redo 信息</p>
-<h4 id="114-rollback-with-logical-undo">11.4 Rollback with Logical Undo</h4>
+<h3 id="114-rollback-with-logical-undo">11.4 Rollback with Logical Undo</h3>
 <p>事务 rollback 时:</p>
 <ol>
 <li>向后扫描 log</li>
@@ -1877,13 +1877,13 @@ $$</li>
 <p>跳过已撤销操作的 log 很重要:</p>
 <blockquote>
 <p>防止同一个 operation 被多次 rollback
-![[Pasted image 20260627230757.png]]
-![[Pasted image 20260627231152.png]]
-![[Pasted image 20260627231231.png]]
-![[Pasted image 20260627231653.png]]</p>
+<img alt="Pasted image 20260627230757" src="../images/Pasted%20image%2020260627230757.png" />
+<img alt="Pasted image 20260627231152" src="../images/Pasted%20image%2020260627231152.png" />
+<img alt="Pasted image 20260627231231" src="../images/Pasted%20image%2020260627231231.png" />
+<img alt="Pasted image 20260627231653" src="../images/Pasted%20image%2020260627231653.png" /></p>
 </blockquote>
 <hr />
-<h3 id="12-aries">12. ARIES</h3>
+<h2 id="12-aries">12. ARIES</h2>
 <p><strong>ARIES</strong> 是一种现代恢复算法</p>
 <p>特点:</p>
 <ul>
@@ -1899,7 +1899,7 @@ $$</li>
 <li>Dirty Page Table：避免不必要的redo</li>
 <li>fuzzy checkpointing：记录脏页的信息</li>
 </ul>
-<h4 id="121-physiological-redo">12.1 Physiological Redo</h4>
+<h3 id="121-physiological-redo">12.1 Physiological Redo</h3>
 <p><strong>physiological redo</strong>:</p>
 <ul>
 <li>物理定位 affected page</li>
@@ -1919,7 +1919,7 @@ $$</li>
 <li>page 输出到磁盘必须是原子的</li>
 <li>incomplete page output 可通过 checksum 检测</li>
 </ul>
-<h4 id="122-aries-data-structures">12.2 ARIES Data Structures</h4>
+<h3 id="122-aries-data-structures">12.2 ARIES Data Structures</h3>
 <p><strong>LSN(Log Sequence Number)</strong></p>
 <ul>
 <li>每条 log record 的唯一编号</li>
@@ -1949,15 +1949,15 @@ $$</li>
 <li>保证 redo idempotence(幂等性)</li>
 </ul>
 <p><strong>Log Record</strong>
-![[Pasted image 20260628112348.png]]
+<img alt="Pasted image 20260628112348" src="../images/Pasted%20image%2020260628112348.png" />
 每条 log record 包含:</p>
 <ul>
 <li>当前 LSN</li>
 <li>同一事务上一条 log record 的 LSN, 即 PrevLSN</li>
 </ul>
 <p><strong>CLR compensation log record</strong>
-![[Pasted image 20260628112529.png]]
-![[Pasted image 20260628112627.png]]
+<img alt="Pasted image 20260628112529" src="../images/Pasted%20image%2020260628112529.png" />
+<img alt="Pasted image 20260628112627" src="../images/Pasted%20image%2020260628112627.png" />
 - recovery 中执行 undo action 时写入
 - redo-only
 - 不需要再被 undo
@@ -1979,8 +1979,8 @@ $$</li>
 <p>该 page 第一次变 dirty 时对应的 LSN</p>
 </blockquote>
 <p>checkpoint 中会记录 DirtyPageTable, 用于减少 redo 工作量
-![[Pasted image 20260628113203.png]]</p>
-<h4 id="123-checkpoint-log-in-aries">12.3 Checkpoint Log in ARIES</h4>
+<img alt="Pasted image 20260628113203" src="../images/Pasted%20image%2020260628113203.png" /></p>
+<h3 id="123-checkpoint-log-in-aries">12.3 Checkpoint Log in ARIES</h3>
 <p>checkpoint log record 包含:</p>
 <ul>
 <li>DirtyPageTable</li>
@@ -1994,15 +1994,15 @@ $$</li>
 <li>checkpoint 开销很低, 因此可以频繁执行</li>
 </ul>
 <hr />
-<h3 id="13-aries-recovery-algorithm">13. ARIES Recovery Algorithm</h3>
+<h2 id="13-aries-recovery-algorithm">13. ARIES Recovery Algorithm</h2>
 <p>ARIES recovery 有三轮:</p>
 <ol>
 <li>Analysis pass</li>
 <li>Redo pass</li>
 <li>Undo pass
-![[Pasted image 20260628135647.png]]</li>
+<img alt="Pasted image 20260628135647" src="../images/Pasted%20image%2020260628135647.png" /></li>
 </ol>
-<h4 id="131-analysis-pass">13.1 Analysis Pass</h4>
+<h3 id="131-analysis-pass">13.1 Analysis Pass</h3>
 <p>目标:</p>
 <ul>
 <li>判断哪些事务需要 undo</li>
@@ -2035,7 +2035,7 @@ $$
 <li>DirtyPageTable 用于减少 redo</li>
 <li>undo-list 中事务需要 rollback</li>
 </ul>
-<h4 id="132-redo-pass">13.2 Redo Pass</h4>
+<h3 id="132-redo-pass">13.2 Redo Pass</h3>
 <p>目标:</p>
 <blockquote>
 <p>repeating history, 重做所有 crash 前已经发生但可能未写入磁盘的操作</p>
@@ -2050,7 +2050,7 @@ $$
 <li>否则跳过</li>
 </ol>
 <p>第一、二步可以避免不必要地读取 page</p>
-<h4 id="133-undo-pass">13.3 Undo Pass</h4>
+<h3 id="133-undo-pass">13.3 Undo Pass</h3>
 <p>目标:</p>
 <blockquote>
 <p>回滚所有 incomplete transactions</p>
@@ -2073,8 +2073,8 @@ $$
 </ul>
 <p>所有中间已经 undo 过的 log records 都可以跳过</p>
 <p><code>ARIES</code>支持部分撤销</p>
-<p>![[Pasted image 20260628143103.png]]</p>
-<h4 id="134-other-aries-features">13.4 Other ARIES Features</h4>
+<p><img alt="Pasted image 20260628143103" src="../images/Pasted%20image%2020260628143103.png" /></p>
+<h3 id="134-other-aries-features">13.4 Other ARIES Features</h3>
 <p><strong>Nested top actions 嵌套的顶层操作</strong></p>
 <p>有些操作即使事务 rollback 也不应 undo</p>
 <p>例如:</p>
@@ -2110,7 +2110,7 @@ $$
 <li>out-of-order redo:</li>
 <li>某 page 正在从磁盘读取时, 可先处理其他 log records</li>
 <li>page 到达后再 redo
-![[Pasted image 20260628152854.png]]</li>
+<img alt="Pasted image 20260628152854" src="../images/Pasted%20image%2020260628152854.png" /></li>
 </ul>
 <hr />
 

@@ -1387,8 +1387,8 @@
 
 
 <h1 id="chapter-6-entity-relationship-model-">Chapter 6: Entity-Relationship Model 实体-联系模型</h1>
-<p>![[attachments/image-20260412220110815.png]]</p>
-<h3 id="1-entity-sets">1. Entity Sets 实体集</h3>
+<p><img alt="image-20260412220110815" src="../images/image-20260412220110815.png" /></p>
+<h2 id="1-entity-sets">1. Entity Sets 实体集</h2>
 <p>真实世界可以 modeled 为:</p>
 <ul>
 <li><strong>实体(entities)</strong> 的collection</li>
@@ -1400,7 +1400,7 @@
 <li>例如: 学生 拥有 id, name, age...</li>
 </ul>
 <p><strong>实体集</strong> 是<strong>拥有相同性质的相同类型的</strong>实体的集合</p>
-<h4 id="attributes">Attributes 属性</h4>
+<h3 id="attributes">Attributes 属性</h3>
 <p>属性是<strong>描述性的性质</strong></p>
 <p><strong>Domain(域, value set)</strong> 是属性可行值的集合</p>
 <p>属性的类型:</p>
@@ -1410,19 +1410,19 @@
 <li>派生(derived)属性: 可以从其它属性介绍而来</li>
 <li>基属性, 存储属性</li>
 </ul>
-<p>![[attachments/image-20260413180920281.png]]</p>
-<h3 id="2-relationship-sets">2. Relationship Sets 联系集</h3>
+<p><img alt="image-20260413180920281" src="../images/image-20260413180920281.png" /></p>
+<h2 id="2-relationship-sets">2. Relationship Sets 联系集</h2>
 <p><strong>联系</strong> 是不同类实体之间的关联</p>
 <p><strong>联系集 relationship set</strong>是相同类型联系的集合</p>
 <p>一个联系集包含多个同类联系(或联系实例, relationship instance)</p>
 <p>一个联系集表示两个或多个实体集之间的关联</p>
 <p><strong>属性</strong>同样可以是联系集的性质</p>
-<h4 id="1-degree-of-a-relationship-set">1. Degree of a Relationship Set</h4>
+<h3 id="1-degree-of-a-relationship-set">1. Degree of a Relationship Set</h3>
 <p><strong>Degree</strong> 为联系集中实体集的个数</p>
 <ul>
 <li>涉及两个实体集的是<strong>binary</strong>(或者 degree two) (二元联系)</li>
 </ul>
-<h4 id="2-mapping-cardinalities">2. Mapping Cardinalities 映射基数</h4>
+<h3 id="2-mapping-cardinalities">2. Mapping Cardinalities 映射基数</h3>
 <p>一个联系集中, 一个实体可以和另一类实体相联系的实体数目</p>
 <p>多用于描述二元联系集</p>
 <p>例如:</p>
@@ -1432,12 +1432,12 @@
 <li>Many to one (n:1), 如, 就医(病人, 医生)</li>
 <li>Many to many (n:m), 如, 选课(学生, 课程)</li>
 </ul>
-<p>![[attachments/image-20260413183704728.png]]</p>
-<p>![[attachments/image-20260413183716701.png]]</p>
+<p><img alt="image-20260413183704728" src="../images/image-20260413183704728.png" /></p>
+<p><img alt="image-20260413183716701" src="../images/image-20260413183716701.png" /></p>
 <blockquote>
 <p>实体集中的一些元素可能不能mapping到另一个集合中的任何元素</p>
 </blockquote>
-<h3 id="3-keys">3. Keys (码, 键)</h3>
+<h2 id="3-keys">3. Keys (码, 键)</h2>
 <blockquote>
 <p>实体集的keys</p>
 </blockquote>
@@ -1486,8 +1486,8 @@
 </li>
 <li>例如: 作为码的属性不能为空, 值不应常变</li>
 </ul>
-<h3 id="4-e-r-diagrams">4. E-R Diagrams</h3>
-<p>![[attachments/image-20260413190400143.png]]</p>
+<h2 id="4-e-r-diagrams">4. E-R Diagrams</h2>
+<p><img alt="image-20260413190400143" src="../images/image-20260413190400143.png" /></p>
 <ul>
 <li><strong>分割的Rectangles</strong> 代表实体集; 蓝色部分代表实体集名称, 白色部分代表实体集的各部分属性</li>
 <li><strong>Diamonds</strong> 代表联系集</li>
@@ -1501,37 +1501,37 @@
 <li><strong>双线</strong>表示实体在关系集中的完全参与（总参与）。</li>
 <li><strong>双菱形</strong>表示连接到弱实体集的标识性关系集。</li>
 </ul>
-<h4 id="1-e-r">1 复合, 多值, 派生属性 E-R图</h4>
-<p>![[attachments/image-20260413191021855.png]]</p>
-<h4 id="2">2. 带有属性的联系集合</h4>
-<p>![[attachments/image-20260413194747266.png]]</p>
-<h4 id="3-roles">3. Roles</h4>
+<h3 id="1-e-r">1 复合, 多值, 派生属性 E-R图</h3>
+<p><img alt="image-20260413191021855" src="../images/image-20260413191021855.png" /></p>
+<h3 id="2">2. 带有属性的联系集合</h3>
+<p><img alt="image-20260413194747266" src="../images/image-20260413194747266.png" /></p>
+<h3 id="3-roles">3. Roles</h3>
 <p>一个联系的实体集不需要是不同的: <strong>Recursive relationship set 自环联系集</strong></p>
 <p><strong>Role</strong>: 实体在关系中扮演的功能</p>
 <p><strong>角色标签</strong>: 可选, 用于阐明关系的语义</p>
-<p>![[attachments/image-20260413195100397.png]]</p>
-<h4 id="4-express-the-cardinality-constraints">4. Express the Cardinality Constraints 基数约束</h4>
+<p><img alt="image-20260413195100397" src="../images/image-20260413195100397.png" /></p>
+<h3 id="4-express-the-cardinality-constraints">4. Express the Cardinality Constraints 基数约束</h3>
 <p><strong>带方向的箭头</strong>: 表示 one</p>
 <p><strong>不带方向的箭头</strong>: 表示 many</p>
 <p><strong>1. one-to-one relationship</strong>:</p>
-<p>![[attachments/image-20260413195431170.png]]</p>
+<p><img alt="image-20260413195431170" src="../images/image-20260413195431170.png" /></p>
 <p><strong>one-to-many relationship</strong>:</p>
-<p>![[attachments/image-20260413195459501.png]]</p>
-<h4 id="5-participation-of-an-entity-set-in-a-relationship-set">5. Participation of an Entity Set in a Relationship Set 参与约束</h4>
+<p><img alt="image-20260413195459501" src="../images/image-20260413195459501.png" /></p>
+<h3 id="5-participation-of-an-entity-set-in-a-relationship-set">5. Participation of an Entity Set in a Relationship Set 参与约束</h3>
 <p><strong>全参与(Total participation)</strong>: 用 double line 指明</p>
 <p><strong>部分参与(Partial participation)</strong>: 一些实体可能不参与联系集中的任何联系</p>
 <ul>
 <li>映射基数约束, 限定了一个实体与发生关联的另一端实体可能关联的数目上限</li>
 <li>全参与与部分参与约束, 则反应一个实体参与关联的数目下限: 0 or 1</li>
 </ul>
-<p>![[attachments/image-20260413195838284.png]]</p>
-<h4 id="6-alternative-notation-for-relationship-constraints">6. Alternative Notation for relationship Constraints</h4>
+<p><img alt="image-20260413195838284" src="../images/image-20260413195838284.png" /></p>
+<h3 id="6-alternative-notation-for-relationship-constraints">6. Alternative Notation for relationship Constraints</h3>
 <p>数字区间表示法: <code>min..max</code></p>
 <ul>
 <li><code>*</code> 表示无穷多</li>
 </ul>
-<h4 id="7-ternary-relationship">7. Ternary Relationship 三元关系</h4>
-<p>![[attachments/image-20260413200613927.png]]</p>
+<h3 id="7-ternary-relationship">7. Ternary Relationship 三元关系</h3>
+<p><img alt="image-20260413200613927" src="../images/image-20260413200613927.png" /></p>
 <p>一些 non-binary 联系 可能能被 binary 联系更好的表示</p>
 <ul>
 <li>例如: parents(he, she, child) 可以被 father(he, child), mother(she, child)表示</li>
@@ -1539,9 +1539,9 @@
 <p>但是有一些联系自然的是non-binary</p>
 <p><strong>Converting</strong>:</p>
 <p>通过创建一个<strong>人工实体集</strong>, 可以实现convert</p>
-<p>![[attachments/image-20260413201516646.png]]</p>
+<p><img alt="image-20260413201516646" src="../images/image-20260413201516646.png" /></p>
 <hr />
-<h3 id="5-weak-entity-sets">5. Weak Entity Sets 弱实体集</h3>
+<h2 id="5-weak-entity-sets">5. Weak Entity Sets 弱实体集</h2>
 <p><strong>弱实体集</strong>: 没有一个主键</p>
 <p>弱实体集的存在依赖于<strong>标识实体集(identifying entity set) 或 属主实体集(owner entity set)</strong>存在</p>
 <ul>
@@ -1550,15 +1550,15 @@
 <p>相关关系被称为 <strong>标识性联系（identifying relationship）</strong>（标识性联系）</p>
 <p><strong>分辨符(discriminator)或部分码(partial key)</strong> 是弱实体集中 用于与依赖同一强实体集的其它弱实体集相区分的部分属性</p>
 <p><strong>弱实体集的主键</strong>通过自己的分辨符+依赖的强实体集的主键构成</p>
-<h3 id="6-extended-e-r-features">6. Extended E-R features</h3>
-<h4 id="1-stratum-of-the-entity-set">1. Stratum of the entity set 层</h4>
+<h2 id="6-extended-e-r-features">6. Extended E-R features</h2>
+<h3 id="1-stratum-of-the-entity-set">1. Stratum of the entity set 层</h3>
 <p><strong>特殊化 (Specialization)</strong></p>
 <ul>
 <li><strong>自顶向下的设计过程</strong>；我们在一个实体集内指定一些子分组，这些子分组在该集合中具有区别于其他实体的独特性。</li>
 <li>这些子分组成为<strong>较低层次的实体集</strong>，它们拥有的属性或参与的关系<strong>并不适用</strong>于较高层次的实体集。</li>
 <li><strong>属性继承</strong> —— 较低层次的实体集继承与其关联的较高层次实体集的所有属性和关系参与。</li>
 </ul>
-<p>![[attachments/image-20260414104157621.png]]</p>
+<p><img alt="image-20260414104157621" src="../images/image-20260414104157621.png" /></p>
 <p><strong>泛化</strong> （泛化、普遍化）</p>
 <ul>
 <li><strong>一种自底向上的设计过程</strong> —— 将多个具有相同特征的实体集合并为一个更高层级的实体集。</li>
@@ -1596,7 +1596,7 @@
 </li>
 <li>
 <p><strong>含义</strong>：兼容。一个实体<strong>可以</strong>同时属于多个子类。</p>
-<p>![[attachments/image-20260414105414175.png]]</p>
+<p><img alt="image-20260414105414175" src="../images/image-20260414105414175.png" /></p>
 </li>
 </ol>
 <p><strong>完全性约束</strong>（Completeness constraint）指定在泛化中，高层实体集中的实体是否<strong>必须</strong>属于至少一个低层实体集。</p>
@@ -1604,22 +1604,22 @@
 <li><strong>全部（total）</strong>：一个实体必须属于其中一个低层实体集 （完全泛化）</li>
 <li><strong>部分（partial）</strong>：一个实体不必属于其中一个低层实体集 （部分泛化）</li>
 </ul>
-<p>![[attachments/image-20260414105403443.png]]</p>
-<h4 id="2-aggregation">2. Aggregation 聚集, 合并</h4>
+<p><img alt="image-20260414105403443" src="../images/image-20260414105403443.png" /></p>
+<h3 id="2-aggregation">2. Aggregation 聚集, 合并</h3>
 <ul>
 <li>将关系视为抽象实体</li>
 <li>允许关系之间存在关系</li>
 <li>将关系抽象为新的实体</li>
 </ul>
-<p>![[attachments/image-20260414113322646.png]]</p>
+<p><img alt="image-20260414113322646" src="../images/image-20260414113322646.png" /></p>
 <hr />
-<h4 id="e-r-notation">E-R Notation 总结</h4>
-<p>![[attachments/image-20260414113415365.png]]</p>
-<p>![[attachments/image-20260414113508326.png]]</p>
-<p>![[attachments/image-20260414113516536.png]]</p>
-<p>![[attachments/image-20260414113524224.png]]</p>
-<h3 id="7-design-of-an-e-r-database-schema">7. Design of an E-R database schema</h3>
-<h4 id="1">1. 数据库设计步骤</h4>
+<h3 id="e-r-notation">E-R Notation 总结</h3>
+<p><img alt="image-20260414113415365" src="../images/image-20260414113415365.png" /></p>
+<p><img alt="image-20260414113508326" src="../images/image-20260414113508326.png" /></p>
+<p><img alt="image-20260414113516536" src="../images/image-20260414113516536.png" /></p>
+<p><img alt="image-20260414113524224" src="../images/image-20260414113524224.png" /></p>
+<h2 id="7-design-of-an-e-r-database-schema">7. Design of an E-R database schema</h2>
+<h3 id="1">1. 数据库设计步骤</h3>
 <ol>
 <li>需求分析</li>
 <li>概念数据库设计</li>
@@ -1636,8 +1636,8 @@
 <p>物理数据库设计</p>
 </li>
 </ol>
-<p>![[attachments/image-20260414115858907.png]]</p>
-<h4 id="2-e-r">2. E-R设计考虑</h4>
+<p><img alt="image-20260414115858907" src="../images/image-20260414115858907.png" /></p>
+<h3 id="2-e-r">2. E-R设计考虑</h3>
 <ol>
 <li>
 <p>使用一个 attribute 还是 entity set 表示一个object?</p>
@@ -1676,10 +1676,10 @@
 <li>使用特化/泛化</li>
 <li>使用聚合</li>
 </ol>
-<h3 id="8-e-r">8. 逻辑设计 - 将E-R表转化为数据库表</h3>
+<h2 id="8-e-r">8. 逻辑设计 - 将E-R表转化为数据库表</h2>
 <p>符合 E-R 图的数据库可以用一组表来表示</p>
 <p>对于每个 实体集 和 关系集, 都有一个唯一的表, 该表被赋予相应实体集或关系集的名称</p>
-<h4 id="1_1">1. 用表表示实体集</h4>
+<h3 id="1_1">1. 用表表示实体集</h3>
 <p>强实体集 ==&gt; 拥有相同属性的表</p>
 <p><strong>1.1 复合属性</strong>:</p>
 <p><strong>复合属性通过为每个分量属性创建单独的属性来进行扁平化处理</strong></p>
@@ -1695,14 +1695,14 @@
 <li>例如, 对于 instructor(ID, name, salary, <strong>phone_number</strong>) ==&gt; instructor(ID, name, salary), instructor_phone(ID, phone_number)</li>
 </ul>
 <p>多值属性的每个值, 对应 EM表的一行</p>
-<h4 id="2_1">2. 表示弱实体集</h4>
+<h3 id="2_1">2. 表示弱实体集</h3>
 <p><strong>实体集表</strong>包含: 标识强实体集的主键</p>
-<h4 id="3">3. 表示联系集</h4>
+<h3 id="3">3. 表示联系集</h3>
 <p><strong>联系集</strong>被表示为一张表, 其列包含<strong>两个参与实体集的主键(在这里作为外键)</strong>, 以及联系集本身的任何描述性属性</p>
-<h4 id="4-redundacy-of-tables">4. Redundacy of Tables 表的冗余 =&gt; 表的合并</h4>
+<h3 id="4-redundacy-of-tables">4. Redundacy of Tables 表的冗余 =&gt; 表的合并</h3>
 <p><strong>1. many-to-one</strong></p>
 <p>当两个实体集之间存在多对一关系, 且在 "多"的那一端是total participation时, 不需要建立独立的关系表, 直接在代表"多"的实体表中, 增加一列, 这一列的内容是"一"那一端实体表的主键</p>
-<p>![[attachments/image-20260414191445313.png]]</p>
+<p><img alt="image-20260414191445313" src="../images/image-20260414191445313.png" /></p>
 <ul>
 <li>
 <p>若多的一端是 <em>partial</em> , 新增的那一列属性值允许为 null</p>
@@ -1715,7 +1715,7 @@
 <p>联系弱实体集及其标识性实体集的联系集对应的表是冗余的, 即对应 <em>identifying relationship</em> 的表是多余的</p>
 <p>联系表 与 弱实体集的内容是完全一样的, 则可以省略联系集表</p>
 <p>简单来说，<strong>弱实体表天生就包含了它与强实体之间的联系信息，所以不需要额外的表来记录这种联系。</strong></p>
-<h4 id="5-specialization">5. 表示特化 Specialization</h4>
+<h3 id="5-specialization">5. 表示特化 Specialization</h3>
 <p><strong>Method_1</strong>:</p>
 <ul>
 <li>为高层实体形成一个模式</li>

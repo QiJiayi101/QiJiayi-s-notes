@@ -1211,7 +1211,7 @@
 
 
 <h1 id="chapter-17-transactions">Chapter 17: Transactions 事务</h1>
-<h3 id="1-transaction-concept">1. Transaction Concept</h3>
+<h2 id="1-transaction-concept">1. Transaction Concept</h2>
 <p>DBMS 需要处理两个核心问题:</p>
 <ul>
 <li>多用户或多程序的并发执行</li>
@@ -1236,7 +1236,7 @@
 <li>事务执行过程中数据库可以暂时不一致</li>
 <li>事务提交后数据库必须重新一致</li>
 </ul>
-<h4 id="11-acid-properties">1.1 ACID Properties</h4>
+<h3 id="11-acid-properties">1.1 ACID Properties</h3>
 <p>为了保持数据库的完整性, DBMS 需要保证事务的 ACID 性质</p>
 <p><strong>Atomicity 原子性</strong></p>
 <ul>
@@ -1268,7 +1268,7 @@
 <blockquote>
 <p>由 recovery-management component 负责</p>
 </blockquote>
-<h4 id="12-fund-transfer-example">1.2 Fund Transfer Example</h4>
+<h3 id="12-fund-transfer-example">1.2 Fund Transfer Example</h3>
 <p>从账户 A 转 50 到账户 B:</p>
 <pre><code class="language-text">read(A)
 A := A - 50
@@ -1299,7 +1299,7 @@ commit
 <blockquote>
 <p>串行执行可以简单保证隔离性, 但并发执行有更高性能, 因此需要并发控制</p>
 </blockquote>
-<h4 id="13-transaction-definition-in-sql">1.3 Transaction Definition in SQL</h4>
+<h3 id="13-transaction-definition-in-sql">1.3 Transaction Definition in SQL</h3>
 <p>在 SQL 中:</p>
 <ul>
 <li>事务隐式开始</li>
@@ -1312,9 +1312,9 @@ commit
 </code></pre>
 <p>回滚当前事务</p>
 <hr />
-<h3 id="2-transaction-state">2. Transaction State 事务状态</h3>
+<h2 id="2-transaction-state">2. Transaction State 事务状态</h2>
 <p>事务可能处于以下状态:
-![[Pasted image 20260626134631.png]]
+<img alt="Pasted image 20260626134631" src="../images/Pasted%20image%2020260626134631.png" />
 - <strong>Active</strong>
   - 初始状态
   - 事务正在执行
@@ -1335,11 +1335,11 @@ commit
 <li>kill transaction</li>
 </ul>
 <hr />
-<h3 id="3-implementation-of-atomicity-and-durability">3. Implementation of Atomicity and Durability</h3>
+<h2 id="3-implementation-of-atomicity-and-durability">3. Implementation of Atomicity and Durability</h2>
 <p>原子性和持久性由 recovery-management component 支持</p>
-<h4 id="31-shadow-database-scheme">3.1 Shadow-Database Scheme 影子数据库</h4>
-<p>![[Pasted image 20260626135054.png]]
-![[Pasted image 20260626135157.png]]
+<h3 id="31-shadow-database-scheme">3.1 Shadow-Database Scheme 影子数据库</h3>
+<p><img alt="Pasted image 20260626135054" src="../images/Pasted%20image%2020260626135054.png" />
+<img alt="Pasted image 20260626135157" src="../images/Pasted%20image%2020260626135157.png" />
 <strong>shadow-database scheme</strong> 是一种简单但低效的方法</p>
 <p>核心思想:</p>
 <ul>
@@ -1374,7 +1374,7 @@ commit
 <p>该思想适合文本编辑器, 但不适合大型 DBMS; 后续恢复系统会使用更好的日志方法</p>
 </blockquote>
 <hr />
-<h3 id="4-concurrent-executions">4. Concurrent Executions 并发执行</h3>
+<h2 id="4-concurrent-executions">4. Concurrent Executions 并发执行</h2>
 <p>DBMS 允许多个事务并发执行</p>
 <p>优点:</p>
 <ul>
@@ -1399,11 +1399,11 @@ commit
 <li>控制并发事务之间的相互影响</li>
 <li>防止并发执行破坏数据库一致性</li>
 </ul>
-<h4 id="41-schedules">4.1 Schedules 调度</h4>
+<h3 id="41-schedules">4.1 Schedules 调度</h3>
 <p><strong>schedule 调度</strong>:</p>
 <blockquote>
 <p>表示并发事务中各条指令按时间执行顺序排列的序列
-![[Pasted image 20260626135635.png]]</p>
+<img alt="Pasted image 20260626135635" src="../images/Pasted%20image%2020260626135635.png" /></p>
 <p>这里虽然交换顺序后 A B 结果不一样, 但是不破坏一致性要求</p>
 </blockquote>
 <p>一个 schedule 必须:</p>
@@ -1412,18 +1412,18 @@ commit
 <li>保持每个事务内部指令的原有顺序</li>
 </ul>
 <p><strong>serial schedule 串行调度</strong>:
-![[Pasted image 20260626135826.png]]
+<em>（图片文件缺失：Pasted image 20260626135826.png）</em>
 - 一个事务完全执行完后, 下一个事务才开始
 - 若有 $n$ 个事务, 可能有 $n!$ 种串行调度</p>
 <blockquote>
 <p>串行调度一定能保持一致性, 但并发度低</p>
 </blockquote>
 <p><strong>concurrent schedule 并发调度</strong>:
-![[Pasted image 20260626140049.png]]
+<img alt="Pasted image 20260626140049" src="../images/Pasted%20image%2020260626140049.png" />
 - 多个事务的指令交错执行
 - 可能保持一致性, 也可能破坏一致性</p>
 <hr />
-<h3 id="5-serializability">5. Serializability 可串行化</h3>
+<h2 id="5-serializability">5. Serializability 可串行化</h2>
 <p>显然, 串行执行一组事务可以保持数据库一致性</p>
 <p>问题是:</p>
 <blockquote>
@@ -1445,7 +1445,7 @@ commit
 <li><code>read(Q)</code></li>
 <li><code>write(Q)</code></li>
 </ul>
-<h4 id="51-conflict-serializability">5.1 Conflict Serializability</h4>
+<h3 id="51-conflict-serializability">5.1 Conflict Serializability</h3>
 <p>两个不同事务 $T_i$, $T_j$ 的指令 $l_i$, $l_j$ 冲突当且仅当:</p>
 <ul>
 <li>它们访问同一个数据项 $Q$</li>
@@ -1466,13 +1466,13 @@ commit
 <p><strong>conflict serializable 冲突可串行化</strong>:</p>
 <p>若一个并发 schedule 与某个 serial schedule 冲突等价, 则它是 conflict serializable</p>
 <hr />
-<h3 id="6-recoverability">6. Recoverability 可恢复性</h3>
+<h2 id="6-recoverability">6. Recoverability 可恢复性</h2>
 <p>并发事务中, 若一个事务读取了另一个尚未提交事务写入的数据, 就可能产生恢复问题
-![[Pasted image 20260626193005.png]]</p>
-<h4 id="61-recoverable-schedule">6.1 Recoverable Schedule</h4>
+<img alt="Pasted image 20260626193005" src="../images/Pasted%20image%2020260626193005.png" /></p>
+<h3 id="61-recoverable-schedule">6.1 Recoverable Schedule</h3>
 <p><strong>recoverable schedule 可恢复调度</strong>:</p>
 <p>若事务 $T_j$ 读取了事务 $T_i$ 之前写入的数据项, 则 $T_i$ 的 commit 必须出现在 $T_j$ 的 commit 之前
-![[Pasted image 20260626193053.png]]</p>
+<img alt="Pasted image 20260626193053" src="../images/Pasted%20image%2020260626193053.png" /></p>
 <blockquote>
 <p>可恢复调度: 先写的事务先提交</p>
 </blockquote>
@@ -1482,16 +1482,16 @@ commit
 <li>随后 $T_i$ abort</li>
 <li>$T_j$ 已经基于无效数据提交, 无法正确恢复</li>
 </ul>
-<h4 id="62-cascading-rollback">6.2 Cascading Rollback</h4>
+<h3 id="62-cascading-rollback">6.2 Cascading Rollback</h3>
 <p><strong>cascading rollback 级联回滚</strong>:</p>
 <blockquote>
 <p>一个事务失败导致一系列读过它数据的事务也必须回滚
-![[Pasted image 20260626193420.png]]</p>
+<img alt="Pasted image 20260626193420" src="../images/Pasted%20image%2020260626193420.png" /></p>
 </blockquote>
 <p>这会撤销大量工作, 应尽量避免</p>
-<h4 id="63-cascadeless-schedule">6.3 Cascadeless Schedule</h4>
+<h3 id="63-cascadeless-schedule">6.3 Cascadeless Schedule</h3>
 <p><strong>cascadeless schedule 无级联调度</strong>:
-![[Pasted image 20260626193548.png]]
+<img alt="Pasted image 20260626193548" src="../images/Pasted%20image%2020260626193548.png" />
 对于每一对事务 $T_1$, $T_2$:</p>
 <ul>
 <li>若 $T_2$ 要读取 $T_1$ 写入的数据</li>
@@ -1503,7 +1503,7 @@ commit
 </blockquote>
 <p>DBMS 通常希望限制调度为 cascadeless</p>
 <hr />
-<h3 id="7-implementation-of-isolation">7. Implementation of Isolation</h3>
+<h2 id="7-implementation-of-isolation">7. Implementation of Isolation</h2>
 <p>最简单的隔离实现:</p>
 <ul>
 <li>一次只允许一个事务执行</li>
@@ -1527,9 +1527,9 @@ commit
 <p>有些协议只允许 conflict-serializable schedule</p>
 <p>有些协议可以允许 view-serializable 但非 conflict-serializable schedule</p>
 <hr />
-<h3 id="8-testing-for-serializability">8. Testing for Serializability</h3>
+<h2 id="8-testing-for-serializability">8. Testing for Serializability</h2>
 <p>给定事务集合 $T_1, T_2, ..., T_n$ 的一个 schedule, 可以用 precedence graph 判断 conflict serializability</p>
-<h4 id="81-precedence-graph">8.1 Precedence Graph 优先图</h4>
+<h3 id="81-precedence-graph">8.1 Precedence Graph 优先图</h3>
 <p><strong>precedence graph 前驱图/优先图</strong>:</p>
 <ul>
 <li>有向图</li>
@@ -1542,8 +1542,8 @@ T_i \rightarrow T_j
 $$</li>
 </ul>
 <p>可以在边上标记发生冲突的数据项
-![[Pasted image 20260626194650.png]]</p>
-<h4 id="82-test-for-conflict-serializability">8.2 Test for Conflict Serializability</h4>
+<img alt="Pasted image 20260626194650" src="../images/Pasted%20image%2020260626194650.png" /></p>
+<h3 id="82-test-for-conflict-serializability">8.2 Test for Conflict Serializability</h3>
 <p>定理:</p>
 <blockquote>
 <p>一个 schedule 是 conflict serializable 当且仅当它的 precedence graph <strong>无环(acyclic)</strong></p>
@@ -1561,7 +1561,7 @@ $$</p>
 $$
 T_1 \rightarrow T_2 \rightarrow T_3 \rightarrow T_4
 $$</p>
-<h4 id="84-concurrency-control-vs-serializability-tests">8.4 Concurrency Control vs. Serializability Tests</h4>
+<h3 id="84-concurrency-control-vs-serializability-tests">8.4 Concurrency Control vs. Serializability Tests</h3>
 <p>执行后再检测 serializability 已经太晚</p>
 <p>DBMS 的目标是:</p>
 <ul>

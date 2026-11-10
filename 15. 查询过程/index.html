@@ -1397,21 +1397,21 @@
 
 
 <h1 id="chapter-15-query-processing">Chapter 15: Query Processing</h1>
-<p>![[attachments/image-20260526141426681.png]]</p>
-<h3 id="1">1. 查询过程的基本步骤</h3>
+<p><img alt="image-20260526141426681" src="../images/image-20260526141426681.png" /></p>
+<h2 id="1">1. 查询过程的基本步骤</h2>
 <ol>
 <li>解释和翻译(Parsing and translation)</li>
 <li>优化(Optimization)</li>
 <li>实现(Evaluation)</li>
 </ol>
-<p>![[attachments/image-20260526141541110.png]]</p>
-<h4 id="11">1.1 语法分析和翻译</h4>
+<p><img alt="image-20260526141541110" src="../images/image-20260526141541110.png" /></p>
+<h3 id="11">1.1 语法分析和翻译</h3>
 <p>类似于编译过程</p>
 <ul>
 <li>解释器会检查语法规则，并验证关系是否存在...</li>
-<li>将查询翻译为内部形式: <strong>拓展关系代数 (ERA)</strong>![[attachments/image-20260526141957345.png]]</li>
+<li>将查询翻译为内部形式: <strong>拓展关系代数 (ERA)</strong><img alt="image-20260526141957345" src="../images/image-20260526141957345.png" /></li>
 </ul>
-<h4 id="12">1.2 优化</h4>
+<h3 id="12">1.2 优化</h3>
 <p>为什么需要优化:</p>
 <ul>
 <li>对于给定的SQL查询, 可能有许多等价的关系代数表达式</li>
@@ -1427,10 +1427,10 @@
 </ol>
 </li>
 </ul>
-<h4 id="13">1.3 实现</h4>
+<h3 id="13">1.3 实现</h3>
 <p>查询执行引擎接受一个查询执行计划，执行计划，并返回查询结果</p>
 <hr />
-<h3 id="2">2. 查询代价的度量</h3>
+<h2 id="2">2. 查询代价的度量</h2>
 <p>查询代价 通常用 回答查询所需的<strong>总耗时</strong>衡量</p>
 <ul>
 <li>影响因素: 磁盘访问 + CPU + 网络通讯</li>
@@ -1472,9 +1472,9 @@ $$</p>
 <li>最好情况: 假设可用内存较充足</li>
 </ul>
 <hr />
-<h3 id="3-selection-operation">3. Selection Operation 选择操作</h3>
+<h2 id="3-selection-operation">3. Selection Operation 选择操作</h2>
 <p>选择操作的目标是找到并取回满足选择条件的记录</p>
-<h4 id="31-file-scan">3.1 基本算法: File Scan</h4>
+<h3 id="31-file-scan">3.1 基本算法: File Scan</h3>
 <p><strong>File scan</strong>: 不使用索引, 直接搜索文件中满足条件的记录</p>
 <p><strong>A1 linear search 线性搜索</strong>:</p>
 <ul>
@@ -1499,7 +1499,7 @@ $$</p>
 <li>一般情况下 binary search 没有意义, 因为数据不一定连续存储</li>
 <li>除非有索引, 否则 binary search 可能需要更多 seek, 反而不如 index search</li>
 </ul>
-<h4 id="32">3.2 使用索引和等值条件</h4>
+<h3 id="32">3.2 使用索引和等值条件</h3>
 <p><strong>Index scan</strong>: 使用 B+ tree 索引进行搜索</p>
 <blockquote>
 <p>selection condition 必须在 index 的 search-key 上</p>
@@ -1515,7 +1515,7 @@ $$
 $$</p>
 <blockquote>
 <p>其中 $H_i$ 为索引树高, 其中$H_i \times (t_S + t_T)$表示访问索引树的代价, +1表示的是访问真正数据块的代价
-![[Pasted image 20260622165655.png]]</p>
+<img alt="Pasted image 20260622165655" src="../images/Pasted%20image%2020260622165655.png" /></p>
 </blockquote>
 <p><strong>A3 primary index on non-candidate key, equality</strong></p>
 <p>利用主索引, 在非码属性上做等值比较</p>
@@ -1552,9 +1552,9 @@ $$</p>
 <p>其中 $n$ 为匹配记录数</p>
 <blockquote>
 <p>辅助索引在返回大量记录时可能非常贵, 甚至比 linear scan 更差
-![[Pasted image 20260622165838.png]]</p>
+<img alt="Pasted image 20260622165838" src="../images/Pasted%20image%2020260622165838.png" /></p>
 </blockquote>
-<h4 id="33">3.3 涉及比较的选择</h4>
+<h3 id="33">3.3 涉及比较的选择</h3>
 <p>比较符包括:</p>
 <ul>
 <li>$&gt;, \geq, &lt;, \leq, &lt;&gt;$</li>
@@ -1584,7 +1584,7 @@ $$</p>
 <blockquote>
 <p>辅助索引的范围查询可能对每条记录产生一次 I/O, 若取回记录很多, linear file scan 可能更便宜, 因为seek的次数可能少得多</p>
 </blockquote>
-<h4 id="34">3.4 复杂选择的实现</h4>
+<h3 id="34">3.4 复杂选择的实现</h3>
 <p><strong>合取选择 Conjunction</strong>:
 $$
 \sigma_{\theta_1 \land \theta_2 \land ... \land \theta_n}(r)
@@ -1643,7 +1643,7 @@ $$
 \sigma_{\neg(A &lt; 50)}(r) \Rightarrow \sigma_{A \geq 50}(r)
 $$</p>
 <hr />
-<h3 id="4-sorting">4. Sorting 排序</h3>
+<h2 id="4-sorting">4. Sorting 排序</h2>
 <p>排序的用途:</p>
 <ul>
 <li>用户要求查询结果按某种顺序输出</li>
@@ -1654,9 +1654,9 @@ $$</p>
 <ul>
 <li>若关系能放入内存, 可使用 quicksort 等内存排序算法</li>
 <li>若关系不能放入内存, 使用 <strong>external sort-merge 外部排序归并</strong>
-![[Pasted image 20260622174324.png]]</li>
+<img alt="Pasted image 20260622174324" src="../images/Pasted%20image%2020260622174324.png" /></li>
 </ul>
-<h4 id="41-external-sort-merge">4.1 External Sort-Merge 外部排序归并</h4>
+<h3 id="41-external-sort-merge">4.1 External Sort-Merge 外部排序归并</h3>
 <p>设:</p>
 <ul>
 <li>$M$: 内存可容纳的 block 数</li>
@@ -1690,7 +1690,7 @@ $$</p>
 $$
 \lceil \log_{M-1}(\frac{b}{M}) \rceil
 $$</p>
-<h4 id="42">4.2 外部排序代价</h4>
+<h3 id="42">4.2 外部排序代价</h3>
 <p>每一轮 run generation 和 merge pass 都需要读写全部数据, 代价约为 $2b$</p>
 <p>最终 pass 不计入最终写回结果的代价(可以一边归并一边被上层调用)</p>
 <p>block transfer 总代价:
@@ -1702,12 +1702,12 @@ $$
 b_r(2\lceil \log_{M-1}(\frac{b_r}{M}) \rceil + 1)
 $$</p>
 <p>seek 代价:
-![[Pasted image 20260622174501.png]]
+<img alt="Pasted image 20260622174501" src="../images/Pasted%20image%2020260622174501.png" />
 $$
 2\lceil \frac{b_r}{M} \rceil + \lceil \frac{b_r}{b_b} \rceil(2\lceil \log_{M-1}(\frac{b_r}{M}) \rceil - 1)
 $$</p>
 <hr />
-<h3 id="5-join-operation">5. Join Operation 连接操作</h3>
+<h2 id="5-join-operation">5. Join Operation 连接操作</h2>
 <p>常见 join 算法:</p>
 <ul>
 <li>Nested-loop join</li>
@@ -1716,7 +1716,7 @@ $$</p>
 <li>Merge-join</li>
 <li>Hash-join</li>
 </ul>
-<h4 id="51-nested-loop-join">5.1 Nested-Loop Join 嵌套循环连接</h4>
+<h3 id="51-nested-loop-join">5.1 Nested-Loop Join 嵌套循环连接</h3>
 <p>用于计算 theta join:
 $$
 r \bowtie_\theta s
@@ -1755,8 +1755,8 @@ $$</p>
 $$
 2
 $$</p>
-<h4 id="52-block-nested-loop-join">5.2 Block Nested-Loop Join</h4>
-<p>![[Pasted image 20260622190333.png]]
+<h3 id="52-block-nested-loop-join">5.2 Block Nested-Loop Join</h3>
+<p><img alt="Pasted image 20260622190333" src="../images/Pasted%20image%2020260622190333.png" />
 block nested-loop join 是 nested-loop join 的改进:</p>
 <ul>
 <li>每次不是用 outer relation 的一个 tuple, 而是用一个 block</li>
@@ -1814,7 +1814,7 @@ $$</p>
 <ul>
 <li>若 inner relation 有索引, 可使用 indexed nested-loop join</li>
 </ul>
-<h4 id="53-indexed-nested-loop-join">5.3 Indexed Nested-Loop Join</h4>
+<h3 id="53-indexed-nested-loop-join">5.3 Indexed Nested-Loop Join</h3>
 <p>使用条件:</p>
 <ul>
 <li>join 是 equi-join 或 natural join</li>
@@ -1847,7 +1847,7 @@ cost = [n_r * (H_i + 1) + b_r] * (t_T + t_S)
 $$</p>
 <p>若两个关系的 join attribute 上都有索引: 
 - 选择 tuple 数更少的关系作为 outer relation</p>
-<h4 id="54-merge-join-sort-merge-join">5.4 Merge-Join / Sort-Merge Join 排序归并连接</h4>
+<h3 id="54-merge-join-sort-merge-join">5.4 Merge-Join / Sort-Merge Join 排序归并连接</h3>
 <p>只适用于:
 - equi-join
 - natural join</p>
@@ -1856,7 +1856,7 @@ $$</p>
 <li>若两个关系尚未按 join attribute 排序, 先排序</li>
 <li>对两个已排序关系进行归并</li>
 <li>对 join attribute 相同的 tuple 进行匹配
-![[Pasted image 20260622194621.png]]
+<img alt="Pasted image 20260622194621" src="../images/Pasted%20image%2020260622194621.png" />
 若关系已经有序, 且相同 join attribute 值对应的所有 tuple 能放入内存:</li>
 <li>那么每个 block 通常只需要读一次</li>
 <li>
@@ -1889,11 +1889,11 @@ $$</p>
 <blockquote>
 <p>因为顺序扫描通常比大量随机查找更高效</p>
 </blockquote>
-<h4 id="55-hash-join">5.5 Hash-Join 哈希连接</h4>
+<h3 id="55-hash-join">5.5 Hash-Join 哈希连接</h3>
 <p>适用于:
 - equi-join
 - natural join</p>
-<p><strong>分区(partition)</strong>:![[Pasted image 20260622201141.png]]
+<p><strong>分区(partition)</strong>:<img alt="Pasted image 20260622201141" src="../images/Pasted%20image%2020260622201141.png" />
 分区阶段:
 - 内存需要为每个分区开创一个分配一个block, 当其写满就写回disk的临时文件中
 - 此外还需要一个 input buffer</p>
@@ -1914,15 +1914,15 @@ $$</p>
 - block transfer：$2\times b_r$
 - seek: $2\frac{b_r}{b_b}$</p>
 <p>核心思想:
-![[Pasted image 20260622201352.png]]
+<img alt="Pasted image 20260622201352" src="../images/Pasted%20image%2020260622201352.png" />
 - 使用 hash function $h$ 根据 join attribute 对两个关系分区
 - 若两个 tuple 的 join attribute 相同, 它们一定会被分到相同编号的 partition 中
 - 因此只需要在对应分区之间做 join</p>
-<p>![[Pasted image 20260622202324.png]]</p>
+<p><img alt="Pasted image 20260622202324" src="../images/Pasted%20image%2020260622202324.png" /></p>
 <p><strong>Join BT cost</strong>:
 - block transfer: $b_r + b_s$
 - seek: $2\times b_h$</p>
-<h4 id="56-hash-join-algorithm">5.6 Hash-Join Algorithm</h4>
+<h3 id="56-hash-join-algorithm">5.6 Hash-Join Algorithm</h3>
 <ol>
 <li><strong>Partition 阶段:</strong> 使用 hash function $h$ 分别对 $r$ 和 $s$ 分区</li>
 <li><strong>Probe 阶段:</strong> </li>
@@ -1950,8 +1950,8 @@ $$</p>
 <li>使用不同 hash function 继续划分过大的 partition</li>
 <li>$r$ 和 $s$ 必须使用相同方式继续分区</li>
 </ul>
-<h4 id="57-hash-join-overflow">* 5.7 Hash-Join Overflow</h4>
-<h4 id="58-hash-join">5.8 Hash-Join 代价</h4>
+<h3 id="57-hash-join-overflow">* 5.7 Hash-Join Overflow</h3>
+<h3 id="58-hash-join">5.8 Hash-Join 代价</h3>
 <p>若不需要 recursive partitioning:</p>
 <p><strong>block transfer:</strong>
 $$
@@ -1988,8 +1988,8 @@ $$</p>
 $$
 b_r + b_s
 $$</p>
-<h4 id="59-hybrid-hash-join">* 5.9 Hybrid Hash-Join</h4>
-<h4 id="510-complex-joins">5.10 Complex Joins</h4>
+<h3 id="59-hybrid-hash-join">* 5.9 Hybrid Hash-Join</h3>
+<h3 id="510-complex-joins">5.10 Complex Joins</h3>
 <p><strong>合取连接条件</strong>:
 $$
 r \bowtie_{\theta_1 \land \theta_2 \land ... \land \theta_n} s
@@ -2014,17 +2014,17 @@ $$
 (r \bowtie_{\theta_1} s) \cup (r \bowtie_{\theta_2} s) \cup ... \cup (r \bowtie_{\theta_n} s)
 $$</p>
 <hr />
-<h3 id="6-other-operations">* 6. Other Operations 其他操作</h3>
+<h2 id="6-other-operations">* 6. Other Operations 其他操作</h2>
 <hr />
-<h3 id="7-evaluation-of-expressions">7. Evaluation of Expressions 表达式求值</h3>
+<h2 id="7-evaluation-of-expressions">7. Evaluation of Expressions 表达式求值</h2>
 <p>前面讨论的是单个关系代数操作的算法, 实际查询通常是一棵包含多个操作的 expression tree</p>
 <p>对整棵表达式树的求值有两种主要方式:</p>
 <ul>
 <li>Materialization 实体化: 直接产生表达式的结果, 并写回disk; 每步操作都产生一个temp</li>
 <li>Pipelining 流水线: 边产生tuple边将其传入上层供使用</li>
 </ul>
-<h4 id="71-materialization">7.1 Materialization 实体化</h4>
-<p>![[Pasted image 20260625175646.png]]
+<h3 id="71-materialization">7.1 Materialization 实体化</h3>
+<p><img alt="Pasted image 20260625175646" src="../images/Pasted%20image%2020260625175646.png" />
 <strong>Materialized evaluation</strong>:</p>
 <ul>
 <li>一次执行一个操作</li>
@@ -2054,8 +2054,8 @@ $$</p>
 <blockquote>
 <p>可以重叠磁盘写入和计算, 减少执行时间</p>
 </blockquote>
-<h4 id="72-pipelining">7.2 Pipelining 流水线</h4>
-<p>![[Pasted image 20260625175701.png]]
+<h3 id="72-pipelining">7.2 Pipelining 流水线</h3>
+<p><img alt="Pasted image 20260625175701" src="../images/Pasted%20image%2020260625175701.png" />
 <strong>Pipelined evaluation</strong>:</p>
 <ul>
 <li>多个操作同时执行</li>
@@ -2076,7 +2076,7 @@ $$</p>
 <li>demand driven / lazy evaluation 需求驱动: 由上而下吸引</li>
 <li>producer driven / eager pipelining 生产者驱动: 由下而上推动</li>
 </ul>
-<h4 id="73">7.3 三种常见查询执行模型</h4>
+<h3 id="73">7.3 三种常见查询执行模型</h3>
 <p><strong>Iterator Model / Volcano Model / Pipeline Model</strong></p>
 <p>又称:</p>
 <ul>

@@ -1377,8 +1377,8 @@
 
 
 <h1 id="chapter-18-concurrency-control">Chapter 18: Concurrency Control</h1>
-<p>![[Pasted image 20260626203407.png]]</p>
-<h3 id="1-lock-based-protocols">1. Lock-Based Protocols</h3>
+<p><img alt="Pasted image 20260626203407" src="../images/Pasted%20image%2020260626203407.png" /></p>
+<h2 id="1-lock-based-protocols">1. Lock-Based Protocols</h2>
 <p>并发控制的基础是:</p>
 <blockquote>
 <p>产生 serializable schedule</p>
@@ -1400,7 +1400,7 @@
 <blockquote>
 <p>事务只有在锁请求被授予后才能继续执行</p>
 </blockquote>
-<h4 id="11-lock-compatibility">1.1 Lock Compatibility</h4>
+<h3 id="11-lock-compatibility">1.1 Lock Compatibility</h3>
 <p>锁兼容性矩阵:</p>
 <table>
 <thead>
@@ -1429,7 +1429,7 @@
 <li>若某事务持有 X-lock, 其他事务不能持有任何锁</li>
 <li>若锁请求不相容, 请求事务必须等待</li>
 </ul>
-<h4 id="12-locking-protocol">1.2 Locking Protocol</h4>
+<h3 id="12-locking-protocol">1.2 Locking Protocol</h3>
 <p><strong>locking protocol 加锁协议</strong>:</p>
 <blockquote>
 <p>所有事务在请求和释放锁时必须遵守的一组规则</p>
@@ -1442,7 +1442,7 @@
 <li>inconsistent read</li>
 </ul>
 <hr />
-<h3 id="2-two-phase-locking-protocol">2. Two-Phase Locking Protocol 两段锁协议</h3>
+<h2 id="2-two-phase-locking-protocol">2. Two-Phase Locking Protocol 两段锁协议</h2>
 <p><strong>2PL</strong> 将事务的加锁过程分为两个阶段:</p>
 <p><strong>Phase 1: Growing Phase 增长阶段</strong></p>
 <ul>
@@ -1485,13 +1485,13 @@ $$
 <ol>
 <li>对于符合2PL的调度, 假设$T_i$ 是第一个到达 lock point 的, 则可以将其所有的读写操作前移到调度的开头, 且没有通过任何冲突的操作, 这样递归下来便可以产生一个串行调度</li>
 </ol>
-<h4 id="21-2pl">2.1 2PL 的问题</h4>
+<h3 id="21-2pl">2.1 2PL 的问题</h3>
 <p>2PL 可以保证 conflict serializability, 但:</p>
 <ul>
 <li>不能保证不会死锁</li>
 <li>可能产生 cascading rollback</li>
 </ul>
-<h4 id="22-strict-two-phase-locking">2.2 Strict Two-Phase Locking</h4>
+<h3 id="22-strict-two-phase-locking">2.2 Strict Two-Phase Locking</h3>
 <p><strong>strict 2PL 严格两段锁</strong>:</p>
 <ul>
 <li>事务必须持有所有 X-lock 直到 commit 或 abort</li>
@@ -1502,7 +1502,7 @@ $$
 <li>使回滚更加安全</li>
 <li>可以避免级联回滚</li>
 </ul>
-<h4 id="23-rigorous-two-phase-locking">2.3 Rigorous Two-Phase Locking</h4>
+<h3 id="23-rigorous-two-phase-locking">2.3 Rigorous Two-Phase Locking</h3>
 <p><strong>rigorous 2PL 强两段锁</strong>:</p>
 <ul>
 <li>事务持有所有锁, 包括 S-lock 和 X-lock, 直到 commit 或 abort</li>
@@ -1515,7 +1515,7 @@ $$
 <p>更严格的协议通常以降低并发度为代价</p>
 <p>2PL 得到的一定是冲突可串行化的, 但是得到冲突可串行化的不一定要2PL</p>
 </blockquote>
-<h4 id="24-lock-conversions">2.4 Lock Conversions 锁转换</h4>
+<h3 id="24-lock-conversions">2.4 Lock Conversions 锁转换</h3>
 <p>为了提高并发性, 2PL 可以允许锁转换</p>
 <p>第一阶段:</p>
 <ul>
@@ -1532,7 +1532,7 @@ $$
 <blockquote>
 <p>仍然可以保证 serializability</p>
 </blockquote>
-<h4 id="25-automatic-acquisition-of-locks">2.5 Automatic Acquisition of Locks</h4>
+<h3 id="25-automatic-acquisition-of-locks">2.5 Automatic Acquisition of Locks</h3>
 <p>事务可以只发出普通 <code>read(D)</code> / <code>write(D)</code>, 不显式写锁指令</p>
 <p>DBMS 自动处理:</p>
 <p><code>read(D)</code>:</p>
@@ -1551,7 +1551,7 @@ $$
 </ul>
 <p>所有锁在 commit 或 abort 后释放</p>
 <hr />
-<h3 id="3-implementation-of-locking">3. Implementation of Locking</h3>
+<h2 id="3-implementation-of-locking">3. Implementation of Locking</h2>
 <p>lock manager 通常作为独立模块/进程实现</p>
 <p>事务向 lock manager 发送:</p>
 <ul>
@@ -1566,7 +1566,7 @@ $$
 <p>lock manager 维护:</p>
 <blockquote>
 <p><strong>lock table 锁表</strong>
-![[Pasted image 20260626203604.png]]
+<img alt="Pasted image 20260626203604" src="../images/Pasted%20image%2020260626203604.png" />
 lock table 通常是内存中的 hash table, 以数据项名为 key</p>
 </blockquote>
 <p>每个数据项的队列中记录:</p>
@@ -1583,7 +1583,7 @@ lock table 通常是内存中的 hash table, 以数据项名为 key</p>
 <li>若事务 abort, 删除该事务的所有等待锁和已授予锁</li>
 </ul>
 <hr />
-<h3 id="4-graph-based-protocols">4. Graph-Based Protocols 基于图的加锁协议</h3>
+<h2 id="4-graph-based-protocols">4. Graph-Based Protocols 基于图的加锁协议</h2>
 <p>graph-based protocol 是 2PL 的替代方案</p>
 <p>基本思想:</p>
 <ul>
@@ -1591,10 +1591,10 @@ lock table 通常是内存中的 hash table, 以数据项名为 key</p>
 <li>若 $d_i \rightarrow d_j$, 则任何同时访问 $d_i$ 和 $d_j$ 的事务必须先访问 $d_i$</li>
 <li>数据项可看作一个 <strong>directed acyclic graph</strong>, 也称为 database graph</li>
 </ul>
-<h4 id="41-tree-protocol">4.1 Tree Protocol 树形协议</h4>
+<h3 id="41-tree-protocol">4.1 Tree Protocol 树形协议</h3>
 <p>tree protocol 是一种简单的 graph protocol
-![[Pasted image 20260627100147.png]]
-![[Pasted image 20260627100411.png]]
+<img alt="Pasted image 20260627100147" src="../images/Pasted%20image%2020260627100147.png" />
+<img alt="Pasted image 20260627100411" src="../images/Pasted%20image%2020260627100411.png" />
 规则:</p>
 <ol>
 <li>只允许 X-lock</li>
@@ -1620,7 +1620,7 @@ lock table 通常是内存中的 hash table, 以数据项名为 key</p>
 <p>tree protocol 可产生某些 2PL 不能产生的 schedule, 反之亦然</p>
 </blockquote>
 <hr />
-<h3 id="7-multiple-granularity">7. Multiple Granularity 多粒度</h3>
+<h2 id="7-multiple-granularity">7. Multiple Granularity 多粒度</h2>
 <blockquote>
 <p>例如 <code>SELECT * FROM ACCOUNT;</code> 需要对所有数据项进行加锁, 可能产生很大的开销</p>
 </blockquote>
@@ -1633,7 +1633,7 @@ lock table 通常是内存中的 hash table, 以数据项名为 key</p>
 <li>record / tuple</li>
 </ul>
 <p>这些粒度形成层次树 (注意区分于加锁的树形协议)
-![[Pasted image 20260627101551.png]]
+<img alt="Pasted image 20260627101551" src="../images/Pasted%20image%2020260627101551.png" />
 若事务显式锁住某个节点, 则隐式锁住该节点所有 descendants</p>
 <p>粒度选择:</p>
 <ul>
@@ -1644,7 +1644,7 @@ lock table 通常是内存中的 hash table, 以数据项名为 key</p>
 <li>加锁开销低</li>
 <li>并发度低</li>
 </ul>
-<h4 id="71-intention-locks">7.1 Intention Locks 意向锁</h4>
+<h3 id="71-intention-locks">7.1 Intention Locks 意向锁</h3>
 <p>问题:</p>
 <ul>
 <li>若一个事务锁了某个 tuple</li>
@@ -1660,7 +1660,7 @@ lock table 通常是内存中的 hash table, 以数据项名为 key</p>
 <li>让高层节点能快速判断其子树中是否已有锁</li>
 <li>不需要检查所有 descendants</li>
 </ul>
-<h4 id="72-intention-lock-modes">7.2 Intention Lock Modes</h4>
+<h3 id="72-intention-lock-modes">7.2 Intention Lock Modes</h3>
 <p>三种意向锁:</p>
 <p><strong>IS intention-shared 共享型意向锁</strong></p>
 <ul>
@@ -1679,9 +1679,9 @@ lock table 通常是内存中的 hash table, 以数据项名为 key</p>
 $$
 SIX = S + IX
 $$</p>
-<h4 id="73-multiple-granularity-locking-scheme">7.3 Multiple Granularity Locking Scheme</h4>
+<h3 id="73-multiple-granularity-locking-scheme">7.3 Multiple Granularity Locking Scheme</h3>
 <p>事务 $T_i$ 加锁节点 $Q$ 时必须遵守:
-![[Pasted image 20260627102736.png]]
+<img alt="Pasted image 20260627102736" src="../images/Pasted%20image%2020260627102736.png" />
 1. 锁相容矩阵必须满足
 2. 必须先锁 root, root 可用任意模式
 3. 若要对 $Q$ 加 S 或 IS, 其 parent 必须已被 $T_i$ 以 IX 或 IS 锁住
@@ -1700,7 +1700,7 @@ $$</p>
 <li>降低加锁开销</li>
 </ul>
 <hr />
-<h3 id="9-deadlock-handling">9. Deadlock Handling 死锁处理</h3>
+<h2 id="9-deadlock-handling">9. Deadlock Handling 死锁处理</h2>
 <p>系统处于 deadlock 当且仅当:</p>
 <blockquote>
 <p>存在一组事务, 其中每个事务都在等待该组中另一个事务</p>
@@ -1710,7 +1710,7 @@ $$</p>
 <li>deadlock prevention</li>
 <li>deadlock detection and recovery</li>
 </ul>
-<h4 id="91-deadlock-prevention">9.1 Deadlock Prevention</h4>
+<h3 id="91-deadlock-prevention">9.1 Deadlock Prevention</h3>
 <p>预防策略保证系统永远不会进入死锁状态</p>
 <p><strong>1. Predeclaration / Conservative 2PL</strong></p>
 <ul>
@@ -1742,7 +1742,7 @@ $$</p>
 </ul>
 <blockquote>
 <p>rollback 的事务重启时保留原 timestamp, 可以避免 starvation
-![[Pasted image 20260627104338.png]]
+<img alt="Pasted image 20260627104338" src="../images/Pasted%20image%2020260627104338.png" />
 <strong>5. Timeout-Based Scheme</strong></p>
 </blockquote>
 <ul>
@@ -1758,7 +1758,7 @@ $$</p>
 <li>可能 starvation</li>
 <li>timeout 时间难以设定</li>
 </ul>
-<h4 id="92-deadlock-detection">9.2 Deadlock Detection</h4>
+<h3 id="92-deadlock-detection">9.2 Deadlock Detection</h3>
 <p>使用 <strong>wait-for graph 等待图</strong></p>
 <p>图 $G=(V,E)$:</p>
 <ul>
@@ -1779,8 +1779,8 @@ $$</p>
 <p>wait-for graph 有环当且仅当系统死锁</p>
 </blockquote>
 <p>系统需要周期性运行 deadlock detection algorithm 检测环
-![[Pasted image 20260627105044.png]]</p>
-<h4 id="93-deadlock-recovery">9.3 Deadlock Recovery</h4>
+<img alt="Pasted image 20260627105044" src="../images/Pasted%20image%2020260627105044.png" /></p>
+<h3 id="93-deadlock-recovery">9.3 Deadlock Recovery</h3>
 <p>检测到死锁后:</p>
 <ol>
 <li>选择某个事务作为 victim</li>
@@ -1802,7 +1802,7 @@ $$</p>
 <li>将事务被 rollback 的次数加入 victim 选择代价</li>
 </ul>
 <hr />
-<h3 id="10-insert-delete-and-predicate-reads">10. Insert, Delete, and Predicate Reads</h3>
+<h2 id="10-insert-delete-and-predicate-reads">10. Insert, Delete, and Predicate Reads</h2>
 <p>在 2PL 下:</p>
 <ul>
 <li>delete tuple 前必须持有该 tuple 的 X-lock</li>
@@ -1820,7 +1820,7 @@ $$</p>
 <li>但逻辑上发生冲突</li>
 </ul>
 <p>若只使用 tuple locks, 可能得到 non-serializable schedule</p>
-<h4 id="101-relation-level-predicate-information-lock">10.1 Relation-Level Predicate Information Lock</h4>
+<h3 id="101-relation-level-predicate-information-lock">10.1 Relation-Level Predicate Information Lock</h3>
 <p>一种简单方案:</p>
 <ul>
 <li>为关系设置一个代表“关系包含哪些 tuple”的数据项</li>
@@ -1832,7 +1832,7 @@ $$</p>
 <li>并发度非常低</li>
 <li>两个插入不同 tuple 的事务也会互相阻塞</li>
 </ul>
-<h4 id="102-index-locking-protocol">10.2 Index Locking Protocol</h4>
+<h3 id="102-index-locking-protocol">10.2 Index Locking Protocol</h3>
 <p>更好的方案是使用 index locking</p>
 <p>规则:</p>
 <ol>
@@ -1847,9 +1847,9 @@ $$</p>
 <p>index locking 能以更高并发度防止 phantom phenomenon</p>
 </blockquote>
 <hr />
-<h3 id="11-weak-levels-of-consistency">11. Weak Levels of Consistency</h3>
+<h2 id="11-weak-levels-of-consistency">11. Weak Levels of Consistency</h2>
 <p>某些系统允许低于 serializable 的一致性级别</p>
-<h4 id="111-degree-two-consistency">11.1 Degree-Two Consistency</h4>
+<h3 id="111-degree-two-consistency">11.1 Degree-Two Consistency</h3>
 <p>与 2PL 的区别:</p>
 <ul>
 <li>S-lock 可以随时释放</li>
@@ -1861,14 +1861,14 @@ $$</p>
 <li>不保证 serializability</li>
 <li>需要程序员保证不会产生错误状态</li>
 </ul>
-<h4 id="112-cursor-stability">11.2 Cursor Stability</h4>
+<h3 id="112-cursor-stability">11.2 Cursor Stability</h3>
 <p>cursor stability 是 degree-two consistency 的特例:</p>
 <ul>
 <li>读取时, 每个 tuple 被锁定</li>
 <li>读完立即释放锁</li>
 <li>X-lock 持有到事务结束</li>
 </ul>
-<h4 id="113-sql-isolation-levels">11.3 SQL Isolation Levels</h4>
+<h3 id="113-sql-isolation-levels">11.3 SQL Isolation Levels</h3>
 <p>SQL 允许 non-serializable executions</p>
 <p><strong>Serializable</strong></p>
 <ul>

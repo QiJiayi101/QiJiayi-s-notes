@@ -1297,11 +1297,11 @@
 
 
 <h1 id="chapter-14-indexing">Chapter 14: Indexing 索引</h1>
-<p>![[attachments/image-20260511203542486.png]]</p>
-<h3 id="1">1. 基础概念</h3>
+<p><img alt="image-20260511203542486" src="../images/image-20260511203542486.png" /></p>
+<h2 id="1">1. 基础概念</h2>
 <p><strong>作用</strong>: 加速对所需数据的访问速度</p>
 <p><strong>搜索键</strong>(search key): 搜索键是用于在文件中查找记录的一个<strong>属性</strong>或<strong>一组属性</strong></p>
-<p><strong>索引文件结构</strong>: 由许多索引项构成![[attachments/image-20260511205452046.png]]</p>
+<p><strong>索引文件结构</strong>: 由许多索引项构成<img alt="image-20260511205452046" src="../images/image-20260511205452046.png" /></p>
 <ul>
 <li>一般远小于源文件</li>
 </ul>
@@ -1320,7 +1320,7 @@
 <li>删除时间</li>
 <li>空间开销</li>
 </ul>
-<h3 id="2">2. 顺序索引</h3>
+<h2 id="2">2. 顺序索引</h2>
 <p>索引项 被按照搜索键的排序存储</p>
 <p><strong>顺序排序文件</strong>: 记录按照搜索键顺序存储</p>
 <p><strong>主索引</strong>: 如果一个索引的搜索键，正好也是该<strong>顺序排序数据文件</strong>的排序依据，那么这个索引就称为<strong>主索引</strong></p>
@@ -1342,9 +1342,9 @@
 <li>稠密索引</li>
 <li>稀疏索引</li>
 </ul>
-<h4 id="21">2.1. 稠密索引文件</h4>
-<p>稠密索引: 对于数据文件中的<strong>每一个</strong>搜索键值，索引文件中都有一个对应的索引项![[attachments/image-20260512104104625.png]]</p>
-<h4 id="22">2.2 稀疏索引文件</h4>
+<h3 id="21">2.1. 稠密索引文件</h3>
+<p>稠密索引: 对于数据文件中的<strong>每一个</strong>搜索键值，索引文件中都有一个对应的索引项<img alt="image-20260512104104625" src="../images/image-20260512104104625.png" /></p>
+<h3 id="22">2.2 稀疏索引文件</h3>
 <p>稀疏索引: 索引文件中只为数据文件中的<strong>部分</strong>搜索键值建立索引项</p>
 <ul>
 <li>
@@ -1359,14 +1359,14 @@
 <li>在索引文件中找到<strong>小于或者等于K的最大搜索键值</strong></li>
 <li>从那个物理位置开始, 在数据文件中顺序向下扫描</li>
 </ol>
-<p>![[attachments/image-20260512104448450.png]]</p>
+<p><img alt="image-20260512104448450" src="../images/image-20260512104448450.png" /></p>
 <p>优点: 相比于稠密索引, 插入与删除的空间和维护负担更小</p>
 <p>缺点: 通常比稠密索引在查找记录时慢</p>
-<h4 id="23">2.3 辅助索引</h4>
+<h3 id="23">2.3 辅助索引</h3>
 <p>索引结构: 辅助索引通常为每个搜索键值建立一个索引项</p>
 <p>索引项指向一个<strong>桶</strong>, 这个桶里装着指针, 每个指针指向一条符合条件的实际数据记录</p>
-<p>![[attachments/image-20260512111526132.png]]</p>
-<h4 id="24">2.4 多级索引</h4>
+<p><img alt="image-20260512111526132" src="../images/image-20260512111526132.png" /></p>
+<h3 id="24">2.4 多级索引</h3>
 <p>若主索引太大无法放入内存, 访问费用会变得十分昂贵</p>
 <p><strong>基本思想</strong>: 既然索引文件也是一个“顺序文件”，那我们<strong>为索引文件再建一个稀疏索引</strong></p>
 <ul>
@@ -1375,9 +1375,9 @@
 </ul>
 <p>可以推广到任意多层索引</p>
 <p>所有层级的索引在插入或删除文件时都必须更新</p>
-<p>![[attachments/image-20260512113007956.png]]</p>
-<p>多级索引技术可应用于聚集索引和非聚集索引![[attachments/image-20260512113948800.png]]</p>
-<h4 id="25">2.5 索引更新: 删除</h4>
+<p><img alt="image-20260512113007956" src="../images/image-20260512113007956.png" /></p>
+<p>多级索引技术可应用于聚集索引和非聚集索引<img alt="image-20260512113948800" src="../images/image-20260512113948800.png" /></p>
+<h3 id="25">2.5 索引更新: 删除</h3>
 <ol>
 <li>系统找到数据文件中的记录, 然后删除这个记录</li>
 <li>更新索引文件:</li>
@@ -1397,7 +1397,7 @@
 </li>
 <li>对于多级索引: 由底层逐级向上层扩展</li>
 </ol>
-<h4 id="26">2.6 索引更新: 插入</h4>
+<h3 id="26">2.6 索引更新: 插入</h3>
 <p>利用索引找到插入位置, 在数据文件中插入记录</p>
 <ul>
 <li>单层索引插入:</li>
@@ -1415,7 +1415,7 @@
 <li>多级插入, 对单层插入做简单扩展</li>
 </ul>
 <hr />
-<h3 id="3-b">3. B+树索引文件</h3>
+<h2 id="3-b">3. B+树索引文件</h2>
 <p>索引顺序文件的缺点:</p>
 <ul>
 <li>文件增长后会产生许多溢出块</li>
@@ -1434,8 +1434,8 @@
 <li>插入和删除有额外开销。</li>
 <li>有一定空间开销。</li>
 </ul>
-<h4 id="31-b">3.1 B+树的性质</h4>
-<p>![[attachments/image-20260518113718964.png]]</p>
+<h3 id="31-b">3.1 B+树的性质</h3>
+<p><img alt="image-20260518113718964" src="../images/image-20260518113718964.png" /></p>
 <p>B+树是一棵有根树, 满足:</p>
 <ul>
 <li>从根到所有叶节点的路径长度相同, 因而是平衡树。</li>
@@ -1448,7 +1448,7 @@
 <li>若根不是叶节点, 至少有 2 个子节点。</li>
 <li>若根本身是叶节点, 可以有 0 到 <code>n-1</code> 个搜索键值。</li>
 </ul>
-<h4 id="32-b-tree-node-structure-b">3.2 B+-Tree Node Structure B+树节点结构</h4>
+<h3 id="32-b-tree-node-structure-b">3.2 B+-Tree Node Structure B+树节点结构</h3>
 <p>一个典型节点包含:</p>
 <ul>
 <li>搜索键值 <code>K1, K2, ..., Kn-1</code></li>
@@ -1463,8 +1463,8 @@
 <p>节点中的搜索键有序:</p>
 <pre><code class="language-text">K1 &lt; K2 &lt; K3 &lt; ... &lt; Kn-1
 </code></pre>
-<h4 id="33-leaf-nodes-in-b-trees-b">3.3 Leaf Nodes in B+-Trees B+树叶节点</h4>
-<p>![[attachments/image-20260518190750946.png]]</p>
+<h3 id="33-leaf-nodes-in-b-trees-b">3.3 Leaf Nodes in B+-Trees B+树叶节点</h3>
+<p><img alt="image-20260518190750946" src="../images/image-20260518190750946.png" /></p>
 <p>叶节点中的指针:</p>
 <ul>
 <li>对于 <code>i = 1, 2, ..., n-1</code>, 指针 <code>Pi</code> 指向搜索键值为 <code>Ki</code> 的文件记录。</li>
@@ -1481,8 +1481,8 @@
 <li>必须有 <code>ceil((n-1)/2)</code> 到 <code>n-1</code> 个搜索键。</li>
 <li>例如 <code>n = 5</code> 时, 每个叶节点有 2 到 4 个搜索键。</li>
 </ul>
-<h4 id="34-non-leaf-nodes-in-b-trees-b">3.4 Non-Leaf Nodes in B+-Trees B+树非叶节点</h4>
-<p>![[attachments/image-20260518191300215.png]]</p>
+<h3 id="34-non-leaf-nodes-in-b-trees-b">3.4 Non-Leaf Nodes in B+-Trees B+树非叶节点</h3>
+<p><img alt="image-20260518191300215" src="../images/image-20260518191300215.png" /></p>
 <p><strong>扇出数</strong>(fanout): 一个节点中的指针数量。</p>
 <p>非叶节点:</p>
 <ul>
@@ -1494,8 +1494,8 @@
 <li>非叶节点中的指针是指向节点的地址, 不是指向节点中某个值的地址。</li>
 <li>B+树中, 非叶节点的搜索键可以与叶节点中的搜索键重复。</li>
 </ul>
-<p>![[attachments/image-20260518191500532.png]]</p>
-<h4 id="35-observations-about-b-trees">3.5 Observations about B+-trees</h4>
+<p><img alt="image-20260518191500532" src="../images/image-20260518191500532.png" /></p>
+<h3 id="35-observations-about-b-trees">3.5 Observations about B+-trees</h3>
 <ul>
 <li>节点之间通过指针连接, 逻辑上相邻的块不一定物理上相邻。</li>
 <li>非叶节点层级构成多级稀疏索引。</li>
@@ -1503,7 +1503,7 @@
 <li>插入和删除可以在对数时间内完成索引结构调整。</li>
 </ul>
 <hr />
-<h3 id="4-queries-on-b-trees-b">4. Queries on B+-Trees B+树查询</h3>
+<h2 id="4-queries-on-b-trees-b">4. Queries on B+-Trees B+树查询</h2>
 <p>查找搜索键值为 <code>k</code> 的所有记录:</p>
 <ol>
 <li>从根节点开始。</li>
@@ -1529,8 +1529,8 @@
 <li>因为每个节点访问可能对应一次磁盘 I/O, 所以这种差异很重要</li>
 </ul>
 <hr />
-<h3 id="5-updates-on-b-trees-b">5. Updates on B+-Trees B+树更新</h3>
-<h4 id="51-insertion">5.1 Insertion 插入</h4>
+<h2 id="5-updates-on-b-trees-b">5. Updates on B+-Trees B+树更新</h2>
+<h3 id="51-insertion">5.1 Insertion 插入</h3>
 <p>插入步骤:</p>
 <ol>
 <li>找到搜索键值应该出现的叶节点。</li>
@@ -1550,7 +1550,7 @@
 <ul>
 <li>需要分裂叶节点。</li>
 </ul>
-<h4 id="52-splitting-a-leaf-node">5.2 Splitting a Leaf Node 分裂叶节点</h4>
+<h3 id="52-splitting-a-leaf-node">5.2 Splitting a Leaf Node 分裂叶节点</h3>
 <p>分裂叶节点的过程:</p>
 <ol>
 <li>将原有键值对和待插入键值对合在一起, 按搜索键排序。</li>
@@ -1566,7 +1566,7 @@
 <li>新节点中的最小键值会被<strong>复制到父节点</strong>。</li>
 <li>该键值仍然保留在叶节点中。</li>
 </ul>
-<h4 id="53-splitting-a-nonleaf-node">5.3 Splitting a Nonleaf Node 分裂非叶节点</h4>
+<h3 id="53-splitting-a-nonleaf-node">5.3 Splitting a Nonleaf Node 分裂非叶节点</h3>
 <p>分裂非叶节点时:</p>
 <ul>
 <li>子指针被分配到原节点和新节点中。</li>
@@ -1586,7 +1586,7 @@
 <li>最坏情况下根节点也会分裂。</li>
 <li>根节点分裂会使 B+树高度增加 1。</li>
 </ul>
-<h4 id="54-deletion">5.4 Deletion 删除</h4>
+<h3 id="54-deletion">5.4 Deletion 删除</h3>
 <p>删除步骤:</p>
 <ol>
 <li>找到要删除的记录, 并从主文件中删除。</li>
@@ -1610,8 +1610,8 @@
 <li>若父节点也因为删除而指针数不足, 继续调整。</li>
 <li>若根节点删除后只剩一个指针, 删除根节点, 其唯一子节点成为新的根。</li>
 </ul>
-<h4 id="55-b-tree-file-organization-b">5.5 B+-Tree File Organization B+树文件组织</h4>
-<p>![[attachments/image-20260518200916936.png]]</p>
+<h3 id="55-b-tree-file-organization-b">5.5 B+-Tree File Organization B+树文件组织</h3>
+<p><img alt="image-20260518200916936" src="../images/image-20260518200916936.png" /></p>
 <p>B+树索引解决的是索引文件退化问题。</p>
 <p>B+树文件组织解决的是数据文件退化问题。</p>
 <p>在 B+树文件组织中:</p>
@@ -1627,7 +1627,7 @@
 <li>为提高空间利用率, 可以在分裂和合并时让更多兄弟节点参与重分配。</li>
 </ul>
 <hr />
-<h3 id="11-write-optimized-indices">11. Write Optimized Indices 写优化索引</h3>
+<h2 id="11-write-optimized-indices">11. Write Optimized Indices 写优化索引</h2>
 <p>B+树在写密集负载下可能性能较差:</p>
 <ul>
 <li>若内部节点都在内存中, 每次插入仍可能需要一次叶节点 I/O。</li>
@@ -1639,9 +1639,9 @@
 <li>Log-Structured Merge Tree, LSM 树</li>
 <li>Buffer Tree, 缓冲树</li>
 </ul>
-<h4 id="111-log-structured-merge-tree-lsm">11.1 Log Structured Merge Tree LSM树</h4>
+<h3 id="111-log-structured-merge-tree-lsm">11.1 Log Structured Merge Tree LSM树</h3>
 <p>先只考虑插入和查询。</p>
-<p>![[attachments/image-20260520132655183.png]]</p>
+<p><img alt="image-20260520132655183" src="../images/image-20260520132655183.png" /></p>
 <p>LSM 树基本思想: <strong>将离散的随机写操作转化为批量的顺序写操作</strong></p>
 <ul>
 <li>新记录先插入内存树 <code>L0</code>。</li>
@@ -1681,7 +1681,7 @@
 <li>LSM 最初用于磁盘索引。</li>
 <li>也适合减少闪存擦除。</li>
 </ul>
-<h4 id="112-buffer-tree">11.2 Buffer Tree 缓冲树</h4>
+<h3 id="112-buffer-tree">11.2 Buffer Tree 缓冲树</h3>
 <p>缓冲树是 LSM 树的替代方案。</p>
 <p>核心思想:</p>
 <ul>
@@ -1720,7 +1720,7 @@
 <li>可以像 LSM 树一样使用删除条目或更新条目</li>
 <li>也可以使用普通 B+树删除/更新算法, 但 I/O 成本可能更高</li>
 </ul>
-<h3 id="12-index-definition-in-sql-sql">12. Index Definition in SQL SQL中的索引定义</h3>
+<h2 id="12-index-definition-in-sql-sql">12. Index Definition in SQL SQL中的索引定义</h2>
 <p><strong>创建索引</strong>:</p>
 <pre><code class="language-sql">create index &lt;index-name&gt; on &lt;table-name&gt; (&lt;attribute-list&gt;);
 </code></pre>

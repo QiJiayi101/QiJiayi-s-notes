@@ -1231,8 +1231,8 @@
 
 
 <h1 id="chapter-16-query-optimization">Chapter 16: Query Optimization 查询优化</h1>
-<p>![[Pasted image 20260625180151.png]]</p>
-<h3 id="1-introduction">1. Introduction</h3>
+<p><img alt="Pasted image 20260625180151" src="../images/Pasted%20image%2020260625180151.png" /></p>
+<h2 id="1-introduction">1. Introduction</h2>
 <p>对于一个给定查询, 通常存在许多不同的执行方式:</p>
 <ul>
 <li><strong>等价的关系代数表达式</strong></li>
@@ -1269,7 +1269,7 @@ $$</li>
 <p><strong>cost-based optimization 基于代价的优化</strong></p>
 </blockquote>
 <hr />
-<h3 id="2-transformation-of-relational-expressions">2. Transformation of Relational Expressions</h3>
+<h2 id="2-transformation-of-relational-expressions">2. Transformation of Relational Expressions</h2>
 <p>两个关系代数表达式如果在每个合法数据库实例上都产生相同的 tuple 集合, 则称它们<strong>等价(equivalent)</strong></p>
 <blockquote>
 <p>SQL 的输入和输出通常是 multiset, 因此在 SQL 语义下还要考虑重复 tuple 的数量</p>
@@ -1279,7 +1279,7 @@ $$</li>
 <li>说明两种形式的表达式等价, 可以用其中一种形式替换另一种形式</li>
 <li>这是查询优化器 做transformation的依据</li>
 </ul>
-<h4 id="21-equivalence-rules">2.1 Equivalence Rules</h4>
+<h3 id="21-equivalence-rules">2.1 Equivalence Rules</h3>
 <p><strong>1. 合取选择可以拆分</strong>
 $$
 \sigma_{\theta_1 \land \theta_2}(E) \equiv \sigma_{\theta_1}(\sigma_{\theta_2}(E))
@@ -1315,7 +1315,7 @@ $$
 E_1 \bowtie_{\theta_1 \land \theta_3} (E_2 \bowtie_{\theta_2} E_3)
 $$
 - 当 $\theta_2$ 中 涉及到的属性只来自于 $E_2 and E_3$
-![[Pasted image 20260625182744.png]]
+<img alt="Pasted image 20260625182744" src="../images/Pasted%20image%2020260625182744.png" />
 <strong>7. selection 对 theta join 的分配律</strong></p>
 <p>先连后选 $\Rightarrow$ 先选后连</p>
 <p>若 $\theta_0$ 只涉及 $E_1$ 的属性:
@@ -1406,12 +1406,12 @@ $$
 \sigma_{\theta}(E_1 \cap E_2) \equiv \sigma_{\theta}(E_1) \cap E_2
 $$</p>
 <p>但 union 不能这样单侧下推
-![[Pasted image 20260625193447.png]]
+<img alt="Pasted image 20260625193447" src="../images/Pasted%20image%2020260625193447.png" />
 <strong>12. projection 对 union 的分配律</strong>
 $$
 \Pi_L(E_1 \cup E_2) \equiv \Pi_L(E_1) \cup \Pi_L(E_2)
 $$</p>
-<h4 id="22-transformation-example">2.2 Transformation Example</h4>
+<h3 id="22-transformation-example">2.2 Transformation Example</h3>
 <p>查询: 找出 Music 系教师的名字以及他们教授课程的标题</p>
 <p>原表达式:
 $$
@@ -1424,7 +1424,7 @@ $$</p>
 <blockquote>
 <p>先筛选 Music 系教师, 再 join, 可以显著减少 join 输入大小</p>
 </blockquote>
-<h4 id="23-join-ordering">2.3 Join Ordering</h4>
+<h3 id="23-join-ordering">2.3 Join Ordering</h3>
 <p>join 顺序会影响临时结果大小</p>
 <p>根据结合律:
 $$
@@ -1442,7 +1442,7 @@ $$</p>
 <blockquote>
 <p>让连接结果较小的 join 先进行, 可以减少临时关系大小</p>
 </blockquote>
-<h4 id="24-enumeration-of-equivalent-expressions">2.4 Enumeration of Equivalent Expressions</h4>
+<h3 id="24-enumeration-of-equivalent-expressions">2.4 Enumeration of Equivalent Expressions</h3>
 <p>查询优化器可以系统地枚举等价表达式:</p>
 <ol>
 <li>对目前发现的每个表达式的每个子表达式应用等价规则</li>
@@ -1464,9 +1464,9 @@ $$</p>
 <li>使用 dynamic programming, 不必生成所有表达式</li>
 </ul>
 <hr />
-<h3 id="3-statistical-information-for-cost-estimation">3. Statistical Information for Cost Estimation 成本估算所需要的统计信息</h3>
+<h2 id="3-statistical-information-for-cost-estimation">3. Statistical Information for Cost Estimation 成本估算所需要的统计信息</h2>
 <p>查询优化需要 catalog 中的统计信息来估计代价</p>
-<h4 id="31-catalog-information-about-relation">3.1 Catalog Information about Relation</h4>
+<h3 id="31-catalog-information-about-relation">3.1 Catalog Information about Relation</h3>
 <p>常用统计量:</p>
 <ul>
 <li>$n_r$: 关系 $r$ 中 tuple 数</li>
@@ -1480,7 +1480,7 @@ $$</p>
 $$
 SC(A,r) \approx \frac{n_r}{V(A,r)}
 $$</p>
-<h4 id="32-catalog-information-about-indices">3.2 Catalog Information about Indices</h4>
+<h3 id="32-catalog-information-about-indices">3.2 Catalog Information about Indices</h3>
 <p>对索引也需要维护统计量:</p>
 <ul>
 <li>$F_i$: 对于B+树等树状结构索引，第i个索引内部节点的平均分支数</li>
@@ -1494,7 +1494,7 @@ $$</p>
 $$
 H_i = 1
 $$</p>
-<h4 id="33-estimate-the-size-of-selection">3.3 Estimate the Size of Selection</h4>
+<h3 id="33-estimate-the-size-of-selection">3.3 Estimate the Size of Selection</h3>
 <p><strong>等值选择</strong>:
 $$
 \sigma_{A=v}(r)
@@ -1528,7 +1528,7 @@ $$</li>
 $$
 \frac{n_r}{2}
 $$</p>
-<h4 id="34-complex-selections">3.4 Complex Selections</h4>
+<h3 id="34-complex-selections">3.4 Complex Selections</h3>
 <p><strong>selectivity 中选率</strong>:</p>
 <p>若条件 $\theta_i$ 满足的 tuple 数为 $S_i$, 则:
 $$
@@ -1562,7 +1562,7 @@ $$</p>
 $$
 n_r * (1 - \prod_{i=1}^{n}(1-\frac{S_i}{n_r}))
 $$</p>
-<h4 id="35-estimation-of-the-size-of-joins">3.5 Estimation of the Size of Joins</h4>
+<h3 id="35-estimation-of-the-size-of-joins">3.5 Estimation of the Size of Joins</h3>
 <p><strong>Cartesian product 笛卡尔积</strong>:
 $$
 r \times s
@@ -1596,7 +1596,7 @@ $$
 size(r \bowtie s) \approx \frac{n_r * n_s}{V(A,r)}
 $$</p>
 <p>若 $V(A,r) \neq V(A,s)$, 取二者中较小的估计通常更准确</p>
-<h4 id="36-size-estimation-for-other-operations">3.6 Size Estimation for Other Operations</h4>
+<h3 id="36-size-estimation-for-other-operations">3.6 Size Estimation for Other Operations</h3>
 <p><strong>projection:</strong>
 $$
 size(\Pi_A(r)) \approx V(A,r)
@@ -1650,7 +1650,7 @@ $$</p>
 <ul>
 <li>所有这些估计都可能相当不准确，但它们提供了结果大小的上界。</li>
 </ul>
-<h4 id="37-estimation-of-number-of-distinct-values">3.7 Estimation of Number of Distinct Values</h4>
+<h3 id="37-estimation-of-number-of-distinct-values">3.7 Estimation of Number of Distinct Values</h3>
 <p>对于 selection $\sigma_\theta(r)$:</p>
 <ul>
 <li>若 $\theta$ 强制 $A$ 为某个指定值:
@@ -1704,7 +1704,7 @@ $$<blockquote>
 </li>
 </ul>
 <hr />
-<h3 id="4-choice-of-evaluation-plan">4. Choice of Evaluation Plan</h3>
+<h2 id="4-choice-of-evaluation-plan">4. Choice of Evaluation Plan</h2>
 <p>一个 evaluation plan 需要明确:</p>
 <ol>
 <li>每个操作使用什么算法</li>
@@ -1715,7 +1715,7 @@ $$<blockquote>
 <li>多个操作如何协调执行</li>
 <li>materialization</li>
 <li>pipelining
-![[Pasted image 20260626130842.png]]<blockquote>
+<img alt="Pasted image 20260626130842" src="../images/Pasted%20image%2020260626130842.png" /><blockquote>
 <p>不能只为每个单独操作选择最便宜算法, 因为操作之间会相互影响</p>
 </blockquote>
 </li>
@@ -1731,7 +1731,7 @@ $$<blockquote>
 <li>cost-based optimization</li>
 <li>heuristic(启发式) optimization</li>
 </ul>
-<h4 id="41-cost-based-optimization">4.1 Cost-Based Optimization</h4>
+<h3 id="41-cost-based-optimization">4.1 Cost-Based Optimization</h3>
 <p>对 $r_1 \bowtie r_2 \bowtie ... \bowtie r_n$ 寻找最佳 join order</p>
 <p>join order 数量增长非常快:</p>
 <ul>
@@ -1778,7 +1778,7 @@ $$<blockquote>
 <blockquote>
 <p>cost-based optimization 很贵, 但对大数据集查询值得做; 实际查询中的 join 关系数通常小于 10</p>
 </blockquote>
-<h4 id="42-interesting-orders">4.2 Interesting Orders</h4>
+<h3 id="42-interesting-orders">4.2 Interesting Orders</h3>
 <p><strong>interesting sort order 感兴趣的排序顺序</strong>:</p>
 <p>某个中间结果的排序顺序如果对后续操作有用, 则称为 interesting order</p>
 <p>例如:</p>
@@ -1792,7 +1792,7 @@ $$<blockquote>
 <li>每个 interesting order</li>
 </ul>
 <p>对应的最佳 plan</p>
-<h4 id="43-heuristic-optimization">4.3 Heuristic Optimization</h4>
+<h3 id="43-heuristic-optimization">4.3 Heuristic Optimization</h3>
 <p>cost-based optimization 即使用 dynamic programming 也仍然较贵, 因此系统常使用启发式规则减少搜索空间</p>
 <p>典型 heuristic:</p>
 <ul>
@@ -1812,7 +1812,7 @@ $$<blockquote>
 <li>识别可以 pipelined 的子树, 使用流水线执行</li>
 </ol>
 <hr />
-<h3 id="5-materialized-views">5. Materialized Views 实体化视图</h3>
+<h2 id="5-materialized-views">5. Materialized Views 实体化视图</h2>
 <p><strong>materialized view</strong>:</p>
 <blockquote>
 <p>内容已经被计算并存储下来的 view</p>
@@ -1825,7 +1825,7 @@ from instructor
 group by dept_name;
 </code></pre>
 <p>若经常查询每个部门工资总和, 将该 view materialize 可以避免反复扫描和聚合</p>
-<h4 id="51-materialized-view-maintenance">5.1 Materialized View Maintenance</h4>
+<h3 id="51-materialized-view-maintenance">5.1 Materialized View Maintenance</h3>
 <p><strong>materialized view maintenance</strong>:</p>
 <blockquote>
 <p>保持 materialized view 与底层数据一致的任务</p>
@@ -1846,7 +1846,7 @@ group by dept_name;
 <li>手写维护代码</li>
 <li>DBMS 直接支持</li>
 </ul>
-<h4 id="56-query-optimization-and-materialized-views">5.6 Query Optimization and Materialized Views</h4>
+<h3 id="56-query-optimization-and-materialized-views">5.6 Query Optimization and Materialized Views</h3>
 <p>优化器可以考虑使用 materialized view 重写查询</p>
 <p>例如已有:
 $$
@@ -1875,7 +1875,7 @@ $$</p>
 <blockquote>
 <p>查询优化器应该同时考虑使用 materialized view 和展开 materialized view 两种选择</p>
 </blockquote>
-<h4 id="57-materialized-view-selection">5.7 Materialized View Selection</h4>
+<h3 id="57-materialized-view-selection">5.7 Materialized View Selection</h3>
 <p><strong>materialized view selection</strong>:</p>
 <blockquote>
 <p>选择哪些 view 进行实体化</p>

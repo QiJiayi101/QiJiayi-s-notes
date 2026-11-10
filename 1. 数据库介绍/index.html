@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#15-data-models" class="md-skip">
+        <a href="#_1" class="md-skip">
           跳转至
         </a>
       
@@ -267,6 +267,8 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
@@ -308,6 +310,8 @@
 <nav class="md-nav md-nav--secondary" aria-label="目录">
   
   
+  
+    
   
   
     <label class="md-nav__title" for="__toc">
@@ -776,6 +780,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -914,25 +920,24 @@
   
 
 
-  <h1>数据库介绍</h1>
-
+<h1 id="_1">数据库介绍</h1>
 <p><strong>数据库</strong>: 一个相互关联的, 用于对现实世界问题建模的有组织的数据集合</p>
 <p><strong>数据库管理系统(DBMS)</strong>: 一种允许应用存储和分析数据库信息的软件</p>
-<h3 id="15-data-models">1.5 Data Models 数据模型</h3>
+<h2 id="15-data-models">1.5 Data Models 数据模型</h2>
 <p>数据模型是用于描述的概念工具的集合</p>
-<p>数据库设计步骤:<img alt="image-20260316183645884" src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260316183645884.png" /></p>
-<h4 id="1-entity-relationship-model-">(1) Entity Relationship Model 实体-联系模型</h4>
+<p>数据库设计步骤:<em>（图片文件缺失：image-20260316183645884.png）</em></p>
+<h3 id="1-entity-relationship-model-">(1) Entity Relationship Model 实体-联系模型</h3>
 <p><strong>E-R model</strong>:</p>
 <ul>
 <li><strong>Entities(实体)</strong>: 由属性(attributes)描述</li>
 <li><strong>Relationships</strong> between entities</li>
 </ul>
-<p><img alt="image-20260316190624643" src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260316190624643.png" /></p>
-<h4 id="2-relational-model">(2) Relational Model 关系模型</h4>
+<p><em>（图片文件缺失：image-20260316190624643.png）</em></p>
+<h3 id="2-relational-model">(2) Relational Model 关系模型</h3>
 <p>将E-R diagrams 转换为关系模式</p>
 <p>一组用于表示数据与数据之间的关系的表格</p>
 <p><img alt="img" src="https://note.noughtq.top/sys/db/images/lec1/7.png" /></p>
-<h3 id="16-database-language">1.6 Database Language</h3>
+<h2 id="16-database-language">1.6 Database Language</h2>
 <p><strong>DDL 数据定义语言</strong>: Data Definition Language</p>
 <ul>
 <li>定义 database scheme, 即定义一组 relational schema</li>
@@ -946,16 +951,16 @@
 <li><strong>声明型/非过程型(nonprocedural)</strong>: 用户只需要知名数据</li>
 </ul>
 <p><strong>DCL 数据控制语言</strong> Data Control Language: 用于安全,访问控制</p>
-<h4 id="161-sql">1.6.1 SQL</h4>
+<h3 id="161-sql">1.6.1 SQL</h3>
 <p>SQL = DDL + DML + DCL</p>
 <p><strong>SQL(structured query language) 结构化查询语言</strong>: 使用最广泛的查询语言</p>
 <ul>
 <li>一种非过程查询语言, 将一张或多张表格作为输入, 输出一张表格</li>
 </ul>
-<h4 id="162-database-access-from-application-programs">1.6.2 Database Access from Application Programs</h4>
+<h3 id="162-database-access-from-application-programs">1.6.2 Database Access from Application Programs</h3>
 <p>像 SQL 这样的非过程型查询语言并不具备与通用图灵机一样强大的能力，因为它无法进行一般编程语言能够做到的计算，也不支持用户输入、输出显示和网络通信等行为。因此这样的计算和行为必须用<strong>宿主语言</strong>(host language) 编写（比如 C/C++、Java、Python 等），并依靠<strong>嵌入式的 SQL 查询</strong>来访问数据库内的数据。<strong>应用程序</strong>(application program) 就是通过这种方式来和数据库交互的程序。</p>
 <p><img alt="img" src="https://note.noughtq.top/sys/db/images/lec1/8.png" /></p>
-<h3 id="17-database-users">1.7 Database Users</h3>
+<h2 id="17-database-users">1.7 Database Users</h2>
 <p>不同的用户接口类型对应以下不同类型的用户：</p>
 <ul>
 <li><strong>普通 (naive) 用户</strong>：通过预先定义的用户接口（比如 web 或移动应用）与数据库系统交互</li>
@@ -974,7 +979,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="18">1.8 事务管理</h3>
+<h2 id="18">1.8 事务管理</h2>
 <p><strong>事务</strong>(transaction)：用于在数据库应用中执行单个逻辑功能的一组操作</p>
 <p>事务的要求,<strong>ACID</strong>：<strong>原子性</strong>(atomicity)、<strong>一致性</strong>(consistency)、<strong>隔离性</strong>(isolation)、<strong>持久性</strong>(durability)</p>
 <p>事务管理组件的组成部分：</p>
@@ -982,7 +987,7 @@
 <li><strong>恢复管理器</strong>(recovery manager)：通过备份或恢复子系统，来确保数据库在系统或事务故障时，能够保持数据库的一致（正确）状态</li>
 <li><strong>并发控制管理器</strong>(concurrency-control manager) 用于控制并发事务之间的互动</li>
 </ul>
-<h3 id="19">1.9 数据库管理系统结构</h3>
+<h2 id="19">1.9 数据库管理系统结构</h2>
 <p><strong>存储管理器</strong>(storage manager)：为存储在数据库的底层数据、应用程序和提交到系统的查询之间提供接口</p>
 <ul>
 <li>需要与文件系统打交道，将各种 DML 语句翻译为底层的文件系统命令，并负责存储、检索和更新数据库内的数据</li>

@@ -1131,8 +1131,8 @@
 
 
 <h1 id="chapter-4-intermediate-sql">Chapter 4: Intermediate SQL</h1>
-<p>![[attachments/image-20260330190046253-1774868601149-2.png]]</p>
-<h3 id="1-sql-data-types-and-schemas">1. SQL Data Types and Schemas</h3>
+<p><img alt="image-20260330190046253-1774868601149-2" src="../images/image-20260330190046253-1774868601149-2.png" /></p>
+<h2 id="1-sql-data-types-and-schemas">1. SQL Data Types and Schemas</h2>
 <ul>
 <li>
 <p>Built-in Data Types in SQL SQL中的内置数据类型</p>
@@ -1175,9 +1175,9 @@ CREATE TABLE instructor
 <li>当查询返回大对象时, 返回的是一个指针, 而不是大对象本身</li>
 <li>Catalogs (目录), schemas and environments</li>
 </ul>
-<p>![[attachments/image-20260331134558155.png]]</p>
+<p><img alt="image-20260331134558155" src="../images/image-20260331134558155.png" /></p>
 <hr />
-<h3 id="2-integrity-constraints">2. Integrity Constraints 完整性约束</h3>
+<h2 id="2-integrity-constraints">2. Integrity Constraints 完整性约束</h2>
 <p><strong>完整性约束</strong> 防止对数据库的意外损坏, 通过确保对数据库的授权更改, 不会导致数据一致性的丢失; 例如:</p>
 <ul>
 <li>instructor_name 不能为 null</li>
@@ -1198,10 +1198,10 @@ CREATE TABLE instructor
     constraint value-test check(value &gt;= 4.00);
 -- 其中 value-test 作为约束自定义名称是可选的, 用于指示update违反了哪个constraint;
 </code></pre>
-<h4 id="21-referential-integrity">2.1 Referential Integrity 参照完整性约束</h4>
+<h3 id="21-referential-integrity">2.1 Referential Integrity 参照完整性约束</h3>
 <p><strong>参照完整性</strong> 要求外键的值, 必须是其引用的主表中<strong>主键</strong>的合法值, 或者是NULL</p>
 <p>若 $r_1(R_1)$ 和 $r_2(R_2)$ 分别为 主键是$K_1$与$K_2$的关系</p>
-<p>![[attachments/image-20260331143811340.png]]</p>
+<p><img alt="image-20260331143811340" src="../images/image-20260331143811340.png" /></p>
 <p>参照完整性约束 也可以被叫做<strong>子集依赖性</strong>, 因为:
 $$
 \Pi_\alpha(r_2) \subset \Pi_{K_1}(r_1)
@@ -1228,7 +1228,7 @@ $$</p>
 </ul>
 <hr />
 <p><strong>SQL 中的级联操作 Cascading Actions</strong></p>
-<p>![[attachments/image-20260410134158230.png]]</p>
+<p><img alt="image-20260410134158230" src="../images/image-20260410134158230.png" /></p>
 <ul>
 <li>由于 <code>on delete cascade</code> 子句的存在，如果删除 <strong>department</strong> 中的一个元组会导致参照完整性约束违规，那么该删除操作将“级联”到 <strong>course</strong> 关系，删除 <strong>course</strong> 中引用了被删除 <strong>department</strong> 的元组。</li>
 <li>级联更新类似</li>
@@ -1253,7 +1253,7 @@ $$</p>
 <li><code>on delete set default</code></li>
 </ul>
 <hr />
-<h4 id="22-assertions">2.2 Assertions 断言</h4>
+<h3 id="22-assertions">2.2 Assertions 断言</h3>
 <p>断言 是一个 <strong>predicate</strong> , 表达了我们希望数据库始终满足的条件</p>
 <ul>
 <li>用于多个关系上的复杂条件检查</li>
@@ -1264,7 +1264,7 @@ CHECK &lt;谓词&gt;;
 <p>当建立断言时，系统会在 <strong>每一次可能违反断言的更新操作</strong> 上测试其有效性。（当 <strong>谓词</strong> 为真时，操作通过；否则报告错误。）</p>
 <p>这种测试可能会引入大量的 <strong>开销</strong>；因此应 <strong>非常谨慎地使用断言</strong>。</p>
 <hr />
-<h4 id="23-triggers">2.3 Triggers 触发器</h4>
+<h3 id="23-triggers">2.3 Triggers 触发器</h3>
 <p><strong>触发器（Trigger）</strong> 是一条由系统<strong>自动</strong>执行的语句，它是作为<strong>对数据库进行修改</strong>的<strong>副作用</strong>而发生的。</p>
 <p><strong>要设计触发器机制，我们必须：</strong></p>
 <ul>
@@ -1302,7 +1302,7 @@ BEGIN
 END;
 </code></pre>
 <hr />
-<h3 id="3-authorization">3. Authorization 授权</h3>
+<h2 id="3-authorization">3. Authorization 授权</h2>
 <blockquote>
 <p><strong>安全性</strong> - 防止恶意尝试<strong>窃取</strong>或<strong>修改数据</strong>。</p>
 <p><strong>数据库系统级别</strong></p>
@@ -1320,7 +1320,7 @@ END;
 <li><strong>伪装</strong>（假装是授权用户或发送据称来自授权用户的消息）</li>
 </ul>
 </blockquote>
-<h4 id="31-authorization">3.1 Authorization 授权</h4>
+<h3 id="31-authorization">3.1 Authorization 授权</h3>
 <p>数据库部分的授权形式:</p>
 <ul>
 <li>Read: 只允许 read, 不允许 modify</li>
@@ -1335,15 +1335,15 @@ END;
 <li>alteration: 允许对一个关系中 添加 或 修改 属性</li>
 <li>Drop: 允许删除关系</li>
 </ul>
-<h4 id="32-authorization-and-views">3.2 Authorization and Views 授权和视图</h4>
+<h3 id="32-authorization-and-views">3.2 Authorization and Views 授权和视图</h3>
 <p>用户可以被授予 <strong>视图上的权限</strong>, 而无需被授予视图定义中<strong>所用关系的任何权限</strong></p>
 <p>创建 view 不需要 <strong>resources</strong>权限, 因为没有创造一个真正的关系</p>
 <p><strong>视图的创建者</strong>仅获得那些未超出其已有权限范围的权限。</p>
 <ul>
 <li>例如，如果视图 <em>cust-loan</em> 的创建者在 <em>borrower</em> 和 <em>loan</em> 上仅有读取权限，那么他在 <em>cust-loan</em> 上也仅获得读取权限。</li>
 </ul>
-<h4 id="33-granting-of-privileges">3.3 Granting of Privileges 权限的授予</h4>
-<p>![[attachments/image-20260410214226483.png]]</p>
+<h3 id="33-granting-of-privileges">3.3 Granting of Privileges 权限的授予</h3>
+<p><img alt="image-20260410214226483" src="../images/image-20260410214226483.png" /></p>
 <ul>
 <li>
 <p>DBA 为数据库管理员</p>
@@ -1356,7 +1356,7 @@ END;
 <li>U5 的权限不会被revoke grant, 因为它也被 U2授予了权限</li>
 <li>一定要避免 没有从root出发的 cycles of grants</li>
 </ul>
-<h4 id="34-security-specification-in-sql">3.4 Security Specification in SQL</h4>
+<h3 id="34-security-specification-in-sql">3.4 Security Specification in SQL</h3>
 <p><strong>GRANT statement</strong>:</p>
 <pre><code class="language-sql">GRANT &lt;privilege list&gt; ON &lt;relation name or view name&gt;
     TO &lt;user list&gt;;
@@ -1395,7 +1395,7 @@ create role dean;
 grant instructor to dean;
 grant dean to Satoshi;
 </code></pre>
-<h4 id="35-revoking-authorization-in-sql">3.5 Revoking Authorization in SQL</h4>
+<h3 id="35-revoking-authorization-in-sql">3.5 Revoking Authorization in SQL</h3>
 <pre><code class="language-sql">REVOKE &lt;privilege list&gt; ON &lt;relation name or view name&gt;
     FROM &lt;user list&gt; [restrict | cascade]
 
@@ -1410,11 +1410,11 @@ grant dean to Satoshi;
 <p>若同一个privilege 通过不同的grantee 被授予同一个用户两次, 这个用户在revoke之后仍有这个privilege</p>
 </li>
 </ul>
-<h4 id="36-limiations-of-sql-authorization">3.6 Limiations of SQL Authorization</h4>
+<h3 id="36-limiations-of-sql-authorization">3.6 Limiations of SQL Authorization</h3>
 <p>SQL 不支持在 <strong>元组层面</strong> 的授权</p>
 <p>终端用户没有数据库用户ID，他们都被映射到 <strong>同一个数据库用户ID</strong>；</p>
 <hr />
-<h3 id="4-audit-trails">4. Audit Trails 审计跟踪</h3>
+<h2 id="4-audit-trails">4. Audit Trails 审计跟踪</h2>
 <p><strong>审计跟踪</strong>（Audit trail）是数据库中所有<strong>更改</strong>（插入/删除/更新）的<strong>日志</strong>，其中包含诸如<strong>哪个用户</strong>执行了更改以及<strong>何时</strong>执行了更改等信息。</p>
 <p>用于<strong>追踪错误/欺诈性更新</strong>。</p>
 <p>可以使用<strong>触发器</strong>（triggers）来实现，但许多数据库系统提供了<strong>直接支持</strong></p>
@@ -1432,7 +1432,7 @@ grant dean to Satoshi;
 <li>审计结果记录在 数据字典表: sys.aud$中, 也可从dba_audit_trail, dba_audit_statement, dba_audit_object 中获取相关情况</li>
 </ul>
 <hr />
-<h3 id="5-embedded-sql-sql">5. Embedded SQL 嵌入式SQL</h3>
+<h2 id="5-embedded-sql-sql">5. Embedded SQL 嵌入式SQL</h2>
 <p>SQL的功能不完备性。（计算，资源...）</p>
 <p>SQL 标准定义了 SQL 在多种编程语言中的嵌入方式，例如 Pascal、PL/I、Fortran、C 和 Cobol。</p>
 <p>嵌入 SQL 查询的语言被称为 <strong>宿主语言 (Host language)</strong>，而在宿主语言中允许的 SQL 结构构成了 <em>嵌入式 SQL</em>。</p>
@@ -1441,7 +1441,7 @@ grant dean to Satoshi;
 <li><code>EXEC SQL &lt;嵌入式 SQL 语句&gt; END_EXEC</code></li>
 <li>因语言而异</li>
 </ul>
-<h4 id="51-queryoracle">5.1 Query(Oracle)</h4>
+<h3 id="51-queryoracle">5.1 Query(Oracle)</h3>
 <pre><code class="language-c">EXEC SQL BEGIN DECLARE SECTION;
 char V_an[20], bn[20];
 float bal;
@@ -1477,7 +1477,7 @@ EXEC SQL CLOSE c END_EXEC
 <p><strong>游标</strong> 指向查询结果集中的某一行</p>
 <p>需要在C中的循环语句中反复使用<code>fetch</code></p>
 <p><strong>结束标志</strong>: SQLSTATE = '02000', 表示没有数据了</p>
-<h4 id="52-update">5.2 Update</h4>
+<h3 id="52-update">5.2 Update</h3>
 <p><strong>单行修改</strong>:</p>
 <pre><code class="language-C">EXEC SQL update account set balance = balance + :bal
 </code></pre>
@@ -1498,7 +1498,7 @@ EXEC SQL DECLARE csr CURSOR FOR
 <ul>
 <li><code>where CURRENT OF csr</code> 表示游标指向的那行, 无需复杂的<code>where</code>语句去匹配</li>
 </ul>
-<h3 id="6-dynamic-sql-sql">6. Dynamic SQL 动态SQL</h3>
+<h2 id="6-dynamic-sql-sql">6. Dynamic SQL 动态SQL</h2>
 <p>允许程序在运行时构建SQL查询语句</p>
 <pre><code class="language-c">char *sqlprog = &quot;update account
                  set balance = balance * 1.05
@@ -1513,10 +1513,10 @@ EXEC SQL EXECUTE dynprog USING :v_account;
 <li><strong>动态 SQL 的优势</strong>：有时候，我们直到程序运行起来（比如用户输入了某些条件后），才知道要执行什么样的查询。动态 SQL 允许我们将 SQL 语句像字符串一样拼接、构建，然后交给数据库执行。</li>
 </ul>
 <p><strong>?</strong>: 它是一个<strong>占位符</strong> (placeholder)，用于在 SQL 程序执行时由 <code>using</code> 子句提供的变量填入具体的值。</p>
-<h3 id="7-odbc">7. ODBC</h3>
+<h2 id="7-odbc">7. ODBC</h2>
 <p>open database connectivity 开放数据库连(ODBC)</p>
-<p>![[attachments/image-20260412213758802.png]]</p>
-<p>![[attachments/image-20260412214226843.png]]</p>
+<p><img alt="image-20260412213758802" src="../images/image-20260412213758802.png" /></p>
+<p><img alt="image-20260412214226843" src="../images/image-20260412214226843.png" /></p>
 <p><strong>(1) ODBC 程序首先分配一个 SQL 环境（SQL environment），然后分配一个数据库连接句柄（database connection handle）。</strong></p>
 <p><strong>(2) 使用 <code>SQLConnect()</code> 打开数据库连接。</strong>
 <strong><code>SQLConnect</code> 的参数：</strong></p>
@@ -1538,7 +1538,7 @@ EXEC SQL EXECUTE dynprog USING :v_account;
 <ul>
 <li><code>SQL_NTS</code> 表示前一个参数是一个空终止字符串（null terminated string）。</li>
 </ul>
-<p>![[attachments/image-20260412215554351.png]]</p>
+<p><img alt="image-20260412215554351" src="../images/image-20260412215554351.png" /></p>
 <ul>
 <li><strong>应用程序</strong>位于最顶层，发起请求。</li>
 <li><strong>环境句柄</strong>是全局容器，管理着所有的连接。</li>
