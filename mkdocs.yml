@@ -6,8 +6,19 @@ edit_uri: edit/master/数据库系统%20DS/docs/
 docs_dir: 数据库系统 DS/docs
 remote_branch: gh-pages
 theme:
-  name: mkdocs
+  name: material
   language: zh
+  palette:
+    scheme: default
+    primary: custom
+    accent: custom
+  features:
+    - navigation.top
+    - toc.follow
+    - search.suggest
+    - search.highlight
+extra_css:
+  - stylesheets/extra.css
 nav:
   - 首页: index.md
   - 数据库介绍: 1. 数据库介绍.md
@@ -23,3 +34,4 @@ nav:
   - 事务: 17. 事务.md
   - 并发控制: 18. 并发控制.md
   - 恢复系统: 19. 恢复系统.md
+
